@@ -1,2 +1,37 @@
 {% extends "base.html" %}
 {% load static %}
+{% block contenido %}
+<div class="container">
+    <button class="btn btn-sm btn-primary">
+        <a href="/personas/nuevaPersona/{{ persona.id }}" class="text-white text-decoration-none">Nuevo</a>
+      </button>
+    <table class="table table-light shadow-sm  mt-2">
+        <thead class="bg-light">
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col" class="d-none d-md-table-cell">DNI</th>
+            <th scope="col">Telefono</th>
+            <th scope="col" class="d-flex justify-content-end">Accion</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for persona in personas %}
+            <tr>
+              <td>{{ persona.nombre }}</td>
+              <td>{{ persona.dni|default_if_none:"-----" }}</td>
+              <td>{{ persona.telefono|default_if_none:"-----" | truncatechars:6}}</td>
+                  <td class="d-flex justify-content-end gap-1">
+                    <button class="btn btn-sm btn-primary">
+                      <a href="/personas/modificarPersona/{{ persona.id }}" class="text-white text-decoration-none">Modificar</a>
+                    </button>
+                    <button class="btn btn-sm btn-danger">
+                      <a href="/personas/borrarPersona/{{ persona.id }}" class="text-white text-decoration-none">Eliminar</a>
+                    </button>
+                  </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
