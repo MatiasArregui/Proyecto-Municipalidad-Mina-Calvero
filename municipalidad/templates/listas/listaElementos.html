@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+{% block contenido %}
+<div class="container">
+    <button class="btn btn-sm btn-primary">
+        <a href="/elementos/nuevoElemento" class="text-white text-decoration-none">Nuevo</a>
+      </button>
+    <table class="table table-light shadow-sm  mt-2">
+        <thead class="bg-light">
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col" class="d-none d-md-table-cell">Descripcion</th>
+            <th scope="col">estado</th>
+            <th scope="col">categoria</th>
+            <th scope="col">institucion</th>
+            <th scope="col">persona</th>
+            <th scope="col" class="d-flex justify-content-end">Accion</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for elemento in elementos %}
+            <tr>
+              <td>{{ elemento.nombre }}</td>
+              <td>{{ elemento.descripcion|default_if_none:"-----" | truncatechars:6}}</td>
+              <td>{{ elemento.estado}}</td>
+              <td>{{ elemento.id_categoria.nombre}}</td>
+              <td>{{ elemento.id_institucion.nombre}}</td>
+              <td>{{ elemento.id_persona.nombre}}</td>
+                  <td class="d-flex justify-content-end gap-1">
+                    <button class="btn btn-sm btn-primary">
+                      <a href="/elementos/modificarElemento/{{ elemento.id }}" class="text-white text-decoration-none">Modificar</a>
+                    </button>
+                    <button class="btn btn-sm btn-danger">
+                      <a href="/elementos/borrarElemento/{{ elemento.id }}" class="text-white text-decoration-none">Eliminar</a>
+                    </button>
+                  </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
