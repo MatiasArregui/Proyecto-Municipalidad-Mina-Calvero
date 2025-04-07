@@ -29,16 +29,40 @@ class Categoria(models.Model):
     def __str__(self):
         return self.nombre
     
+# class Institucion(models.Model):
+#     nombre = models.CharField(max_length=120, null=True, blank=True)
+#     mail = models.CharField(max_length=120, default="", null=True, blank=True)
+#     descripcion = models.CharField(max_length=120, default="", null=True, blank=True)
+#     direccion = models.CharField(max_length=120, default="", null=True, blank=True)
+#     telefono = models.CharField(max_length=30, default="",null=True, blank=True)
+#     id_persona_encargado = models.ForeignKey('Persona', on_delete=models.CASCADE)
+#     id_persona = models.ManyToManyField('Persona', through='InstitucionPersona')
+    
+#     def __str__(self):
+#         return self.nombre
 class Institucion(models.Model):
     nombre = models.CharField(max_length=120, null=True, blank=True)
     mail = models.CharField(max_length=120, default="", null=True, blank=True)
     descripcion = models.CharField(max_length=120, default="", null=True, blank=True)
     direccion = models.CharField(max_length=120, default="", null=True, blank=True)
-    telefono = models.CharField(max_length=30, default="",null=True, blank=True)
-    id_persona = models.ManyToManyField('Persona', through='InstitucionPersona')
+    telefono = models.CharField(max_length=30, default="", null=True, blank=True)
+    
+    # Campo para seleccionar una sola persona (representante)
+    id_persona_encargado = models.ForeignKey(
+        'Persona',
+        on_delete=models.CASCADE,
+        related_name='encargado'
+    )
+    
+    # Campo para seleccionar muchas personas
+    id_persona = models.ManyToManyField(
+        'Persona',
+        related_name='trabajadores'
+    )
     
     def __str__(self):
         return self.nombre
+
 
 class InstitucionPersona(models.Model):
     id_persona = models.ForeignKey('persona', on_delete=models.CASCADE)

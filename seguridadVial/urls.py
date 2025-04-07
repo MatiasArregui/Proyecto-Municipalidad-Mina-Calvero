@@ -8,11 +8,6 @@ from django.contrib.auth.decorators import login_required, permission_required
 
 
 urlpatterns = [
-    # Login ----------------------------------------------------------------------------------->
-    path('', LoginView.as_view(
-        template_name='registration/login.html',
-        authentication_form=LoginForm
-    ), name='login'),
     
     # Personas URLs--------------------------------------------------------------------------------->
     path("personas/", login_required(views.listaPersona.as_view()), name="listaPersonas"),
@@ -37,4 +32,10 @@ urlpatterns = [
     path("cargos/nuevoCargo", login_required(views.CargoNuevo.as_view()), name="nuevoCargo"),
     path("cargos/modificarCargo/<str:pk>", login_required(views.CargoModificar.as_view()), name="modificarCargo"),
     path("cargos/borrarCargo/<str:pk>", login_required(views.CargoBorrar.as_view()), name="borrarCargo"),
+   
+    # Personas URLs--------------------------------------------------------------------------------->
+    path("instituciones/", login_required(views.ListaInstitucion.as_view()), name="listaInstituciones"),
+    path("instituciones/nueva", login_required(views.InstitucionNueva.as_view()), name="nuevaInstitucion"),
+    path("instituciones/modificar/<str:pk>", login_required(views.InstitucionModificar.as_view()), name="modificarInstitucion"),
+    path("instituciones/borrar/<str:pk>", login_required(views.InstitucionBorrar.as_view()), name="borrarInstitucion"),
 ]

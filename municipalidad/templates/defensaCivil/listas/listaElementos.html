@@ -1,9 +1,10 @@
-{% extends "base.html" %}
+{% extends "defensaCivil/base.html" %}
 {% load static %}
 {% block contenido %}
-<div class="container">
+<div class="container mt-5">
+  <h1>Elementos</h1>
     <button class="btn btn-sm btn-primary">
-        <a href="/elementos/nuevoElemento" class="text-white text-decoration-none">Nuevo</a>
+        <a href="{% url 'nuevoElemento' %}"  class="text-white text-decoration-none">Nuevo</a>
       </button>
     <table class="table table-light shadow-sm  mt-2">
         <thead class="bg-light">
@@ -28,10 +29,10 @@
               <td>{{ elemento.id_persona.nombre}}</td>
                   <td class="d-flex justify-content-end gap-1">
                     <button class="btn btn-sm btn-primary">
-                      <a href="/elementos/modificarElemento/{{ elemento.id }}" class="text-white text-decoration-none">Modificar</a>
+                      <a href="{% url 'modificarElemento' elemento.id %}"  class="text-white text-decoration-none">Modificar</a>
                     </button>
                     <button class="btn btn-sm btn-danger">
-                      <a href="/elementos/borrarElemento/{{ elemento.id }}" class="text-white text-decoration-none">Eliminar</a>
+                      <a href="{% url 'borrarElemento' elemento.id %}"  class="text-white text-decoration-none">Eliminar</a>
                     </button>
                   </td>
             </tr>

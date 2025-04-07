@@ -1,0 +1,44 @@
+{% extends "defensaCivil/base.html" %}
+{% load static %}
+{% block contenido %}
+<div class="container mt-5">
+  <h1>Instituciones</h1>
+    <button class="btn btn-sm btn-primary">
+        <a href="{% url 'nuevaInstitucion' %}"  class="text-white text-decoration-none">Nuevo</a>
+      </button>
+    <table class="table table-light shadow-sm  mt-2">
+        <thead class="bg-light">
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Encargado</th>
+            <th scope="col" class="d-none d-md-table-cell">Descripcion</th>
+            <th scope="col">mail</th>
+            <th scope="col">direccion</th>
+            <th scope="col">telefono</th>
+            <th scope="col" class="d-flex justify-content-end">Accion</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in instituciones %}
+            <tr>
+              <td>{{ i.nombre }}</td>
+              <td>{{ i.id_persona_encargado.nombre }}</td>
+              <td>{{ i.descripcion|default_if_none:"-----" | truncatechars:6}}</td>
+              <td>{{ i.mail |default_if_none:"-----" }}</td>
+              <td>{{ i.direccion |default_if_none:"-----" }}</td>
+              <td>{{ i.telefono |default_if_none:"-----" }}</td>
+                  <td class="d-flex justify-content-end gap-1">
+                    <button class="btn btn-sm btn-primary">
+                      <a href="{% url 'modificarInstitucion' i.id %}"  class="text-white text-decoration-none">Modificar</a>
+                    </button>
+                    <button class="btn btn-sm btn-danger">
+                      <a href="{% url 'borrarInstitucion' i.id %}"  class="text-white text-decoration-none">Eliminar</a>
+                    </button>
+                  </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

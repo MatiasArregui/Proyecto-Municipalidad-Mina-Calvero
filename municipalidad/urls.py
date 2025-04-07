@@ -19,9 +19,19 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings 
 from django.conf.urls.static import static 
+from django.contrib.auth.decorators import login_required, permission_required
+from .forms import LoginForm
+from django.contrib.auth.views import LoginView
+import os
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # Login ----------------------------------------------------------------------------------->
+    path('login/', LoginView.as_view(
+        template_name=os.path.join("registration", "login.html"),
+        authentication_form=LoginForm
+    ), name='login'),
     path('accounts/', include('django.contrib.auth.urls')),
-    path("", include("seguridadVial.urls"))
+    path("defensaCivil/", include("seguridadVial.urls")),
 ] +  static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

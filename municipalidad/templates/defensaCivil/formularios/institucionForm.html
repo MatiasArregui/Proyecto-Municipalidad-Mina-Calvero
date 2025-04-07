@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "defensaCivil/base.html" %}
 {% load static %}
 {% block contenido %}
 <div class="container">
@@ -8,8 +8,19 @@
     <form method="post" enctype="multipart/form-data" id="formulario">
         {% csrf_token %}
         {{ form.as_p }}
+        <h2>Personas Relacionadas</h2>
+        {{ formset.management_form }}
+        {% for form in formset %}
+            <div>
+                {{ form.as_p }}
+            </div>
+        {% endfor %}
         <button class="btn btn-primary mb-3" type="submit">Guardar</button>
-        <a class="btn btn-danger mb-3" href="{% url 'listaElementos' %}">Cancelar</a>
+        <a class="btn btn-danger mb-3" href="{% url 'listaInstituciones' %}">Cancelar</a>
     </form>
 </div>
 {% endblock %}
+
+
+
+    

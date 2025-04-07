@@ -76,15 +76,17 @@ class InstitucionPersonaForm(forms.ModelForm):
 class InstitucionForm(forms.ModelForm):
     class Meta:
         model = Institucion
-        fields = ('nombre', 'mail', 'descripcion', 'direccion', 'telefono', 'id_persona')
+        fields = ('nombre', 'id_persona_encargado', 'mail', 'descripcion', 'direccion', 'telefono')
         widgets = {
             'nombre': forms.TextInput(attrs={'class': 'form-control'}),
+            'id_persona_encargado': forms.Select(attrs={"class": "form-control"}),
             'mail': forms.TextInput(attrs={'class': 'form-control'}),
             'descripcion': forms.Textarea(attrs={'class': 'form-control'}),
             'direccion': forms.TextInput(attrs={'class': 'form-control'}),
             'telefono': forms.TextInput(attrs={'class': 'form-control'}),
         }
         labels = {"nombre":"Nombre",
+                  'id_persona_encargado':'Encargado',
                   "mail":"Mail",
                   "descripcion":"Descripción",
                   "direccion":"Direccion",

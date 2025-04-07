@@ -1,14 +1,14 @@
-{% extends "base.html" %}
+{% extends "defensaCivil/base.html" %}
 {% load static %}
 {% block contenido %}
 <div class="container mt-5">
     <div class="card shadow-sm p-4 mb-4 bg-white rounded">
-        <h3 class="display-4 mb-3 text-center">Borrar Elemento</h3>
-        <p class="text-center">¿Está seguro de borrar <b>{{ elemento.nombre }}</b>?</p>
+        <h3 class="display-4 mb-3 text-center">Borrar Persona</h3>
+        <p class="text-center">¿Está seguro de borrar <b>{{ persona.nombre }}</b>?</p>
         <form method="post" class="text-center">
             {% csrf_token %}
             <button class="btn btn-danger mr-2" type="submit">Aceptar</button>
-            <a class="btn btn-secondary ml-2" href="{% url 'listaElementos' %}">Cancelar</a>
+            <a class="btn btn-secondary ml-2" href="{% url 'listaPersonas' %}">Cancelar</a>
         </form>
         {% if messages %}
         <div class="alert alert-info mt-3">
@@ -19,7 +19,7 @@
             </ul>
         </div>
         <div class="text-center">
-            <a href="{% url "listaElementos" %}" class="btn btn-sm btn-dark mt-3 w-50">Volver</a>
+            <a href="{% url "listaPersonas" %}" class="btn btn-sm btn-dark mt-3 w-50">Volver</a>
         </div>
         {% endif %}
     </div>
