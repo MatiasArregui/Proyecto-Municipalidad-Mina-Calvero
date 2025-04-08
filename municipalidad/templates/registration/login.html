@@ -15,7 +15,7 @@
             margin: 0;
             padding: 0;
             font-family: 'Trebuchet MS', Arial, sans-serif;
-            background: linear-gradient(to bottom,rgb(233, 236, 39),rgb(218, 219, 125));
+            background: linear-gradient(to bottom, hsl(213, 100%, 18%), hsl(197, 100%, 45%));
             min-height: 100vh; 
             display: flex;
             justify-content: center;
@@ -42,8 +42,8 @@
             margin-bottom: 20px;
             font-size: 24px;
             font-weight: bold;
-            color:rgb(60, 118, 224);
-            border-bottom: 2px solid rgb(18, 50, 138);
+            color:#e62828;
+            border-bottom: 2px solid black;
             padding-bottom: 10px;
         }
 
@@ -54,7 +54,7 @@
             font-size: 16px;
             font-weight: bold;
             color: #fff;
-            background: linear-gradient(to right,rgb(55, 233, 11),rgb(182, 247, 144));
+            background: linear-gradient(to right,#e62828,#ff7a7a);
             border: none;
             border-radius: 25px;
             cursor: pointer;
@@ -62,7 +62,7 @@
         }
 
         .boton:hover {
-            background: linear-gradient(to right,rgb(182, 247, 144), rgb(55, 233, 11));
+            background: linear-gradient(to right,#ff7a7a,#e62828);
             transform: scale(1.05);
         }
 
@@ -124,7 +124,7 @@
 </head>
 <body>
     <div id="formulario" class="container">
-        <h2 class="pb-3">Prototipo</h2>
+        <h2 class="pb-3">Defensa Civil - Mina Clavero</h2>
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}

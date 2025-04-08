@@ -1,8 +1,6 @@
 from django.contrib import admin
 from django.urls import path
 from . import views
-from .forms import LoginForm
-from django.contrib.auth.views import LoginView
 # from .forms import LoginForm
 from django.contrib.auth.decorators import login_required, permission_required
 

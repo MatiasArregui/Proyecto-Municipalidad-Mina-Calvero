@@ -31,7 +31,6 @@ urlpatterns = [
     path('login/', LoginView.as_view(
         template_name=os.path.join("registration", "login.html"),
         authentication_form=LoginForm
-    ), name='login'),
-    path('accounts/', include('django.contrib.auth.urls')),
+    ), name='ingreso'),
     path("defensaCivil/", include("seguridadVial.urls")),
 ] +  static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
