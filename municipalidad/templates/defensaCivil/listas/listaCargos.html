@@ -54,7 +54,7 @@
         <tbody>
           {% for cargo in cargos %}
             <tr>
-              <td>{{ cargo.nombre }}</td>
+              <td style="cursor: pointer;" onclick="window.location.href='{% url 'modificarCargo' cargo.id %}'">{{ cargo.nombre }}</td>
                   <td class="d-flex justify-content-end gap-1">
                     <button class="btn btn-sm btn-primary">
                       <a href="{% url 'modificarCargo' cargo.id %}" class="text-white text-decoration-none d-flex align-items-center">

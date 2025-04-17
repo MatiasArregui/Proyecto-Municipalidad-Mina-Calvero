@@ -22,12 +22,17 @@ class Elementos(models.Model):
     
     def __str__(self):
         return self.nombre
+    
+    def get_tipo(self):
+        return "Elemento"
 
 class Categoria(models.Model):
     nombre = models.CharField(max_length=120)
     
     def __str__(self):
         return self.nombre
+    
+    
     
 # class Institucion(models.Model):
 #     nombre = models.CharField(max_length=120, null=True, blank=True)
@@ -62,6 +67,9 @@ class Institucion(models.Model):
     
     def __str__(self):
         return self.nombre
+    
+    def get_tipo(self):
+        return "Institucion"
 
 
 class InstitucionPersona(models.Model):
@@ -78,6 +86,9 @@ class Persona(models.Model):
     id_cargo = models.ForeignKey('Cargo', on_delete=models.CASCADE)
     def __str__(self):
         return self.nombre
+    
+    def get_tipo(self):
+        return "Persona"
 
 class Cargo(models.Model):
     nombre = models.CharField(max_length=120)

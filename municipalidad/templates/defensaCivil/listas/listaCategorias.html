@@ -54,7 +54,7 @@
         <tbody>
           {% for categoria in categorias %}
             <tr>
-              <td>{{ categoria.nombre }}</td>
+              <td style="cursor: pointer;" onclick="window.location.href='{% url 'modificarCategoria' categoria.id %}'">{{ categoria.nombre }}</td>
                   <td class="d-flex justify-content-end gap-1">
                     <button class="btn btn-sm btn-primary">
                       <a href="{% url 'modificarCategoria' categoria.id %}" class="text-white text-decoration-none d-flex align-items-center">

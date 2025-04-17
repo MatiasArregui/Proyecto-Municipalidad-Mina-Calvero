@@ -49,9 +49,6 @@
           <tr>
             <th scope="col">Nombre</th>
             <th scope="col">Encargado</th>
-            <th scope="col" class="d-none d-md-table-cell">Descripcion</th>
-            <th scope="col">mail</th>
-            <th scope="col">direccion</th>
             <th scope="col">telefono</th>
             <th scope="col" class="d-flex justify-content-end">Accion</th>
           </tr>
@@ -59,12 +56,9 @@
         <tbody>
           {% for i in instituciones %}
             <tr>
-              <td>{{ i.nombre }}</td>
-              <td>{{ i.id_persona_encargado.nombre }}</td>
-              <td>{{ i.descripcion|default_if_none:"-----" | truncatechars:6}}</td>
-              <td>{{ i.mail |default_if_none:"-----" }}</td>
-              <td>{{ i.direccion |default_if_none:"-----" }}</td>
-              <td>{{ i.telefono |default_if_none:"-----" }}</td>
+              <td style="cursor: pointer;" onclick="window.location.href='{% url 'modificarInstitucion' i.id %}'">{{ i.nombre }}</td>
+              <td style="cursor: pointer;" onclick="window.location.href='{% url 'modificarInstitucion' i.id %}'">{{ i.id_persona_encargado.nombre }}</td>
+              <td style="cursor: pointer;" onclick="window.location.href='{% url 'modificarInstitucion' i.id %}'">{{ i.telefono |default_if_none:"-----" }}</td>
                   <td class="d-flex justify-content-end gap-1">
                     <button class="btn btn-sm btn-primary ">
                       <a href="{% url 'modificarInstitucion' i.id %}"  class="text-white text-decoration-none d-flex align-items-center">

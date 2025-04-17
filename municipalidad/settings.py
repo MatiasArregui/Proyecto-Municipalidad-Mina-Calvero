@@ -137,6 +137,6 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Configuraciones de Auntenticacion
-LOGIN_URL = '/login' # URL de la pagina si se intenta ingresar sin iniciar
-LOGIN_REDIRECT_URL = '/defensaCivil/personas/' # Redireccion despues de un login exitoso
-LOGOUT_REDIRECT_URL = '/login' # Redireccion despues de cerrar sesion
+LOGIN_URL = '' # URL de la pagina si se intenta ingresar sin iniciar
+LOGIN_REDIRECT_URL = '/defensaCivil/inicio/' # Redireccion despues de un login exitoso
+LOGOUT_REDIRECT_URL = '' # Redireccion despues de cerrar sesion

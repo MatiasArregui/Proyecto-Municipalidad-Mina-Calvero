@@ -9,6 +9,19 @@ from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 import os
 
 
+# Pagina principal ----------------------------------------------------------------------------------->
+def paginaPrincipal(request):
+    elementos = Elementos.objects.all()
+    instituciones = Institucion.objects.all()
+    personas = Persona.objects.all()
+    # Combinar todos los conjuntos en una sola lista o QuerySet
+    todo = list(elementos) + list(instituciones) + list(personas)
+    context = {"todo": todo}
+    return render(request, template_name= os.path.join("defensaCivil", "paginaPrincipal.html"), context=context)
+
+
+
+
 # Persona Views ------------------------------------------------------------------------------>
     #Ver Personas
 class listaPersona(ListView):
@@ -16,6 +29,9 @@ class listaPersona(ListView):
     template_name = os.path.join("defensaCivil", "listas", "listaPersonas.html")
     context_object_name = 'personas'
     paginate_by = 7
+    def get_queryset(self):
+        # Ordenar alfabéticamente por el atributo 'nombre'
+        return Persona.objects.all().order_by('nombre')
     #Crear persona
 class PersonaNueva(CreateView):
     model = Persona
@@ -41,6 +57,9 @@ class listaElemento(ListView):
     template_name = os.path.join("defensaCivil", "listas", "listaElementos.html")
     context_object_name = 'elementos'
     paginate_by = 7
+    def get_queryset(self):
+        # Ordenar alfabéticamente por el atributo 'nombre'
+        return Elementos.objects.all().order_by('nombre')
     #Crear elemento
 class ElementoNuevo(CreateView):
     model = Elementos
@@ -66,6 +85,9 @@ class listaCategoria(ListView):
     template_name = os.path.join("defensaCivil", "listas", "listaCategorias.html")
     context_object_name = 'categorias'
     paginate_by = 7
+    def get_queryset(self):
+        # Ordenar alfabéticamente por el atributo 'nombre'
+        return Categoria.objects.all().order_by('nombre')
     #Crear categoria
 class CategoriaNueva(CreateView):
     model = Categoria
@@ -91,6 +113,9 @@ class listaCargos(ListView):
     template_name = os.path.join("defensaCivil", "listas", "listaCargos.html")
     context_object_name = 'cargos'
     paginate_by = 7
+    def get_queryset(self):
+        # Ordenar alfabéticamente por el atributo 'nombre'
+        return Cargo.objects.all().order_by('nombre')
     #Crear categoria
 class CargoNuevo(CreateView):
     model = Cargo
@@ -117,7 +142,9 @@ class ListaInstitucion(ListView):
     model = Institucion
     template_name = os.path.join("defensaCivil", "listas", "listaInstituciones.html")
     context_object_name = 'instituciones'
-
+    def get_queryset(self):
+        # Ordenar alfabéticamente por el atributo 'nombre'
+        return Institucion.objects.all().order_by('nombre')
     #Crear instituciones
 class InstitucionNueva(CreateView):
     model = Institucion

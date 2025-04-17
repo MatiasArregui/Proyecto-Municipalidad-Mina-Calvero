@@ -56,9 +56,9 @@
         <tbody>
           {% for persona in personas %}
             <tr>
-              <td>{{ persona.nombre }}</td>
-              <td>{{ persona.dni|default_if_none:"-----" }}</td>
-              <td>{{ persona.telefono|default_if_none:"-----" | truncatechars:6}}</td>
+              <td style="cursor: pointer;" onclick="window.location.href='{% url 'modificarPersona' persona.id %}'">{{ persona.nombre }}</td>
+              <td style="cursor: pointer;" onclick="window.location.href='{% url 'modificarPersona' persona.id %}'">{{ persona.dni|default_if_none:"-----" }}</td>
+              <td style="cursor: pointer;" onclick="window.location.href='{% url 'modificarPersona' persona.id %}'">{{ persona.telefono|default_if_none:"-----" | truncatechars:6}}</td>
                   <td class="d-flex justify-content-end gap-1">
                     <button class="btn btn-sm btn-primary">
                       <a href="{% url 'modificarPersona' persona.id %}" class="text-white text-decoration-none d-flex align-items-center">

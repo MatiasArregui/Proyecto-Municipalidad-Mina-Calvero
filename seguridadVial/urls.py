@@ -7,6 +7,8 @@ from django.contrib.auth.decorators import login_required, permission_required
 
 urlpatterns = [
     
+    # Pagina principal con tabla general ----------------------------------------------------------->
+    path("inicio/", login_required(views.paginaPrincipal), name="paginaPrincipal"),
     # Personas URLs--------------------------------------------------------------------------------->
     path("personas/", login_required(views.listaPersona.as_view()), name="listaPersonas"),
     path("personas/nuevaPersona", login_required(views.PersonaNueva.as_view()), name="nuevaPersona"),

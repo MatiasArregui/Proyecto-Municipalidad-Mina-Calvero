@@ -59,12 +59,12 @@
         <tbody>
           {% for elemento in elementos %}
             <tr>
-              <td>{{ elemento.nombre }}</td>
-              <td>{{ elemento.descripcion|default_if_none:"-----" | truncatechars:6}}</td>
-              <td>{{ elemento.estado}}</td>
-              <td>{{ elemento.id_categoria.nombre}}</td>
-              <td>{{ elemento.id_institucion.nombre}}</td>
-              <td>{{ elemento.id_persona.nombre}}</td>
+              <td style="cursor: pointer;" onclick="window.location.href='{% url 'modificarElemento' elemento.id %}'">{{ elemento.nombre }}</td>
+              <td style="cursor: pointer;" onclick="window.location.href='{% url 'modificarElemento' elemento.id %}'">{{ elemento.descripcion|default_if_none:"-----" | truncatechars:6}}</td>
+              <td style="cursor: pointer;" onclick="window.location.href='{% url 'modificarElemento' elemento.id %}'">{{ elemento.estado}}</td>
+              <td style="cursor: pointer;" onclick="window.location.href='{% url 'modificarElemento' elemento.id %}'">{{ elemento.id_categoria.nombre}}</td>
+              <td style="cursor: pointer;" onclick="window.location.href='{% url 'modificarElemento' elemento.id %}'">{{ elemento.id_institucion.nombre}}</td>
+              <td style="cursor: pointer;" onclick="window.location.href='{% url 'modificarElemento' elemento.id %}'">{{ elemento.id_persona.nombre}}</td>
                   <td class="d-flex justify-content-end gap-1">
                     <button class="btn btn-sm btn-primary">
                       <a href="{% url 'modificarElemento' elemento.id %}"  class="text-white text-decoration-none d-flex align-items-center">
