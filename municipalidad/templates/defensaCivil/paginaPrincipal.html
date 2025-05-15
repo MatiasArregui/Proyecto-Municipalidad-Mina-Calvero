@@ -2,7 +2,48 @@
 {% load static %}
 {% block estilos %}
 <style>
-  /* Puedes agregar estilos específicos para el filtro aquí */
+  .llamar-btn {
+      display: none;
+  }
+
+  @media (max-width: 768px) {
+      .llamar-btn {
+          display: inline-block;
+      }
+  }
+
+  /* Contenedor con tamaño fijo */
+  .cont {
+      position: relative; 
+      height: 120px; 
+      border-radius: 10px; 
+      overflow: hidden; 
+      color: white;
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+  }
+
+  /* Imagen de fondo con desenfoque */
+  .cont::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("../../../static/imagenes/defensacivil.jpg"); 
+      background-size: cover;
+      background-position: center;
+      filter: blur(4px); 
+      z-index: -1; 
+      opacity: 0.8; 
+  }
+
+  /* Estilo para el título */
+  .titulo {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.877); 
+  }
 </style>
 {% endblock %}
 {% block contenido %}
@@ -11,6 +52,7 @@
     <h1 class="titulo">Todos</h1>
   </div>
 
+
   <!-- Campo de texto para filtrar -->
   <input type="text" id="filterInput" class="form-control mb-3" placeholder="Filtrar por nombre...">
 
@@ -18,6 +60,7 @@
     <thead class="bg-light">
       <tr>
         <th scope="col">Nombre</th>
+        <th scope="col">Descripción</th>
         <th scope="col" class="d-flex justify-content-end">Acción</th>
       </tr>
     </thead>
@@ -25,8 +68,9 @@
       {% for elemento in todo %}
         <tr>
           <td>{{ elemento.nombre }}</td>
-          <td class="d-flex justify-content-end gap-1">
-            {% if elemento.get_tipo == "Elemento" %}
+          {% if elemento.get_tipo == "Elemento" %}
+            <td>{{ elemento.descripcion }}</td>
+            <td class="d-flex justify-content-end gap-1">
               <button class="btn btn-sm btn-primary">
                 <a href="{% url 'modificarElemento' elemento.id %}" class="text-white text-decoration-none d-flex align-items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
@@ -42,7 +86,10 @@
                   </svg>
                 </a>
               </button>
+            </td>
             {% elif elemento.get_tipo == "Institucion" %}
+            <td>{{ elemento.descripcion }}</td>
+            <td class="d-flex justify-content-end gap-1">
               <button class="btn btn-sm btn-primary">
                 <a href="{% url 'modificarInstitucion' elemento.id %}" class="text-white text-decoration-none d-flex align-items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
@@ -58,7 +105,10 @@
                   </svg>
                 </a>
               </button>
+            </td>
             {% elif elemento.get_tipo == "Persona" %}
+            <td>{{ elemento.id_cargo.nombre }}</td>
+            <td class="d-flex justify-content-end gap-1">
               <button class="btn btn-sm btn-primary">
                 <a href="{% url 'modificarPersona' elemento.id %}" class="text-white text-decoration-none d-flex align-items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
@@ -74,8 +124,12 @@
                   </svg>
                 </a>
               </button>
+               <!-- Botón de llamada -->
+               <button class="btn btn-sm btn-success llamar-btn" onclick="llamar('{{ elemento.telefono }}')">
+                  <span class="text-white d-flex align-items-center">📞 Llamar</span>
+              </button>            
+            </td>
             {% endif %}
-          </td>
         </tr>
       {% endfor %}
     </tbody>
@@ -96,6 +150,11 @@
       }
     }
   });
+
+  function llamar(numero) {
+      window.location.href = "tel:" + numero;
+  }
+
 </script>
 {% endblock %}
 

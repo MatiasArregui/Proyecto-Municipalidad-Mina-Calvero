@@ -32,10 +32,11 @@ class LoginForm(AuthenticationForm):
 class ElementosForm(forms.ModelForm):
     class Meta:
         model = Elementos
-        fields = ('nombre', 'descripcion', 'estado', 'id_categoria', 'id_institucion', 'id_persona')
+        fields = ('nombre', 'descripcion', 'estado', 'cantidad', 'id_categoria', 'id_institucion', 'id_persona')
         widgets = {
             'nombre': forms.TextInput(attrs={'class': 'form-control'}),
             'descripcion': forms.TextInput(attrs={'class': 'form-control'}),
+            'cantidad': forms.NumberInput(attrs={'class': 'form-control'}),
             'estado': forms.CheckboxInput(attrs={'class': 'form-check-input form-control'}),
             'id_categoria': forms.Select(attrs={'class':'form-control'}),
             'id_institucion': forms.Select(attrs={'class':'form-control'}),
@@ -43,6 +44,7 @@ class ElementosForm(forms.ModelForm):
         }
         labels = {"nombre":"Nombre",
                   "descripcion":"Descripción",
+                  "cantidad":"Cantidad",
                   "estado":"Disponible",
                   "id_categoria":"Tipo",
                   "id_institucion":"Institucion perteneciente",

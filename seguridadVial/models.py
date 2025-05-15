@@ -13,6 +13,7 @@ from django.db import models
 class Elementos(models.Model):
     nombre = models.CharField(max_length=120)
     descripcion = models.CharField(max_length=120, default="", null=True, blank=True)
+    cantidad = models.IntegerField(default=1, null=True, blank=True)
     # aca vamos a tener que poner un SET con un predeterminado
     # ej:  id_cliente = models.ForeignKey(Cliente, on_delete=models.SET(seleccionar_cliente_alternativo))
     id_categoria = models.ForeignKey('Categoria', on_delete=models.CASCADE)
