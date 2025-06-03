@@ -1,0 +1,33 @@
+{% extends "defensaCivil/base.html" %}
+{% load static %}
+{% block contenido %}
+<div class="container">
+    <div class="cont mb-1">
+        <h3 class="display-4 titulo">Institución</h3>
+    </div>
+    <form method="post" enctype="multipart/form-data" id="formulario">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <h2>Personas Relacionadas</h2>
+        {{ formset_persona.management_form }}
+        {% for form in formset_persona %}
+            <div>
+                {{ form.as_p }}
+            </div>
+        {% endfor %}
+        <h2>Elementos Relacionados</h2>
+        {{ formset_elemento.management_form }}
+        {% for form in formset_elemento %}
+            <div>
+                {{ form.as_p }}
+            </div>
+        {% endfor %}
+        <button class="btn btn-primary mb-3" type="submit">Guardar</button>
+        <a class="btn btn-danger mb-3" href="{% url 'listaInstituciones' %}">Cancelar</a>
+    </form>
+</div>
+{% endblock %}
+
+
+
+    

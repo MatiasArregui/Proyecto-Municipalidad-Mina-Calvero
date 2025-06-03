@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototipo</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <link rel="stylesheet" href="{% static 'estilos.css' %}">
+    {% block estilos %}
+    {% endblock %}
+    <style>
+        header {
+            background-color: hsl(213, 100%, 18%);
+        }
+        body {
+            margin: 0; /* Elimina márgenes por defecto */
+            padding-bottom: 100px; /* Ajusta este valor según la altura de tu footer */
+        }
+        footer{
+            background-color: hsl(213, 100%, 18%);
+            color: white;
+            margin-top: 100px;
+        }
+    </style>
+</head>
+<body>
+    <header class="container-fluid d-flex justify-content-between p-3">
+        <div class="img">
+            <a href="{% url 'paginaPrincipal'%}"><img src={% static "imagenes/logo.png" %} alt=""  srcset=""></a>
+        </div>
+        <div class="d-flex justify-content-end align-items-center">
+            {% comment %} Ancla que lleva a instituciones {% endcomment %}
+            <a href="{% url "listaInstituciones"%}" class="nav-link text-white">Instituciones</a>
+            {% comment %} Ancla que lleva a cargos {% endcomment %}
+            <a href="{% url "listaCargos"%}" class="nav-link text-white">Cargos</a>
+            {% comment %} Ancla que lleva a personas {% endcomment %}
+            <a href="{% url "listaPersonas"%}" class="nav-link text-white">Personas</a>
+            {% comment %} Ancla que lleva a categorias {% endcomment %}
+            <a href="{% url "listaCategorias"%}" class="nav-link text-white">Categorias</a>
+            {% comment %} Ancla que lleva a elementos {% endcomment %}
+            <a href="{% url "listaElementos"%}" class="nav-link text-white">Elementos</a>
+            {% if user.is_authenticated %}
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle bg-dark" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                        </svg>
+                    </button>
+                    <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton1">
+                      <li><span class="dropdown-item user-info text-white" >{{ request.user | title}}</span></li>
+                      <li><a class="dropdown-item text-white" href="{% url 'ingreso' %}">Logout</a></li>
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+
+
+    </header>
+    {% block contenido %}
+    {% endblock %}
+    {% comment %} Este es el footer o pie de pagina que se muestra por herencia en los demas templates {% endcomment %}
+    <footer class="text-center fixed-bottom p-3">
+        Defensa Civil - Mina Clavero  &copy; Todos los derechos reservados
+    </footer>
+</body>
+</html>
