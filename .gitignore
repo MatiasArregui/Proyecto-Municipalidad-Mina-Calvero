@@ -7,3 +7,5 @@ Include
 # cache de compilacion
 __pycache__
 
+# base de datos
+.sqlite3
