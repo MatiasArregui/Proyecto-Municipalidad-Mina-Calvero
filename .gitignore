@@ -1,9 +1,0 @@
-# archivos o el entorno en si
-Lib
-Scripts
-pyvenv.cfg
-Include
-
-# cache de compilacion
-__pycache__
-
