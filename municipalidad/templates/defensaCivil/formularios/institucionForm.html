@@ -1,13 +1,50 @@
 {% extends "defensaCivil/base.html" %}
 {% load static %}
+
 {% block contenido %}
+<style>
+    .titulo-volver {
+        position: relative;
+        display: inline-block;
+        text-decoration: none;
+        color: inherit;
+        cursor: pointer;
+        transition: color 0.3s ease;
+    }
+
+    .titulo-volver::before {
+        content: "←";
+        position: absolute;
+        left: -1.5rem;
+        opacity: 0;
+        transform: translateX(-10px);
+        transition: all 0.3s ease;
+        font-size: 1.8rem;
+        color: #007bff;
+    }
+
+    .titulo-volver:hover::before {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .titulo-volver:hover {
+        color: #007bff;
+    }
+</style>
+
 <div class="container">
     <div class="cont mb-1">
-        <h3 class="display-4 titulo">Institución</h3>
+        <h3 class="display-4 titulo">
+            <a href="{% url 'listaInstituciones' %}" class="titulo-volver">
+                Institución
+            </a>
+        </h3>
     </div>
     <form method="post" enctype="multipart/form-data" id="formulario">
         {% csrf_token %}
         {{ form.as_p }}
+
         <h2>Personas Relacionadas</h2>
         {{ formset_persona.management_form }}
         {% for form in formset_persona %}
@@ -15,6 +52,7 @@
                 {{ form.as_p }}
             </div>
         {% endfor %}
+
         <h2>Elementos Relacionados</h2>
         {{ formset_elemento.management_form }}
         {% for form in formset_elemento %}
@@ -22,12 +60,49 @@
                 {{ form.as_p }}
             </div>
         {% endfor %}
+
         <button class="btn btn-primary mb-3" type="submit">Guardar</button>
         <a class="btn btn-danger mb-3" href="{% url 'listaInstituciones' %}">Cancelar</a>
     </form>
 </div>
+
+<!-- JavaScript para evitar duplicados en selects -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    function actualizarOpciones() {
+        const selects = document.querySelectorAll('select');
+        const seleccionados = new Set();
+
+        selects.forEach(select => {
+            const valor = select.value;
+            if (valor) {
+                seleccionados.add(valor);
+            }
+        });
+
+        selects.forEach(select => {
+            const opciones = select.querySelectorAll('option');
+
+            opciones.forEach(opcion => {
+                if (opcion.value === "") {
+                    opcion.hidden = false;
+                    return;
+                }
+
+                opcion.hidden = false;
+
+                if (seleccionados.has(opcion.value) && opcion.value !== select.value) {
+                    opcion.hidden = true;
+                }
+            });
+        });
+    }
+
+    document.querySelectorAll('select').forEach(select => {
+        select.addEventListener('change', actualizarOpciones);
+    });
+
+    actualizarOpciones();
+});
+</script>
 {% endblock %}
-
-
-
-    
