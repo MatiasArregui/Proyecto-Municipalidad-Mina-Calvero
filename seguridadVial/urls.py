@@ -6,7 +6,6 @@ from django.contrib.auth.decorators import login_required, permission_required
 
 
 urlpatterns = [
-    
     # Pagina principal con tabla general ----------------------------------------------------------->
     path("inicio/", login_required(views.paginaPrincipal), name="paginaPrincipal"),
     # Personas URLs--------------------------------------------------------------------------------->
