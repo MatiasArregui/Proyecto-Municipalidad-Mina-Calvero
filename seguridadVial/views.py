@@ -20,8 +20,6 @@ def paginaPrincipal(request):
     return render(request, template_name= os.path.join("defensaCivil", "paginaPrincipal.html"), context=context)
 
 
-
-
 # Persona Views ------------------------------------------------------------------------------>
     #Ver Personas
 class listaPersona(ListView):
