@@ -11,23 +11,100 @@
     <link rel="stylesheet" href="{% static 'estilos.css' %}">
     {% block estilos %}
     {% endblock %}
-    <style>
-        header {
-            background-color: hsl(213, 100%, 18%);
-        }
-        body {
-            margin: 0; /* Elimina márgenes por defecto */
-            padding-bottom: 100px; /* Ajusta este valor según la altura de tu footer */
-        }
-        footer{
-            background-color: hsl(213, 100%, 18%);
-            color: white;
-            margin-top: 100px;
-        }
-    </style>
+<style>
+/* General */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    margin: 0;
+    padding-bottom: 100px;
+}
+
+/* Header principal */
+header {
+    background-color: hsl(213, 100%, 18%);
+    padding: 15px;
+}
+
+header .nav-link {
+    color: white;
+    font-weight: bold;
+    transition: color 0.3s ease-in-out;
+}
+
+header .nav-link:hover {
+    color: hsl(213, 60%, 75%);
+}
+
+/* Offcanvas - Menú lateral */
+.offcanvas {
+    background-color: hsl(213, 100%, 18%);
+    color: white;
+}
+
+.offcanvas-header {
+    background-color: hsl(213, 100%, 25%);
+    padding: 15px;
+    border-bottom: 2px solid white;
+    text-align: center;
+}
+
+.offcanvas-body .nav-link {
+    color: white;
+    font-size: 1.1rem;
+    padding: 10px;
+    transition: color 0.3s ease-in-out;
+}
+
+.offcanvas-body .nav-link:hover {
+    color: hsl(213, 60%, 75%);
+}
+
+/* Botón que abre el offcanvas */
+button[data-bs-toggle="offcanvas"] {
+    background-color: hsl(213, 80%, 35%);
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+button[data-bs-toggle="offcanvas"]:hover {
+    background-color: hsl(213, 60%, 45%);
+}
+
+/* Dropdown menú de usuario */
+.dropdown-menu {
+    background-color: hsl(213, 100%, 18%);
+    border: none;
+}
+
+.dropdown-item {
+    color: white;
+}
+
+.dropdown-item:hover {
+    background-color: hsl(213, 60%, 75%);
+    color: black;
+}
+
+/* Footer */
+footer {
+    background-color: hsl(213, 100%, 18%);
+    color: white;
+    text-align: center;
+    padding: 15px;
+    border-top: 2px solid white;
+    font-size: 1rem;
+}
+</style>
+
 </head>
 <body>
-    <header class="container-fluid d-none p-3 d-md-flex justify-content-between">
+    <header class="container-fluid d-none p-3 d-lg-flex justify-content-between">
         <div class="img">
             <a href="{% url 'paginaPrincipal'%}"><img src={% static "imagenes/logo.png" %} alt=""  srcset=""></a>
         </div>
@@ -58,50 +135,59 @@
             {% endif %}
         </div>
     </header>
-    <header class="container-fluid d-flex justify-content-between p-3 d-block d-md-none">
+    <header class="container-fluid d-flex justify-content-between p-3 d-block d-lg-none">
         <div class="img">
             <a href="{% url 'paginaPrincipal'%}"><img src={% static "imagenes/logo.png" %} alt=""  srcset=""></a>
         </div>
         <div class="d-flex justify-content-end align-items-center">
-            {% if user.is_authenticated %}
-                <div class="dropdown m-1">
-                    <button class="btn btn-secondary dropdown-toggle bg-dark" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bank" viewBox="0 0 16 16">
-                            <path d="m8 0 6.61 3h.89a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H15v7a.5.5 0 0 1 .485.38l.5 2a.498.498 0 0 1-.485.62H.5a.498.498 0 0 1-.485-.62l.5-2A.5.5 0 0 1 1 13V6H.5a.5.5 0 0 1-.5-.5v-2A.5.5 0 0 1 .5 3h.89zM3.777 3h8.447L8 1zM2 6v7h1V6zm2 0v7h2.5V6zm3.5 0v7h1V6zm2 0v7H12V6zM13 6v7h1V6zm2-1V4H1v1zm-.39 9H1.39l-.25 1h13.72z"/>
-                        </svg>
-                    </button>
-                    <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton1">
-                      {% comment %} Ancla que lleva a instituciones {% endcomment %}
-                      <li><a href="{% url "listaInstituciones" %}" class="dropdown-item text-white">Instituciones</a></li>
+            {% comment %} Boton que abre el canva {% endcomment %}
+            <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-justify" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M2 12.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
+                </svg>
+            </button>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                <div class="offcanvas-header">
+                    <h5 id="offcanvasRightLabel">Defensa Civil</h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="nav flex-column">
+                        {% comment %} Ancla que lleva a instituciones {% endcomment %}
+                        <li class="nav-item p-2"><a href="{% url "listaInstituciones" %}" class="nav-link">Instituciones</a></li>
                         {% comment %} Ancla que lleva a cargos {% endcomment %}
-                      <li><a href="{% url "listaCargos" %}" class="dropdown-item text-white">Cargos</a></li>
+                        <li class="nav-item p-2"><a href="{% url "listaCargos" %}" class="nav-link">Cargos</a></li>
                         {% comment %} Ancla que lleva a personas {% endcomment %}
-                      <li><a href="{% url "listaPersonas" %}" class="dropdown-item text-white">Personas</a></li>
+                        <li class="nav-item p-2"><a href="{% url "listaPersonas" %}" class="nav-link">Personas</a></li>
                         {% comment %} Ancla que lleva a categorias {% endcomment %}
-                      <li><a href="{% url "listaCategorias" %}" class="dropdown-item text-white">Categorias</a></li>
+                        <li class="nav-item p-2"><a href="{% url "listaCategorias" %}" class="nav-link">Categorias</a></li>
                         {% comment %} Ancla que lleva a elementos {% endcomment %}
-                      <li><a href="{% url "listaElementos" %}" class="dropdown-item text-white">Elementos</a></li>
+                        <li class="nav-item p-2"><a href="{% url "listaElementos" %}" class="nav-link">Elementos</a></li>
                     </ul>
+                    {% if user.is_authenticated %}
+                        <div class="dropdown mt-5 ">
+                            <button class="btn btn-secondary dropdown-toggle bg-dark" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                                </svg>
+                            </button>
+                            <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton1">
+                              <li><span class="dropdown-item user-info text-white" >{{ request.user | title}}</span></li>
+                              <li><a class="dropdown-item text-white" href="{% url 'ingreso' %}">Logout</a></li>
+                            </ul>
+                        </div>
+                    {% endif %}
                 </div>
-            {% endif %}
-            {% if user.is_authenticated %}
-                <div class="dropdown m-1">
-                    <button class="btn btn-secondary dropdown-toggle bg-dark" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
-                        </svg>
-                    </button>
-                    <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton1">
-                      <li><span class="dropdown-item user-info text-white" >{{ request.user | title}}</span></li>
-                      <li><a class="dropdown-item text-white" href="{% url 'ingreso' %}">Logout</a></li>
-                    </ul>
+                <div class="offcanvas-footer">
+
                 </div>
-            {% endif %}
+            </div>
         </div>
-
-
     </header>
+    
+
+
     {% block contenido %}
     {% endblock %}
     {% comment %} Este es el footer o pie de pagina que se muestra por herencia en los demas templates {% endcomment %}
