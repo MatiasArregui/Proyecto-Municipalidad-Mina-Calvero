@@ -2,8 +2,8 @@
 {% load static %}
 {% block contenido %}
 <div class="container">
-    <div class="cont mb-1">
-        <h3 class="display-4 titulo">Cargo</h3>
+    <div class="cont mb-1"  onclick="window.location.href='{% url 'listaCargos' %}'">
+        <h3 class="display-4 titulo-volver">Cargo</h3>
     </div>
     <form method="post" enctype="multipart/form-data" id="formulario">
         {% csrf_token %}

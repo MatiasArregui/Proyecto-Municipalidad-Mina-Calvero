@@ -56,7 +56,7 @@
         <tbody>
           {% for persona in personas %}
             <tr>
-              <td style="cursor: pointer;" onclick="window.location.href='{% url 'modificarPersona' persona.id %}'">{{ persona.nombre }}</td>
+              <td style="cursor: pointer;" onclick="window.location.href='{% url 'modificarPersona' persona.id %}'">{{ persona.nombre | title}}</td>
               <td style="cursor: pointer;" onclick="window.location.href='{% url 'modificarPersona' persona.id %}'">{{ persona.dni|default_if_none:"-----" }}</td>
               <td style="cursor: pointer;" class="d-none d-md-table-cell" onclick="window.location.href='{% url 'modificarPersona' persona.id %}'">{{ persona.telefono|default_if_none:"-----" }}</td>
               <td>

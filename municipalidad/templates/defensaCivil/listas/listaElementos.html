@@ -59,7 +59,7 @@
         <tbody>
           {% for elemento in elementos %}
             <tr>
-              <td style="cursor: pointer;" onclick="window.location.href='{% url 'modificarElemento' elemento.id %}'">{{ elemento.nombre }}</td>
+              <td style="cursor: pointer;" onclick="window.location.href='{% url 'modificarElemento' elemento.id %}'">{{ elemento.nombre | title}}</td>
               <td style="cursor: pointer;" class="d-none d-lg-table-cell" onclick="window.location.href='{% url 'modificarElemento' elemento.id %}'">{{ elemento.descripcion|default_if_none:"-----" | truncatechars:6}}</td>
               <td style="cursor: pointer;" onclick="window.location.href='{% url 'modificarElemento' elemento.id %}'">
                 {% if elemento.estado %}

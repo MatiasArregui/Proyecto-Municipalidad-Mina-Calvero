@@ -1,0 +1,63 @@
+  /* Contenedor con tamaño fijo */
+  .cont {
+      position: relative; 
+      height: 120px; 
+      border-radius: 10px; 
+      overflow: hidden; 
+      color: white;
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      margin-top: 5px;
+  }
+
+  /* Imagen de fondo con desenfoque */
+  .cont::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("../../../static/imagenes/defensacivil.jpg"); 
+      background-size: cover;
+      background-position: center;
+      filter: blur(4px); 
+      z-index: -1; 
+      opacity: 0.8; 
+  }
+
+  /* Estilo para el título */
+  .titulo {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.877); 
+  }
+
+
+
+.titulo-volver {
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.877); 
+}
+.titulo-volver::before {
+    content: "";
+    position: absolute;
+    left: -1.5rem;
+    opacity: 0.5;
+    transform: translateX(-10px);
+    transition: all 0.5s ease;
+    font-size: 1.8rem;
+    color: #ab1322;
+}
+.titulo-volver:hover::before {
+    opacity: 1;
+    transform: translateX(0);
+}
+.titulo-volver:hover {
+    color: #ab1322;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.877); 
+}

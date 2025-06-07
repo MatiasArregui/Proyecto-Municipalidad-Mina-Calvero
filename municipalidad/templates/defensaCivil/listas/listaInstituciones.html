@@ -56,8 +56,8 @@
         <tbody>
           {% for i in instituciones %}
             <tr>
-              <td style="cursor: pointer;" onclick="window.location.href='{% url 'modificarInstitucion' i.id %}'">{{ i.nombre }}</td>
-              <td style="cursor: pointer;" onclick="window.location.href='{% url 'modificarInstitucion' i.id %}'">{{ i.id_persona_encargado.nombre }}</td>
+              <td style="cursor: pointer;" onclick="window.location.href='{% url 'modificarInstitucion' i.id %}'">{{ i.nombre | title}}</td>
+              <td style="cursor: pointer;" onclick="window.location.href='{% url 'modificarInstitucion' i.id %}'">{{ i.id_persona_encargado.nombre | title}}</td>
               <td style="cursor: pointer;" class="d-none d-md-table-cell" onclick="window.location.href='{% url 'modificarInstitucion' i.id %}'">{{ i.telefono |default_if_none:"--" }}</td>
               <td>
                 <div class="d-flex justify-content-end align-items-center">

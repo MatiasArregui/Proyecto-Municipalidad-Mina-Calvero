@@ -2,44 +2,10 @@
 {% load static %}
 
 {% block contenido %}
-<style>
-    .titulo-volver {
-        position: relative;
-        display: inline-block;
-        text-decoration: none;
-        color: inherit;
-        cursor: pointer;
-        transition: color 0.3s ease;
-    }
-
-    .titulo-volver::before {
-        content: "←";
-        position: absolute;
-        left: -1.5rem;
-        opacity: 0;
-        transform: translateX(-10px);
-        transition: all 0.3s ease;
-        font-size: 1.8rem;
-        color: #007bff;
-    }
-
-    .titulo-volver:hover::before {
-        opacity: 1;
-        transform: translateX(0);
-    }
-
-    .titulo-volver:hover {
-        color: #007bff;
-    }
-</style>
 
 <div class="container">
-    <div class="cont mb-1">
-        <h3 class="display-4 titulo">
-            <a href="{% url 'listaInstituciones' %}" class="titulo-volver">
-                Institución
-            </a>
-        </h3>
+    <div class="cont mb-1" onclick="window.location.href='{% url 'listaInstituciones' %}'">
+        <h3 class="display-4 titulo-volver">Institución</h3>
     </div>
     <form method="post" enctype="multipart/form-data" id="formulario">
         {% csrf_token %}
