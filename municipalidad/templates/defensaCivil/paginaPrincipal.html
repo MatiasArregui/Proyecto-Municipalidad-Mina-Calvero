@@ -139,14 +139,14 @@
 <script>
   // JavaScript para filtrar nombres en la tabla
   document.getElementById('filterInput').addEventListener('keyup', function() {
-    const filterValue = this.value.toLowerCase();
+    const filterValue = this.value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
     const tableRows = document.getElementById('tableBody').getElementsByTagName('tr');
     
     for (let i = 0; i < tableRows.length; i++) {
       const nameCell = tableRows[i].getElementsByTagName('td')[0];
       if (nameCell) {
-        const name = nameCell.textContent || nameCell.innerText;
-        tableRows[i].style.display = name.toLowerCase().includes(filterValue) ? '' : 'none';
+        const name = (nameCell.textContent || nameCell.innerText).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        tableRows[i].style.display = name.includes(filterValue) ? '' : 'none';
       }
     }
   });
