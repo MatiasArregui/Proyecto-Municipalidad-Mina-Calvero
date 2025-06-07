@@ -101,3 +101,12 @@ class Cargo(models.Model):
     def __str__(self):
         return self.nombre
 
+
+class catastrofe(models.Model):
+    nombre = models.CharField(max_length=120)
+    latitud = models.FloatField()
+    longitud = models.FloatField()
+
+    def __str__(self):
+        return self.nombre
+
