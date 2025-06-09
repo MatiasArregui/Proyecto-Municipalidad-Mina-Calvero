@@ -13,7 +13,7 @@ def seleccionar_persona_remplazo():
         return persona_alternativa
 def seleccionar_cargo_remplazo():
     # Buscamos el mozo comun o base que remplazara a los demas
-    cargo_alternativo = Cargo.objects.filter(nombre__exact="selecccionar cargo").first()
+    cargo_alternativo = Cargo.objects.filter(nombre__exact="seleccionar cargo").first()
     if cargo_alternativo:
         return cargo_alternativo
 
@@ -85,7 +85,7 @@ class Institucion(models.Model):
 
 
 class InstitucionPersona(models.Model):
-    id_persona = models.ForeignKey('persona', on_delete=models.CASCADE)
+    id_persona = models.ForeignKey('persona', on_delete=models.SET(seleccionar_persona_remplazo))
     id_institucion = models.ForeignKey(Institucion, on_delete=models.CASCADE)
     
 class InstitucionElemento(models.Model):
@@ -114,11 +114,11 @@ class Cargo(models.Model):
         return self.nombre
 
 
-class catastrofe(models.Model):
-    nombre = models.CharField(max_length=120)
-    latitud = models.FloatField()
-    longitud = models.FloatField()
+# class catastrofe(models.Model):
+#     nombre = models.CharField(max_length=120)
+#     latitud = models.FloatField()
+#     longitud = models.FloatField()
 
-    def __str__(self):
-        return self.nombre
+#     def __str__(self):
+#         return self.nombre
 
