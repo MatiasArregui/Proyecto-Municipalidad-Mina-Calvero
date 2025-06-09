@@ -1,0 +1,86 @@
+/* Reset básico */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Encabezado con logo y texto */
+.encabezado {
+  background-color: #4a90e2;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+/* Contenedor de botones */
+.contenedor-botones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Botones con imagen de fondo */
+.btn-image{
+  width: 250px;
+  height: 150px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  position: relative;
+  text-decoration: none;
+  color: rgb(51, 48, 48);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  font-weight: bold;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.boton-imagen:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+/* footer */
+.pie {
+  background-color: #4a90e2;
+  color: white;
+  text-align: center;
+  padding: 3px;
+}
+
+/* Páginas secundarias */
+.contenido-secundario {
+  padding: 30px;
+  text-align: center;
+}
+
+.contenido-secundario img {
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+.boton-volver {
+  display: inline-block;
+  margin-top: 20px;
+  background-color: #4a90e2;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.boton-volver:hover {
+  background-color: #357ABD;
+}

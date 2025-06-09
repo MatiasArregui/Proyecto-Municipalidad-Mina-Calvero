@@ -1,11 +1,2 @@
-# archivos o el entorno en si
-Lib
-Scripts
-pyvenv.cfg
-Include
-
-# cache de compilacion
-__pycache__
-
-# base de datos
-.sqlite3
+# Created by venv; see https://docs.python.org/3/library/venv.html
+*
