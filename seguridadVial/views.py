@@ -133,23 +133,8 @@ class ElementoBorrar(DeleteView):
     template_name = os.path.join("defensaCivil", "confirmacionBorrado", "elementoBorrar.html")
     success_url = reverse_lazy('listaElementos')
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# # Instituciones Views ------------------------------------------------------------------------------>
-#     #Ver instituciones
+# Instituciones Views ------------------------------------------------------------------------------>
+#Ver instituciones
 class ListaInstitucion(ListView):
     model = Institucion
     template_name = os.path.join("defensaCivil", "listas", "listaInstituciones.html")
@@ -261,4 +246,25 @@ class InstitucionBorrar(DeleteView):
     model = Institucion
     template_name = os.path.join("defensaCivil", "confirmacionBorrado", "institucionBorrar.html")
     success_url = reverse_lazy('listaInstituciones')
-        
+
+
+
+
+# PARTE LOGICA DE LANDING PAGE (ACA DEFINIMOS LOS BLOQUES DE CODIGO PERTENECIENTES AL PROYECTO DE JORGE)
+# Pagina principal ----------------------------------------------------------------------------------->
+# def paginaPrincipal(request):
+#     1 - PRIMERO BUSCAMOS AQUEL O AQUELLOS OBJETOS QUE SERAN PASADOS PARA SU USO EN EL TEMPLATE
+#     elementos = Elementos.objects.all()
+#     instituciones = Institucion.objects.all()
+#     personas = Persona.objects.all()
+#     # Combinar todos los conjuntos en una sola lista o QuerySet
+#     todo = list(elementos) + list(instituciones) + list(personas)
+#     2 - LUEGO CREAMOS LA VARIABLE CONTEXTO, QUE ES AQUEL QUE ALMACENE DENTRO DE SI MISMO, LA O LAS LISTAS QUE CONFORMARAN AL MISMO
+#     context = {"todo": todo}
+#     3 - ESTE RETURN DEVUELVE LA FUNCION RENDER QUE ESTA COMPUESTA POR TRES ARGUMENTOS: render(request, template_name=plantillaQueMostraraLaInformacion, context=variableQueAlmacenaLosDatos)
+#     return render(request, template_name= os.path.join("defensaCivil", "paginaPrincipal.html"), context=context)
+#     4 - context= {"nombreVariable":variableQueGuardoLaQuery}. ej: query: personas = Persona.objects.all() context: context = {"personas": personas}
+
+# Pagina principal Landing Page----------------------------------------------------------------------------------->
+# definan la funcion que mostrara su landing page
+

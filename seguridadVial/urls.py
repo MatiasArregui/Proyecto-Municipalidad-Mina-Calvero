@@ -42,4 +42,16 @@ urlpatterns = [
     path("instituciones/nueva", login_required(permission_required('seguridadVial.add_institucion')(views.InstitucionNueva.as_view())), name="nuevaInstitucion"),
     path("instituciones/modificar/<str:pk>", login_required(permission_required('seguridadVial.change_institucion')(views.InstitucionModificar.as_view())), name="modificarInstitucion"),
     path("instituciones/borrar/<str:pk>", login_required(permission_required('seguridadVial.delete_institucion')(views.InstitucionBorrar.as_view())), name="borrarInstitucion"),
+
+    
+    
+    
+    # URLs QUE VAN A PERTENECER A LA LANDING PAGE
+    # estructura basica de una url: 
+    # path("nombreDelLink", modulo.funcionQueAccedemos, name="nombreDeLaUrl")
+    # recuerden que el punto es lo que nos permite acceder a lo que compone la clase (metodos o atributos) y el name= es donde le damos un nombre a la Urls para usarlas en el template.ej:
+    # href="{% url "listaPersonas" %}" url es una palabra reservada de django que nos indica que debemos llamar a la Url: listaPersonas
+    # path("home/", views.paginaPrincipal, name="paginaPrincipal"),
+    # definan la url que conecta a su parte del proyecto.
+    
 ]
