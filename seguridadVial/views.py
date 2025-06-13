@@ -9,7 +9,14 @@ from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 import os
 
 
+
+
 # Pagina principal ----------------------------------------------------------------------------------->
+#aca agrego la leading page principal
+def landing_page(request):
+    return render(request, 'landingPage/base.html')
+
+
 def paginaPrincipal(request):
     elementos = Elementos.objects.all()
     instituciones = Institucion.objects.all()
@@ -252,12 +259,12 @@ class InstitucionBorrar(DeleteView):
 
 # PARTE LOGICA DE LANDING PAGE (ACA DEFINIMOS LOS BLOQUES DE CODIGO PERTENECIENTES AL PROYECTO DE JORGE)
 # Pagina principal ----------------------------------------------------------------------------------->
-# def paginaPrincipal(request):
+#def paginaPrincipal(request):
 #     1 - PRIMERO BUSCAMOS AQUEL O AQUELLOS OBJETOS QUE SERAN PASADOS PARA SU USO EN EL TEMPLATE
 #     elementos = Elementos.objects.all()
 #     instituciones = Institucion.objects.all()
 #     personas = Persona.objects.all()
-#     # Combinar todos los conjuntos en una sola lista o QuerySet
+     # Combinar todos los conjuntos en una sola lista o QuerySet
 #     todo = list(elementos) + list(instituciones) + list(personas)
 #     2 - LUEGO CREAMOS LA VARIABLE CONTEXTO, QUE ES AQUEL QUE ALMACENE DENTRO DE SI MISMO, LA O LAS LISTAS QUE CONFORMARAN AL MISMO
 #     context = {"todo": todo}
@@ -265,6 +272,9 @@ class InstitucionBorrar(DeleteView):
 #     return render(request, template_name= os.path.join("defensaCivil", "paginaPrincipal.html"), context=context)
 #     4 - context= {"nombreVariable":variableQueGuardoLaQuery}. ej: query: personas = Persona.objects.all() context: context = {"personas": personas}
 
+
 # Pagina principal Landing Page----------------------------------------------------------------------------------->
 # definan la funcion que mostrara su landing page
+
+# Pagina principal Landing Page----------------------------------------------------------------------------------->
 

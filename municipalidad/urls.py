@@ -27,6 +27,9 @@ import os
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("defensaCivil/", include('landingPage.urls')),
+
+    path('admin/', admin.site.urls),
     # Login ----------------------------------------------------------------------------------->
     path('', LoginView.as_view(
         template_name=os.path.join("registration", "login.html"),

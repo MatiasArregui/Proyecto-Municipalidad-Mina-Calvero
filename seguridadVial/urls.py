@@ -4,8 +4,11 @@ from . import views
 # from .forms import LoginForm
 from django.contrib.auth.decorators import login_required, permission_required
 
+from .views import landing_page
 
 urlpatterns = [
+
+
     # Pagina principal con tabla general ----------------------------------------------------------->
     path("inicio/", login_required(permission_required('seguridadVial.view_elementos')(views.paginaPrincipal)), name="paginaPrincipal"),
                     #   login_required(permission_required('miAplicacion.view_cliente')(views.listaClientes.as_view())),
@@ -53,5 +56,8 @@ urlpatterns = [
     # href="{% url "listaPersonas" %}" url es una palabra reservada de django que nos indica que debemos llamar a la Url: listaPersonas
     # path("home/", views.paginaPrincipal, name="paginaPrincipal"),
     # definan la url que conecta a su parte del proyecto.
+
+    #aca agrego la leading page como inicio
+    path('', landing_page, name='landing_page'),
     
 ]
