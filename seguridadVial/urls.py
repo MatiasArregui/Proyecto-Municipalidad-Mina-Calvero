@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from . import views
-# views_landing
+from . import views, views_landing
 # from .forms import LoginForm
 from django.contrib.auth.decorators import login_required, permission_required
 
@@ -48,11 +47,11 @@ urlpatterns = [
     
     
     # URLs QUE VAN A PERTENECER A LA LANDING PAGE
-    # path("home/", views_landing.landingPage, name="home"),
-    # path("home/catastrofes/", views_landing.catastrofes, name="catastrofes"),
-    # path("home/protocolosEmergencia/", views_landing.protocolosEmergencia, name="protocolos"),
-    # path("home/integrantesDC/", views_landing.integrantesDefCivil, name="dc"),
-    # path("home/mapa/", views_landing.mapa, name="mapa"),
+    path("home/", views_landing.landingPage, name="home"),
+    path("home/catastrofes/", views_landing.catastrofes, name="catastrofes"),
+    path("home/protocolosEmergencia/", views_landing.protocolosEmergencia, name="protocolos"),
+    path("home/integrantesDC/", views_landing.integrantesDefCivil, name="dc"),
+    path("home/mapa/", views_landing.mapa, name="mapa"),
     
     
 ]
