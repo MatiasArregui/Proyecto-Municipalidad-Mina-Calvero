@@ -9,141 +9,204 @@
     {% load bootstrap5 %}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
-    <style>
-        /* Estilo para el fondo de la página */
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Trebuchet MS', Arial, sans-serif;
-            background: linear-gradient(to bottom, hsl(213, 100%, 18%), hsl(197, 100%, 45%));
-            min-height: 100vh; 
-            display: flex;
-            justify-content: center;
-            align-items: flex-start; 
-            overflow-y: auto; 
-            padding-top: 20px; 
-        }
-
-        /* Contenedor del formulario */
-        #formulario {
-            width: 90%; 
-            max-width: 400px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.85);
-            border-radius: 15px;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            backdrop-filter: blur(10px);
-            margin: auto; 
-        }
-
-        /* Título del formulario */
-        #formulario h2 {
-            margin-bottom: 20px;
-            font-size: 24px;
-            font-weight: bold;
-            color:#e62828;
-            border-bottom: 2px solid black;
-            padding-bottom: 10px;
-        }
-
-        /* Botón de ingresar */
-        .boton {
-            width: 100%;
-            padding: 15px;
-            font-size: 16px;
-            font-weight: bold;
-            color: #fff;
-            background: linear-gradient(to right,#e62828,#ff7a7a);
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: background 0.7s, transform 0.7s ease;
-        }
-
-        .boton:hover {
-            background: linear-gradient(to right,#ff7a7a,#e62828);
-            transform: scale(1.05);
-        }
-
-        /* Ajustes específicos para pantallas grandes */
-        @media (min-width: 1024px) {
-            body {
-                align-items: center; 
-                padding-top: 0; 
-            }
-
-            #formulario {
-                margin: 0; 
-            }
-        }
-
-        /* Diseño responsive para móviles */
-        @media (max-width: 480px) {
-            #formulario {
-                backdrop-filter: none;
-                background: rgba(255, 255, 255, 0.95);
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            }
-
-            #formulario h2 {
-                font-size: 20px;
-            }
-
-            .boton {
-                font-size: 14px;
-                padding: 10px;
-            }
-        }
-        
-        /* Estilos para el mensaje de error */
-        .errorlist {
-            list-style: none;
-            padding: 0;
-            margin: 20px 0;
-            background: #FFCCCC;
-            border-left: 5px solid #C1121F;
-            border-radius: 5px;
-            color: #C1121F;
-            font-size: 16px;
-            padding: 10px 15px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        
-        .errorlist li {
-            margin: 0;
-            padding: 0;
-        }
-        
-        .errorlist.nonfield {
-            text-align: left;
-            font-weight: bold;
-        }
-
-    </style>
 </head>
 <body>
-    <div id="formulario" class="container">
-        <h2 class="pb-3">Defensa Civil - Mina Clavero</h2>
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="button" id="togglePassword" class="btn mb-3" style="background: none; border: none; cursor: pointer;">
-                👁️ Ver Contraseña
-            </button>
-            <button type="submit" class="boton">Ingresar</button>
-        </form>
+    <form class="form" method="post" enctype="multipart/form-data">
+  <img src="https://www.municipalidad.com/mina/image/show/mina" alt="">
+  <p class="form-title">Defensa civil | Mina Clavero</p>
+  <div class="input-container">
+    {{form.username}}
+    {% csrf_token %}
+
+    <div class="input__wrapper">
+      {{form.password}}
+      <img alt="Eye Icon" title="Eye Icon" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjgiIGhlaWdodD0iMTI4IiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxnIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzFjM2Y3MCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjEuNSIgY29sb3I9IiMxYzNmNzAiPjxwYXRoIGQ9Ik0yIDhzNC40NzctNSAxMC01czEwIDUgMTAgNSIvPjxwYXRoIGQ9Ik0yMS41NDQgMTMuMDQ1Yy4zMDQuNDI2LjQ1Ni42NC40NTYuOTU1YzAgLjMxNi0uMTUyLjUyOS0uNDU2Ljk1NUMyMC4xNzggMTYuODcxIDE2LjY4OSAyMSAxMiAyMWMtNC42OSAwLTguMTc4LTQuMTMtOS41NDQtNi4wNDVDMi4xNTIgMTQuNTI5IDIgMTQuMzE1IDIgMTRjMC0uMzE2LjE1Mi0uNTI5LjQ1Ni0uOTU1QzMuODIyIDExLjEyOSA3LjMxMSA3IDEyIDdjNC42OSAwIDguMTc4IDQuMTMgOS41NDQgNi4wNDUiLz48cGF0aCBkPSJNMTUgMTRhMyAzIDAgMSAwLTYgMGEzIDMgMCAwIDAgNiAwIi8+PC9nPjwvc3ZnPg==" class="input__icon">
     </div>
+  </div>
 
-    <script>
-        // Alternar visibilidad de la contraseña
-        document.getElementById("togglePassword").addEventListener("click", function () {
-            const passwordInput = document.getElementById("id_password");
-            const type = passwordInput.type === "password" ? "text" : "password";
-            passwordInput.type = type;
+  <button type="submit" class="submit">
+        Ingresar
+      </button>
 
-            this.textContent = type === "password" ? "👁️ Ver Contraseña" : "🙈 Ocultar Contraseña";
-        });
-    </script>
+  <p class="signup-link">
+    Pagina reservada para uso<br>
+        municipal</p>
+</form>
+
+<style type="text/css">
+    * {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+}
+
+body {
+  background-color: #f8f8ff;
+  font-family: sans-serif;
+  min-height: 100vh;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.form {
+  background-color: #fefeff;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 70%;
+  box-shadow: 0 20px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border-radius: .2rem;
+  /* box-shadow: 0 0 20px -3px rgb(125, 124, 124); */
+
+}
+@media screen and (max-width: 568px) {
+    .form {
+        width: 100%;
+    }
+}
+@media screen and (min-width: 947px) {
+    .form {
+        width: 40%;
+    }
+}
+
+
+img{
+  width: 100%;
+}
+.form-title {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  text-align: center;
+  color: #aa88f9;
+}
+
+
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  margin: 20px;
+}
+
+input {
+  border-radius: .3rem;
+  width: 100%;
+  padding: .9rem;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+
+}
+.input__wrapper {
+ 
+  width: 100%;
+  border: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-radius: .3rem;
+  }
+
+.form-control{
+  border: 0;
+  outline: 0;
+  width: 600%;
+  /* background-color: #3730a3; */
+
+ 
+}
+
+
+.input__icon {
+
+  display: flex;
+  width: 24px;
+  margin-right: 10px;
+
+  transform-origin: center;
+  cursor: pointer;
+  
+  /* background-color: #3730a3; */
+}
+
+/* Inputs ends */
+
+.submit {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  background-color: #4f46e5;
+  color: #ffffff;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  width: 100%;
+  border-radius: 0.5rem;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  transition: all .5s;
+}
+
+.submit:hover{
+  background-color: #3730a3;
+  transform: scale(1.03);
+}
+.submit:active{
+  background-color: #8881f8;
+  transform: scale(0.99);
+}
+
+.signup-link {
+  color: #6B7280;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  text-align: center;
+}
+
+.signup-link a {
+  text-decoration: underline;
+}
+</style>
+
+<script type="text/javascript">
+    
+const input = document.querySelector(".input__field");
+const inputIcon = document.querySelector(".input__icon");
+
+inputIcon.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    inputIcon.setAttribute(
+        'src', 
+        input.getAttribute('type') === 'password' ?
+        'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjgiIGhlaWdodD0iMTI4IiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxnIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzFjM2Y3MCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjEuNSIgY29sb3I9IiMxYzNmNzAiPjxwYXRoIGQ9Ik0yIDhzNC40NzctNSAxMC01czEwIDUgMTAgNSIvPjxwYXRoIGQ9Ik0yMS41NDQgMTMuMDQ1Yy4zMDQuNDI2LjQ1Ni42NC40NTYuOTU1YzAgLjMxNi0uMTUyLjUyOS0uNDU2Ljk1NUMyMC4xNzggMTYuODcxIDE2LjY4OSAyMSAxMiAyMWMtNC42OSAwLTguMTc4LTQuMTMtOS41NDQtNi4wNDVDMi4xNTIgMTQuNTI5IDIgMTQuMzE1IDIgMTRjMC0uMzE2LjE1Mi0uNTI5LjQ1Ni0uOTU1QzMuODIyIDExLjEyOSA3LjMxMSA3IDEyIDdjNC42OSAwIDguMTc4IDQuMTMgOS41NDQgNi4wNDUiLz48cGF0aCBkPSJNMTUgMTRhMyAzIDAgMSAwLTYgMGEzIDMgMCAwIDAgNiAwIi8+PC9nPjwvc3ZnPg=='
+          :
+        
+        'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjgiIGhlaWdodD0iMTI4IiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxwYXRoIGZpbGw9IiMxYzNmNzAiIGQ9Ik0xMiAxNy41Yy0zLjggMC03LjItMi4xLTguOC01LjVIMWMxLjcgNC40IDYgNy41IDExIDcuNXM5LjMtMy4xIDExLTcuNWgtMi4yYy0xLjYgMy40LTUgNS41LTguOCA1LjUiLz48L3N2Zz4='
+    );
+
+    input.setAttribute(
+        'type', 
+        input.getAttribute('type') === 'password' ? 
+        'text'
+          :
+        'password'
+    );
+});
+
+</script>
 </body>
 </html>
