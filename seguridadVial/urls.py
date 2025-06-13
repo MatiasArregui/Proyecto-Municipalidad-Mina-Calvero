@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from . import views
+from . import views, views_landing
 # from .forms import LoginForm
 from django.contrib.auth.decorators import login_required, permission_required
 
@@ -47,11 +47,11 @@ urlpatterns = [
     
     
     # URLs QUE VAN A PERTENECER A LA LANDING PAGE
-    # estructura basica de una url: 
-    # path("nombreDelLink", modulo.funcionQueAccedemos, name="nombreDeLaUrl")
-    # recuerden que el punto es lo que nos permite acceder a lo que compone la clase (metodos o atributos) y el name= es donde le damos un nombre a la Urls para usarlas en el template.ej:
-    # href="{% url "listaPersonas" %}" url es una palabra reservada de django que nos indica que debemos llamar a la Url: listaPersonas
-    # path("home/", views.paginaPrincipal, name="paginaPrincipal"),
-    # definan la url que conecta a su parte del proyecto.
+    path("home/", views_landing.landingPage, name="home"),
+    path("home/catastrofes/", views_landing.catastrofes, name="catastrofes"),
+    path("home/protocolosEmergencia/", views_landing.protocolosEmergencia, name="protocolos"),
+    path("home/integrantesDC/", views_landing.integrantesDefCivil, name="dc"),
+    path("home/mapa/", views_landing.mapa, name="mapa"),
+    
     
 ]
