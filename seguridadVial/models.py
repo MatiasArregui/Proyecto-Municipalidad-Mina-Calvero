@@ -22,11 +22,12 @@ def seleccionar_cargo_remplazo():
 # Create your models here.
 class Elementos(models.Model):
     nombre = models.CharField(max_length=120)
-    tipo = models.CharField(max_length=120)
+    tipo = models.CharField(max_length=120, null=True, blank=True)
     descripcion = models.CharField(max_length=120, default="", null=True, blank=True)
     cantidad = models.IntegerField(default=1, null=True, blank=True)
-    observaciones = models.CharField(max_length=240)
+    observaciones = models.CharField(max_length=240, null=True, blank=True)
     estado = models.BooleanField(default=False, null=True, blank=True)
+    id_persona = models.ForeignKey("Persona", on_delete=models.CASCADE)
     id_institucion = models.ForeignKey("Institucion", on_delete=models.CASCADE)
 
     
@@ -38,7 +39,7 @@ class Elementos(models.Model):
     
     
 class Institucion(models.Model):
-    nombre = models.CharField(max_length=120, null=True, blank=True)
+    nombre = models.CharField(max_length=120)
     direccion = models.CharField(max_length=120, default="", null=True, blank=True)
     email = models.CharField(max_length=120, default="", null=True, blank=True)
     telefono = models.CharField(max_length=30, default="",null=True, blank=True)

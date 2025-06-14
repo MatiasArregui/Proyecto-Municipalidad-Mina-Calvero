@@ -33,7 +33,7 @@ class LoginForm(AuthenticationForm):
 class ElementosForm(forms.ModelForm):
     class Meta:
         model = Elementos
-        fields = ("nombre", "tipo", "descripcion", "cantidad", "observaciones", "estado", "id_institucion")
+        fields = ("nombre", "tipo", "descripcion", "cantidad", "observaciones", "estado", "id_institucion", "id_persona")
         widgets = {
             'nombre': forms.TextInput(attrs={'class': 'form-control'}),
             'tipo': forms.TextInput(attrs={'class': 'form-control'}),
@@ -41,6 +41,7 @@ class ElementosForm(forms.ModelForm):
             'cantidad': forms.NumberInput(attrs={'class': 'form-control'}),
             'observaciones': forms.Textarea(attrs={'class': 'form-control'}),
             'estado': forms.CheckboxInput(attrs={'class': 'form-check-input form-control'}),
+            'id_persona': forms.Select(attrs={'class':'form-control'}),
             'id_institucion': forms.Select(attrs={'class':'form-control'}),
         }
         labels = {
@@ -49,7 +50,8 @@ class ElementosForm(forms.ModelForm):
             "descripcion":"Descripción",
             "cantidad":"Cantidad",
             "estado":"Disponible",
-            "institucion":"Institucion perteneciente",
+            "id_persona":"Responsable",
+            "id_institucion":"Institucion perteneciente",
         }
 
 
@@ -101,12 +103,12 @@ class PersonaForm(forms.ModelForm):
         model = Persona
         fields = ('nombre_apellido', 'dni', 'telefono')
         widgets = {
-            'nombre': forms.TextInput(attrs={'class': 'form-control'}),
+            'nombre_apellido': forms.TextInput(attrs={'class': 'form-control'}),
             'dni': forms.NumberInput(attrs={'class': 'form-control'}),
             'telefono': forms.TextInput(attrs={'class': 'form-control'}),
         }
         labels = {
-            "nombre":"Nombre",
+            "nombre_apellido":"Nombre y Apellido",
             "dni":"D.N.I",
             "telefono":"Teléfono",
         }
