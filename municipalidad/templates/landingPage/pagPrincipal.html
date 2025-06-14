@@ -1,0 +1,34 @@
+{% extends "landingPage/base.html" %}
+{% load static %}
+{% block estilos %}
+{% endblock %}
+{% block contenido %}
+ <!-- Botonera -->
+  <main class="container my-4">
+    <div class="row g-4 justify-content-center">
+
+      <div class="row">
+        <div class="col-md-3 col-sm-6 mb-4">
+          <a href="{% url "mapa" %}" class="btn-image" style="background-image: url('imagenes/fondo1.jpg');">
+            <span class="btn-text">Mapa</span>
+          </a>
+        </div>
+        <div class="col-md-3 col-sm-6 mb-4">
+          <a href="{% url "catastrofes" %}" class="btn-image" style="background-image: url('imagenes/fondo2.jpg');">
+            <span class="btn-text">Catástrofes</span>
+          </a>
+        </div>
+        <div class="col-md-3 col-sm-6 mb-4">
+          <a href="{% url "dc" %}" class="btn-image" style="background-image: url('imagenes/fondo3.jpg');">
+            <span class="btn-text">Areas de Defensa civil</span>
+          </a>
+        </div>
+        <div class="col-md-3 col-sm-6 mb-4">
+          <a href="{% url "protocolos" %}" class="btn-image" style="background-image: url('imagenes/fondo4.jpg');">
+            <span class="btn-text">Protocolo de Emergencia</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+{% endblock %}
