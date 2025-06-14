@@ -8,6 +8,21 @@
     <form method="post" enctype="multipart/form-data" id="formulario">
         {% csrf_token %}
         {{ form.as_p }}
+                <h2>Personas Relacionadas</h2>
+        {{ formset_institucion.management_form }}
+        {% for form in formset_institucion %}
+            <div>
+                {{ form.as_p }}
+            </div>
+        {% endfor %}
+
+        <h2>Elementos Relacionados</h2>
+        {{ formset_cargo.management_form }}
+        {% for form in formset_cargo %}
+            <div>
+                {{ form.as_p }}
+            </div>
+        {% endfor %}
         <button class="btn btn-primary mb-3" type="submit">Guardar</button>
         <a class="btn btn-danger mb-3" href="{% url 'listaPersonas' %}">Cancelar</a>
     </form>

@@ -117,7 +117,7 @@
             {% comment %} Ancla que lleva a personas {% endcomment %}
             <a href="{% url "listaPersonas" %}" class="nav-link text-white">Personas</a>
             {% comment %} Ancla que lleva a categorias {% endcomment %}
-            <a href="{% url "listaCategorias" %}" class="nav-link text-white">Categorias</a>
+            {% comment %} <a href="{% url "listaCategorias" %}" class="nav-link text-white">Categorias</a> {% endcomment %}
             {% comment %} Ancla que lleva a elementos {% endcomment %}
             <a href="{% url "listaElementos" %}" class="nav-link text-white">Elementos</a>
             {% if user.is_authenticated %}
@@ -162,7 +162,7 @@
                         {% comment %} Ancla que lleva a personas {% endcomment %}
                         <li class="nav-item p-2"><a href="{% url "listaPersonas" %}" class="nav-link">Personas</a></li>
                         {% comment %} Ancla que lleva a categorias {% endcomment %}
-                        <li class="nav-item p-2"><a href="{% url "listaCategorias" %}" class="nav-link">Categorias</a></li>
+                        {% comment %} <li class="nav-item p-2"><a href="{% url "listaCategorias" %}" class="nav-link">Categorias</a></li> {% endcomment %}
                         {% comment %} Ancla que lleva a elementos {% endcomment %}
                         <li class="nav-item p-2"><a href="{% url "listaElementos" %}" class="nav-link">Elementos</a></li>
                     </ul>

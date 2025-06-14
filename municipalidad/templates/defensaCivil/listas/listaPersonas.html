@@ -57,7 +57,7 @@
           {% for persona in personas %}
             {% if persona.nombre != "seleccionar persona" %}
               <tr>
-                <td style="cursor: pointer;" onclick="window.location.href='{% url 'modificarPersona' persona.id %}'">{{ persona.nombre | title}}</td>
+                <td style="cursor: pointer;" onclick="window.location.href='{% url 'modificarPersona' persona.id %}'">{{ persona.nombre_apellido | title}}</td>
                 <td style="cursor: pointer;" onclick="window.location.href='{% url 'modificarPersona' persona.id %}'">{{ persona.dni|default_if_none:"-----" }}</td>
                 <td style="cursor: pointer;" class="d-none d-md-table-cell" onclick="window.location.href='{% url 'modificarPersona' persona.id %}'">{{ persona.telefono|default_if_none:"-----" }}</td>
                 <td>
