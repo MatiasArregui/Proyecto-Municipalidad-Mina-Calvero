@@ -33,16 +33,18 @@ class LoginForm(AuthenticationForm):
 class PersonaForm(forms.ModelForm):
     class Meta:
         model = Persona
-        fields = ('nombre', 'dni', 'telefono', 'id_cargo')
+        fields = ('nombre', 'dni', 'telefono', 'unica_area', 'id_cargo')
         widgets = {
             'nombre': forms.TextInput(attrs={'class': 'form-control'}),
             'dni': forms.NumberInput(attrs={'class': 'form-control'}),
             'telefono': forms.TextInput(attrs={'class': 'form-control'}),
+            'unica_area': forms.CheckboxInput(attrs={'class': 'form-check-input form-control'}),
             'id_cargo': forms.Select(attrs={'class': 'form-control'}),
         }
         labels = {"nombre":"Nombre",
                   "dni":"D.N.I",
                   "telefono":"Teléfono",
+                  "unica_area":"Unica Area",
                   "id_cargo":"Cargo o Labor",
             }
 

@@ -100,6 +100,7 @@ class Persona(models.Model):
     # aca vamos a tener que poner un SET con un predeterminado
     # ej:  id_cliente = models.ForeignKey(Cliente, on_delete=models.SET(seleccionar_cliente_alternativo))
     id_cargo = models.ForeignKey('Cargo', on_delete=models.SET(seleccionar_cargo_remplazo))
+    unica_area = models.BooleanField(default=False, null=True, blank=True)
     
     def __str__(self):
         return self.nombre

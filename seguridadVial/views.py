@@ -11,13 +11,14 @@ import os
 
 # Pagina principal ----------------------------------------------------------------------------------->
 def paginaPrincipal(request):
-    elementos = Elementos.objects.all()
-    instituciones = Institucion.objects.all()
-    personas = Persona.objects.all()
-    # Combinar todos los conjuntos en una sola lista o QuerySet
-    todo = list(elementos) + list(instituciones) + list(personas)
+    elementos = list(Elementos.objects.all())
+    instituciones = list(Institucion.objects.all())
+    personas = list(Persona.objects.all())
+    # Combinar y ordenar por un atributo común
+    todo = sorted(elementos + instituciones + personas, key=lambda x: x.nombre.lower())
     context = {"todo": todo}
-    return render(request, template_name= os.path.join("defensaCivil", "paginaPrincipal.html"), context=context)
+    return render(request, template_name=os.path.join("defensaCivil", "paginaPrincipal.html"), context=context)
+
 
 
 # Persona Views ------------------------------------------------------------------------------>
