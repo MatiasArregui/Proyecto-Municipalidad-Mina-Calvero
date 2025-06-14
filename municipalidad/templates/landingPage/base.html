@@ -16,23 +16,30 @@
 
 
     <!-- Bloque superior con logo a la izquierda y secretaría a la derecha -->
-    <header class="bg-primary text-white d-flex justify-content-between align-items-center p-3">
-      <div class="logo">
-        <img src="imagenes/logo.jpg" alt="Logo" class="img-fluid" style="max-height: 70px;">
+    <header class="container-fluid bg-primary text-white p-3 mb-5">
+      <div class="justify-content-center">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="logo">
+            <img src={% static "imagenes/dfcivil.png" %} alt="Logo" class="img-fluid" style="max-height: 70px;">
+            <img src={% static "imagenes/mina.png" %} alt="Logo" class="img-fluid" style="max-height: 70px;">
+          </div>
+            <h1 class="h4 mb-0">Secretaría de Gobierno</h1>
+        </div>
+              <!-- Espacio para Lema o subtitulo -->
+        <div class="text-center my-4">
+          <h2 class="fs-5 fw-light">Lema municipal bien inspirador</h2>
+        </div>
       </div>
-        <h1 class="h4 mb-0">Secretaría de Gobierno</h1>
     </header>
 
-    <!-- Espacio para Lema o subtitulo -->
-    <div class="container text-center my-4">
-      <h2 class="fs-5 fw-light">Lema municipal bien inspirador</h2>
-    </div>
+
 
     {% block contenido %}
     {% endblock %}
 
+    
     <!-- footer -->
-    <footer class="bg-primary text-white text-center py-3 mt-auto">
+    <footer class="bg-primary text-white text-center py-3 mt-3 fixed-bottom">
       Info adicional, dale like y suscribite
     </footer>
 
