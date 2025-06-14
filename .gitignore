@@ -8,4 +8,8 @@ Include
 __pycache__
 
 # base de datos
+<<<<<<< HEAD
 .sqlite3
+=======
+.sqlite3
+>>>>>>> df10fc84d85f4b55464c67135a76e10dd90388f7
