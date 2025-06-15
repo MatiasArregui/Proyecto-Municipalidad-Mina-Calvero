@@ -191,6 +191,8 @@ class ListaInstitucion(ListView):
     def get_queryset(self):
         # Ordenar alfabéticamente por el atributo 'nombre'
         return Institucion.objects.all().order_by('nombre')
+
+
 #     #Crear instituciones
 class InstitucionNueva(CreateView):
     model = Institucion
@@ -204,7 +206,15 @@ class InstitucionNueva(CreateView):
         
     #     context['personas_institucion'] = InstitucionPersona.objects.filter(id_institucion=self.object.id)
     #     return context
+#Detalle Factura ----------------->
+def institucionDetalle(request, pk):
+    institucion = Institucion.objects.get(id=pk)
+    personas_institucion = [x.id_persona.pk for x in InstitucionPersona.objects.filter(id_institucion=pk) ]
+    personas = [ x for x in Persona.objects.all() if x.pk in personas_institucion]
+    elementos_institucion = Elementos.objects.filter(id_institucion=pk)
 
+    context= {"institucion":institucion, "personas": personas, "elementos": elementos_institucion}
+    return render(request, os.path.join("defensaCivil", "detalles", "institucionDetalle.html"), context=context)
 # class InstitucionNueva(CreateView):
 #     model = Institucion
 #     form_class = InstitucionForm

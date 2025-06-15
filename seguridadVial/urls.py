@@ -39,6 +39,7 @@ urlpatterns = [
    
     # Personas URLs--------------------------------------------------------------------------------->
     path("instituciones/", login_required(permission_required('seguridadVial.view_institucion')(views.ListaInstitucion.as_view())), name="listaInstituciones"),
+    path("instituciones/detalle/<str:pk>", login_required(permission_required('seguridadVial.view_institucion')(views.institucionDetalle)), name="institucionDetalle"),
     path("instituciones/nueva", login_required(permission_required('seguridadVial.add_institucion')(views.InstitucionNueva.as_view())), name="nuevaInstitucion"),
     path("instituciones/modificar/<str:pk>", login_required(permission_required('seguridadVial.change_institucion')(views.InstitucionModificar.as_view())), name="modificarInstitucion"),
     path("instituciones/borrar/<str:pk>", login_required(permission_required('seguridadVial.delete_institucion')(views.InstitucionBorrar.as_view())), name="borrarInstitucion"),
