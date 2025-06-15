@@ -8,7 +8,7 @@
     <form method="post" enctype="multipart/form-data" id="formulario">
         {% csrf_token %}
         {{ form.as_p }}
-                <h2>Personas Relacionadas</h2>
+        <h2>Instituciones Perteneciente</h2>
         {{ formset_institucion.management_form }}
         {% for form in formset_institucion %}
             <div>
@@ -16,7 +16,7 @@
             </div>
         {% endfor %}
 
-        <h2>Elementos Relacionados</h2>
+        <h2>Cargos Relacionados</h2>
         {{ formset_cargo.management_form }}
         {% for form in formset_cargo %}
             <div>
