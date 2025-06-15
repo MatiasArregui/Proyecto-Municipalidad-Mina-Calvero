@@ -49,7 +49,7 @@ class ElementosForm(forms.ModelForm):
             "tipo":"Tipo",
             "descripcion":"Descripción",
             "cantidad":"Cantidad",
-            "estado":"Disponible",
+            "estado":"Ocupado",
             "id_persona":"Responsable",
             "id_institucion":"Institucion perteneciente",
         }

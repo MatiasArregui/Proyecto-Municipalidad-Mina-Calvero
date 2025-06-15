@@ -26,7 +26,7 @@ class Elementos(models.Model):
     descripcion = models.CharField(max_length=120, default="", null=True, blank=True)
     cantidad = models.IntegerField(default=1, null=True, blank=True)
     observaciones = models.CharField(max_length=240, null=True, blank=True)
-    estado = models.BooleanField(default=False, null=True, blank=True)
+    estado = models.BooleanField(default=True, null=True, blank=True)
     id_persona = models.ForeignKey("Persona", on_delete=models.CASCADE)
     id_institucion = models.ForeignKey("Institucion", on_delete=models.CASCADE)
 

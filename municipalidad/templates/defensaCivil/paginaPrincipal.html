@@ -2,15 +2,6 @@
 {% load static %}
 {% block estilos %}
 <style>
-  .llamar-btn {
-      display: none;
-  }
-
-  @media (max-width: 768px) {
-      .llamar-btn {
-          display: inline-block;
-      }
-  }
 
   /* Contenedor con tamaño fijo */
   .cont {
@@ -60,7 +51,7 @@
     <thead class="bg-light">
       <tr>
         <th scope="col">Nombre</th>
-        <th scope="col">Descripción</th>
+        <th scope="col" class="d-none d-md-table-cell">Info</th>
         <th scope="col" class="d-flex justify-content-end">Acción</th>
       </tr>
     </thead>
@@ -68,9 +59,13 @@
       {% for elemento in todo %}
         {% if elemento.nombre != "seleccionar persona" %}
           <tr>
-              <td>{{ elemento.nombre | title }}</td>
+              {% if elemento.get_tipo == "Persona" %}
+                <td>{{ elemento.nombre_apellido | title }}</td>
+              {% else %}
+                <td>{{ elemento.nombre| title }}</td>
+              {% endif %}
             {% if elemento.get_tipo == "Elemento" %}
-              <td>{{ elemento.descripcion |default_if_none:"-----" }}</td>
+              <td class="d-none d-md-table-cell">{{ elemento.descripcion |default_if_none:"-----" }}</td>
               <td>
                   <div class="d-flex justify-content-end align-items-center">
                       <a class="btn btn-primary" href="{% url 'modificarElemento' elemento.id %}">
@@ -87,7 +82,7 @@
                   </div>
                 </td>
               {% elif elemento.get_tipo == "Institucion" %}
-              <td>{{ elemento.descripcion |default_if_none:"-----" }}</td>
+              <td class="d-none d-md-table-cell">{{ elemento.direccion |default_if_none:"-----" }}</td>
               <td>
                 <div class="d-flex justify-content-end align-items-center">
                     <a class="btn btn-primary" href="{% url 'modificarInstitucion' elemento.id %}">
@@ -101,10 +96,22 @@
                         <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
                       </svg>
                     </a>
+                    {% if elemento.telefono %}
+                      <!-- Botón de llamada -->
+                      <a class="btn btn-success ms-1 llamar-btn d-table-cell d-lg-none" onclick="llamar('{{ elemento.telefono }}')">
+                          <span class="text-white d-flex align-items-center">📞</span>
+                      </a>
+                    {% endif %}
                 </div>
               </td>
               {% elif elemento.get_tipo == "Persona" %}
-                <td>{{ elemento.id_cargo.nombre |default_if_none:"-----" }}</td>
+                <td class="d-none d-md-table-cell">
+                  {% if elemento.dni == 0 %}
+                    -----
+                  {% else %}
+                    {{ elemento.dni }}
+                  {% endif %}
+                </td>
                 <td>
                   <div class="d-flex justify-content-end align-items-center">
                       <a class="btn btn-primary" href="{% url 'modificarPersona' elemento.id %}">
@@ -118,10 +125,12 @@
                           <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
                         </svg>
                       </a>
-                      <!-- Botón de llamada -->
-                      <a class="btn btn-success ms-1 llamar-btn d-table-cell d-lg-none" onclick="llamar('{{ persona.telefono }}')">
-                        <span class="text-white d-flex align-items-center">📞</span>
-                      </a>
+                      {% if elemento.telefono %}
+                        <!-- Botón de llamada -->
+                        <a class="btn btn-success ms-1 llamar-btn d-table-cell d-lg-none" onclick="llamar('{{ elemento.telefono }}')">
+                            <span class="text-white d-flex align-items-center">📞</span>
+                        </a>
+                      {% endif %}
                   </div>
                 </td>
               {% endif %}

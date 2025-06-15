@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponseRedirect, redirect, get_object_or_404
 from django.contrib import messages
-from .models import Cargo, Elementos, Institucion, InstitucionPersona,  Persona
+from .models import Cargo, Elementos, Institucion, InstitucionPersona,  Persona, CargoPersona
 from .forms import PersonaForm, CargoForm, ElementosForm, AuthenticationForm, InstitucionForm, InstitucionPersonaForm, InstitucionPersonaFormSet, CargoPersonaFormSet
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.views import LoginView
@@ -70,6 +70,7 @@ class PersonaModificar(UpdateView):
     form_class = PersonaForm
     template_name = os.path.join("defensaCivil", "formularios", "personaForm.html")
     success_url = reverse_lazy('listaPersonas')
+    
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         form = self.get_form()
@@ -198,6 +199,12 @@ class InstitucionNueva(CreateView):
     success_url = reverse_lazy('listaInstituciones')
 
 
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+        
+    #     context['personas_institucion'] = InstitucionPersona.objects.filter(id_institucion=self.object.id)
+    #     return context
+
 # class InstitucionNueva(CreateView):
 #     model = Institucion
 #     form_class = InstitucionForm
@@ -225,6 +232,18 @@ class InstitucionModificar(UpdateView):
     form_class = InstitucionForm
     template_name = os.path.join("defensaCivil", "formularios", "institucionForm.html")
     success_url = reverse_lazy('listaInstituciones')
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # context['institucion_id'] = self.object.id  # Obtener el ID de la institución
+        id = self.get_object().id
+        personas_institucion = [x.id_persona.pk for x in InstitucionPersona.objects.filter(id_institucion=id) ]
+        personas = [ x for x in Persona.objects.all() if x.pk in personas_institucion]
+        print(personas)
+        elementos_institucion = Elementos.objects.filter(id_institucion=id)
+        print(personas_institucion)
+        context['personas'] = personas
+        context['elementos'] = elementos_institucion
+        return context
 
 # class InstitucionModificar(UpdateView):
 #     model = Institucion
