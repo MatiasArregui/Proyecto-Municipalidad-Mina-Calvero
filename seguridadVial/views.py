@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect, redirect, get_object_or_404
 from django.contrib import messages
-from .models import Cargo, Categoria, Elementos, Institucion, InstitucionPersona, InstitucionElemento, Persona
-from .forms import PersonaForm, CargoForm, CategoriaForm, ElementosForm, AuthenticationForm, InstitucionForm, InstitucionPersonaForm, InstitucionPersonaFormSet, InstitucionElementoForm, InstitucionElementoFormSet
+from .models import Cargo, Elementos, Institucion, InstitucionPersona,  Persona
+from .forms import PersonaForm, CargoForm, ElementosForm, AuthenticationForm, InstitucionForm, InstitucionPersonaForm, InstitucionPersonaFormSet, CargoPersonaFormSet
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.views import LoginView
 from django.db.models import ProtectedError
@@ -11,13 +11,17 @@ import os
 
 # Pagina principal ----------------------------------------------------------------------------------->
 def paginaPrincipal(request):
-    elementos = list(Elementos.objects.all())
-    instituciones = list(Institucion.objects.all())
-    personas = list(Persona.objects.all())
-    # Combinar y ordenar por un atributo común
-    todo = sorted(elementos + instituciones + personas, key=lambda x: x.nombre.lower())
-    context = {"todo": todo}
-    return render(request, template_name=os.path.join("defensaCivil", "paginaPrincipal.html"), context=context)
+    try:
+        elementos = list(Elementos.objects.all())
+        instituciones = list(Institucion.objects.all())
+        personas = list(Persona.objects.all())
+        # Combinar y ordenar por un atributo común
+        todo = sorted(elementos + instituciones + personas, key=lambda x: getattr(x, "nombre", getattr(x, "nombre_apellido", "")).lower())
+        context = {"todo": todo}
+        return render(request, template_name=os.path.join("defensaCivil", "paginaPrincipal.html"), context=context)
+    except Exception as e:
+        return render(request, template_name=os.path.join("defensaCivil", "paginaPrincipal.html"), context=context)
+        
 
 
 
@@ -30,19 +34,62 @@ class listaPersona(ListView):
     paginate_by = 7
     def get_queryset(self):
         # Ordenar alfabéticamente por el atributo 'nombre'
-        return Persona.objects.all().order_by('nombre')
+        return Persona.objects.all().order_by('nombre_apellido')
     #Crear persona
 class PersonaNueva(CreateView):
     model = Persona
     form_class = PersonaForm
     template_name = os.path.join("defensaCivil", "formularios", "personaForm.html")
     success_url = reverse_lazy('listaPersonas')
+    
+    def get(self, request, *args, **kwargs):
+        self.object = None
+        form = self.get_form()
+        formset_institucion = InstitucionPersonaFormSet()
+        formset_cargo = CargoPersonaFormSet()
+        return self.render_to_response(self.get_context_data(form=form, formset_institucion=formset_institucion, formset_cargo=formset_cargo))
+
+    def post(self, request, *args, **kwargs):
+        self.object = None
+        form = self.get_form()
+        formset_institucion = InstitucionPersonaFormSet(request.POST)
+        formset_cargo = CargoPersonaFormSet(request.POST)
+
+        if form.is_valid() and formset_institucion.is_valid() and formset_cargo.is_valid():
+            self.object = form.save()
+            formset_institucion.instance = self.object
+            formset_institucion.save()
+            formset_cargo.instance = self.object
+            formset_cargo.save()
+            return redirect(self.success_url)
+
+        return self.render_to_response(self.get_context_data(form=form, formset_institucion=formset_institucion, formset_cargo=formset_cargo))
     #Modificar persona
 class PersonaModificar(UpdateView):
     model = Persona
     form_class = PersonaForm
     template_name = os.path.join("defensaCivil", "formularios", "personaForm.html")
     success_url = reverse_lazy('listaPersonas')
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        formset_institucion = InstitucionPersonaFormSet(instance=self.object)
+        formset_cargo = CargoPersonaFormSet(instance=self.object)
+        return self.render_to_response(self.get_context_data(form=form, formset_institucion=formset_institucion, formset_cargo=formset_cargo))
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        formset_institucion = InstitucionPersonaFormSet(request.POST, instance=self.object)
+        formset_cargo = CargoPersonaFormSet(request.POST, instance=self.object)
+
+        if form.is_valid() and formset_institucion.is_valid() and formset_cargo.is_valid():
+            form.save()
+            formset_institucion.save()
+            formset_cargo.save()
+            return redirect(self.success_url)
+
+        return self.render_to_response(self.get_context_data(form=form, formset_institucion=formset_institucion, formset_elemento=formset_cargo))
     #Borrar persona
 class PersonaBorrar(DeleteView):
     model = Persona
@@ -51,31 +98,31 @@ class PersonaBorrar(DeleteView):
 
 # Categoria Views ------------------------------------------------------------------------------>
     #Ver categorias
-class listaCategoria(ListView):
-    model = Categoria
-    template_name = os.path.join("defensaCivil", "listas", "listaCategorias.html")
-    context_object_name = 'categorias'
-    paginate_by = 7
-    def get_queryset(self):
-        # Ordenar alfabéticamente por el atributo 'nombre'
-        return Categoria.objects.all().order_by('nombre')
-    #Crear categoria
-class CategoriaNueva(CreateView):
-    model = Categoria
-    form_class = CategoriaForm
-    template_name = os.path.join("defensaCivil", "formularios", "categoriaForm.html")
-    success_url = reverse_lazy('listaCategorias')
-    #Modificar categoria
-class CategoriaModificar(UpdateView):
-    model = Categoria
-    form_class = CategoriaForm
-    template_name = os.path.join("defensaCivil", "formularios", "categoriaForm.html")
-    success_url = reverse_lazy('listaCategorias')
-    #Borrar categoria
-class CategoriaBorrar(DeleteView):
-    model = Categoria
-    template_name = os.path.join("defensaCivil", "confirmacionBorrado", "categoriaBorrar.html")
-    success_url = reverse_lazy('listaCategorias')
+# class listaCategoria(ListView):
+#     model = Categoria
+#     template_name = os.path.join("defensaCivil", "listas", "listaCategorias.html")
+#     context_object_name = 'categorias'
+#     paginate_by = 7
+#     def get_queryset(self):
+#         # Ordenar alfabéticamente por el atributo 'nombre'
+#         return Categoria.objects.all().order_by('nombre')
+#     #Crear categoria
+# class CategoriaNueva(CreateView):
+#     model = Categoria
+#     form_class = CategoriaForm
+#     template_name = os.path.join("defensaCivil", "formularios", "categoriaForm.html")
+#     success_url = reverse_lazy('listaCategorias')
+#     #Modificar categoria
+# class CategoriaModificar(UpdateView):
+#     model = Categoria
+#     form_class = CategoriaForm
+#     template_name = os.path.join("defensaCivil", "formularios", "categoriaForm.html")
+#     success_url = reverse_lazy('listaCategorias')
+#     #Borrar categoria
+# class CategoriaBorrar(DeleteView):
+#     model = Categoria
+#     template_name = os.path.join("defensaCivil", "confirmacionBorrado", "categoriaBorrar.html")
+#     success_url = reverse_lazy('listaCategorias')
 
 # Cargo Views ------------------------------------------------------------------------------>
     #Ver cargos
@@ -150,28 +197,6 @@ class InstitucionNueva(CreateView):
     template_name = os.path.join("defensaCivil", "formularios", "institucionForm.html")
     success_url = reverse_lazy('listaInstituciones')
 
-    def get(self, request, *args, **kwargs):
-        self.object = None
-        form = self.get_form()
-        formset_persona = InstitucionPersonaFormSet()
-        formset_elemento = InstitucionElementoFormSet()
-        return self.render_to_response(self.get_context_data(form=form, formset_persona=formset_persona, formset_elemento=formset_elemento))
-
-    def post(self, request, *args, **kwargs):
-        self.object = None
-        form = self.get_form()
-        formset_persona = InstitucionPersonaFormSet(request.POST)
-        formset_elemento = InstitucionElementoFormSet(request.POST)
-
-        if form.is_valid() and formset_persona.is_valid() and formset_elemento.is_valid():
-            self.object = form.save()
-            formset_persona.instance = self.object
-            formset_persona.save()
-            formset_elemento.instance = self.object
-            formset_elemento.save()
-            return redirect(self.success_url)
-
-        return self.render_to_response(self.get_context_data(form=form, formset_persona=formset_persona, formset_elemento=formset_elemento))
 
 # class InstitucionNueva(CreateView):
 #     model = Institucion
@@ -200,27 +225,6 @@ class InstitucionModificar(UpdateView):
     form_class = InstitucionForm
     template_name = os.path.join("defensaCivil", "formularios", "institucionForm.html")
     success_url = reverse_lazy('listaInstituciones')
-
-    def get(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        form = self.get_form()
-        formset_persona = InstitucionPersonaFormSet(instance=self.object)
-        formset_elemento = InstitucionElementoFormSet(instance=self.object)
-        return self.render_to_response(self.get_context_data(form=form, formset_persona=formset_persona, formset_elemento=formset_elemento))
-
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        form = self.get_form()
-        formset_persona = InstitucionPersonaFormSet(request.POST, instance=self.object)
-        formset_elemento = InstitucionElementoFormSet(request.POST, instance=self.object)
-
-        if form.is_valid() and formset_persona.is_valid() and formset_elemento.is_valid():
-            form.save()
-            formset_persona.save()
-            formset_elemento.save()
-            return redirect(self.success_url)
-
-        return self.render_to_response(self.get_context_data(form=form, formset_persona=formset_persona, formset_elemento=formset_elemento))
 
 # class InstitucionModificar(UpdateView):
 #     model = Institucion

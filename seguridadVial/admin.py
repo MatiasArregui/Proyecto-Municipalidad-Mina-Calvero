@@ -1,22 +1,21 @@
 from django.contrib import admin
-from .models import Cargo, Categoria, Elementos, Institucion, InstitucionPersona, Persona, InstitucionElemento
-# Register your models here.
+from .models import Cargo, Elementos, Institucion, InstitucionPersona, Persona, CargoPersona
+admin.site.register(Institucion)
+admin.site.register(Cargo)
+admin.site.register(Elementos)
+
 # INLINE DETALLE  ---------------------------->
 class InstitucionPersonaInline(admin.TabularInline):
     model = InstitucionPersona
 
 
-class InstitucionElementoInline(admin.TabularInline):
-    model = InstitucionElemento
+class CargoPersonaInline(admin.TabularInline):
+    model = CargoPersona
 
-class InstitucionAdmin(admin.ModelAdmin):
+class PersonaAdmin(admin.ModelAdmin):
     inlines = [
         InstitucionPersonaInline,
-        InstitucionElementoInline,
+        CargoPersonaInline,
     ]
-     
-admin.site.register(Institucion, InstitucionAdmin)
-admin.site.register(Cargo)
-admin.site.register(Categoria)
-admin.site.register(Elementos)
-admin.site.register(Persona)
+    
+admin.site.register(Persona, PersonaAdmin)

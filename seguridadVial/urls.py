@@ -26,10 +26,10 @@ urlpatterns = [
     path("elementos/borrarElemento/<str:pk>", login_required(permission_required('seguridadVial.delete_elementos')(views.ElementoBorrar.as_view())), name="borrarElemento"),
     
     # Personas URLs--------------------------------------------------------------------------------->
-    path("categorias/", login_required(permission_required('seguridadVial.view_categoria')(views.listaCategoria.as_view())), name="listaCategorias"),
-    path("categorias/nuevaCategoria", login_required(permission_required('seguridadVial.add_categoria')(views.CategoriaNueva.as_view())), name="nuevaCategoria"),
-    path("categorias/modificarCategoria/<str:pk>", login_required(permission_required('seguridadVial.change_categoria')(views.CategoriaModificar.as_view())), name="modificarCategoria"),
-    path("categorias/borrarCategoria/<str:pk>", login_required(permission_required('seguridadVial.delete_categoria')(views.CategoriaBorrar.as_view())), name="borrarCategoria"),
+    # path("categorias/", login_required(permission_required('seguridadVial.view_categoria')(views.listaCategoria.as_view())), name="listaCategorias"),
+    # path("categorias/nuevaCategoria", login_required(permission_required('seguridadVial.add_categoria')(views.CategoriaNueva.as_view())), name="nuevaCategoria"),
+    # path("categorias/modificarCategoria/<str:pk>", login_required(permission_required('seguridadVial.change_categoria')(views.CategoriaModificar.as_view())), name="modificarCategoria"),
+    # path("categorias/borrarCategoria/<str:pk>", login_required(permission_required('seguridadVial.delete_categoria')(views.CategoriaBorrar.as_view())), name="borrarCategoria"),
     
     # Personas URLs--------------------------------------------------------------------------------->
     path("cargos/", login_required(permission_required('seguridadVial.view_cargo')(views.listaCargos.as_view())), name="listaCargos"),
