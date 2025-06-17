@@ -147,6 +147,21 @@ class CargoModificar(UpdateView):
     form_class = CargoForm
     template_name = os.path.join("defensaCivil", "formularios", "cargoForm.html")
     success_url = reverse_lazy('listaCargos')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # context['institucion_id'] = self.object.id  # Obtener el ID de la institución
+        id = self.get_object().id
+        personas_cargo = [x.id_persona.pk for x in CargoPersona.objects.filter(id_cargo=id) ]
+        personas = [ x for x in Persona.objects.all() if x.pk in personas_cargo]
+        print(personas)
+        context['personas'] = personas
+        return context
+    
+    
+    
+    
+    
     #Borrar cargo
 class CargoBorrar(DeleteView):
     model = Cargo
