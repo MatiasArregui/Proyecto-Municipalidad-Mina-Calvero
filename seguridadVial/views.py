@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect, redirect, get_object_or_404
 from django.contrib import messages
-from .models import Cargo, Elementos, Institucion, InstitucionPersona,  Persona, CargoPersona
-from .forms import PersonaForm, CargoForm, ElementosForm, AuthenticationForm, InstitucionForm, InstitucionPersonaForm, InstitucionPersonaFormSet, CargoPersonaFormSet
+from .models import Cargo, Elementos, Institucion, InstitucionCargoPersona,  Persona
+from .forms import PersonaForm, CargoForm, ElementosForm, AuthenticationForm, InstitucionForm, InstitucionCargoPersonaForm, InstitucionCargoPersonaFormSet
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.views import LoginView
 from django.db.models import ProtectedError
@@ -45,25 +45,20 @@ class PersonaNueva(CreateView):
     def get(self, request, *args, **kwargs):
         self.object = None
         form = self.get_form()
-        formset_institucion = InstitucionPersonaFormSet()
-        formset_cargo = CargoPersonaFormSet()
-        return self.render_to_response(self.get_context_data(form=form, formset_institucion=formset_institucion, formset_cargo=formset_cargo))
+        formset_institucion_cargo = InstitucionCargoPersonaFormSet()
+        return self.render_to_response(self.get_context_data(form=form, formset_institucion_cargo=formset_institucion_cargo))
 
     def post(self, request, *args, **kwargs):
         self.object = None
         form = self.get_form()
-        formset_institucion = InstitucionPersonaFormSet(request.POST)
-        formset_cargo = CargoPersonaFormSet(request.POST)
-
-        if form.is_valid() and formset_institucion.is_valid() and formset_cargo.is_valid():
+        formset_institucion_cargo = InstitucionCargoPersonaFormSet(request.POST)
+        if form.is_valid() and formset_institucion_cargo.is_valid():
             self.object = form.save()
-            formset_institucion.instance = self.object
-            formset_institucion.save()
-            formset_cargo.instance = self.object
-            formset_cargo.save()
+            formset_institucion_cargo.instance = self.object
+            formset_institucion_cargo.save()
             return redirect(self.success_url)
 
-        return self.render_to_response(self.get_context_data(form=form, formset_institucion=formset_institucion, formset_cargo=formset_cargo))
+        return self.render_to_response(self.get_context_data(form=form, formset_institucion_cargo=formset_institucion_cargo))
     #Modificar persona
 class PersonaModificar(UpdateView):
     model = Persona
@@ -74,23 +69,20 @@ class PersonaModificar(UpdateView):
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         form = self.get_form()
-        formset_institucion = InstitucionPersonaFormSet(instance=self.object)
-        formset_cargo = CargoPersonaFormSet(instance=self.object)
-        return self.render_to_response(self.get_context_data(form=form, formset_institucion=formset_institucion, formset_cargo=formset_cargo))
+        formset_institucion_cargo = InstitucionCargoPersonaFormSet(instance=self.object)
+        return self.render_to_response(self.get_context_data(form=form, formset_institucion_cargo=formset_institucion_cargo))
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         form = self.get_form()
-        formset_institucion = InstitucionPersonaFormSet(request.POST, instance=self.object)
-        formset_cargo = CargoPersonaFormSet(request.POST, instance=self.object)
+        formset_institucion_cargo = InstitucionCargoPersonaFormSet(request.POST, instance=self.object)
 
-        if form.is_valid() and formset_institucion.is_valid() and formset_cargo.is_valid():
+        if form.is_valid() and formset_institucion_cargo.is_valid():
             form.save()
-            formset_institucion.save()
-            formset_cargo.save()
+            formset_institucion_cargo.save()
             return redirect(self.success_url)
 
-        return self.render_to_response(self.get_context_data(form=form, formset_institucion=formset_institucion, formset_elemento=formset_cargo))
+        return self.render_to_response(self.get_context_data(form=form, formset_institucion_cargo=formset_institucion_cargo))
     #Borrar persona
 class PersonaBorrar(DeleteView):
     model = Persona
@@ -152,7 +144,7 @@ class CargoModificar(UpdateView):
         context = super().get_context_data(**kwargs)
         # context['institucion_id'] = self.object.id  # Obtener el ID de la institución
         id = self.get_object().id
-        personas_cargo = [x.id_persona.pk for x in CargoPersona.objects.filter(id_cargo=id) ]
+        personas_cargo = [x.id_persona.pk for x in InstitucionCargoPersona.objects.filter(id_cargo=id) ]
         personas = [ x for x in Persona.objects.all() if x.pk in personas_cargo]
         print(personas)
         context['personas'] = personas
@@ -224,7 +216,7 @@ class InstitucionNueva(CreateView):
 #Detalle Factura ----------------->
 def institucionDetalle(request, pk):
     institucion = Institucion.objects.get(id=pk)
-    personas_institucion = [x.id_persona.pk for x in InstitucionPersona.objects.filter(id_institucion=pk) ]
+    personas_institucion = [x.id_persona.pk for x in InstitucionCargoPersona.objects.filter(id_institucion=pk) ]
     personas = [ x for x in Persona.objects.all() if x.pk in personas_institucion]
     elementos_institucion = Elementos.objects.filter(id_institucion=pk)
 
@@ -261,7 +253,7 @@ class InstitucionModificar(UpdateView):
         context = super().get_context_data(**kwargs)
         # context['institucion_id'] = self.object.id  # Obtener el ID de la institución
         id = self.get_object().id
-        personas_institucion = [x.id_persona.pk for x in InstitucionPersona.objects.filter(id_institucion=id) ]
+        personas_institucion = [x.id_persona.pk for x in InstitucionCargoPersona.objects.filter(id_institucion=id) ]
         personas = [ x for x in Persona.objects.all() if x.pk in personas_institucion]
         print(personas)
         elementos_institucion = Elementos.objects.filter(id_institucion=id)

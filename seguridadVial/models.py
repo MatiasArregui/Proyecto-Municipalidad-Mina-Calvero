@@ -6,16 +6,16 @@ from django.db import models
 #     categoria_alternativa = Categoria.objects.filter(nombre__exact="seleccionar categoria").first()
 #     if categoria_alternativa:
 #         return categoria_alternativa
-def seleccionar_persona_remplazo():
-    # Buscamos el mozo comun o base que remplazara a los demas
-    persona_alternativa = Persona.objects.filter(nombre__exact="seleccionar persona").first()
-    if persona_alternativa:
-        return persona_alternativa
-def seleccionar_cargo_remplazo():
-    # Buscamos el mozo comun o base que remplazara a los demas
-    cargo_alternativo = Cargo.objects.filter(nombre__exact="seleccionar cargo").first()
-    if cargo_alternativo:
-        return cargo_alternativo
+# def seleccionar_persona_remplazo():
+#     # Buscamos el mozo comun o base que remplazara a los demas
+#     persona_alternativa = Persona.objects.filter(nombre__exact="seleccionar persona").first()
+#     if persona_alternativa:
+#         return persona_alternativa
+# def seleccionar_cargo_remplazo():
+#     # Buscamos el mozo comun o base que remplazara a los demas
+#     cargo_alternativo = Cargo.objects.filter(nombre__exact="seleccionar cargo").first()
+#     if cargo_alternativo:
+#         return cargo_alternativo
 
 
 
@@ -43,7 +43,6 @@ class Institucion(models.Model):
     direccion = models.CharField(max_length=120, default="", null=True, blank=True)
     email = models.CharField(max_length=120, default="", null=True, blank=True)
     telefono = models.CharField(max_length=30, default="",null=True, blank=True)
-    id_persona_encargado = models.ForeignKey('Persona',on_delete=models.CASCADE,null=True, blank=True)
 
     def __str__(self):
         return self.nombre
@@ -83,8 +82,7 @@ class Persona(models.Model):
     nombre_apellido = models.CharField(max_length=120)
     dni = models.IntegerField(default=0)
     telefono = models.CharField(max_length=30, default="",null=True, blank=True)
-    id_cargo = models.ManyToManyField('Cargo', through="CargoPersona")
-    id_institucion = models.ManyToManyField('Institucion', through="InstitucionPersona")
+    id_institucion = models.ManyToManyField('Institucion', through="InstitucionCargoPersona")
     
     # aca vamos a tener que poner un SET con un predeterminado
     # ej:  id_cliente = models.ForeignKey(Cliente, on_delete=models.SET(seleccionar_cliente_alternativo))
@@ -95,13 +93,11 @@ class Persona(models.Model):
     def get_tipo(self):
         return "Persona"
 
-class CargoPersona(models.Model):
-    id_persona = models.ForeignKey('Persona', on_delete=models.CASCADE)
-    id_cargo = models.ForeignKey("Cargo", on_delete=models.CASCADE)
     
-class InstitucionPersona(models.Model):
+class InstitucionCargoPersona(models.Model):
     id_institucion = models.ForeignKey(Institucion, on_delete=models.CASCADE)
     id_persona = models.ForeignKey(Persona, on_delete=models.CASCADE)
+    id_cargo = models.ForeignKey("Cargo", on_delete=models.CASCADE)
 
 
 

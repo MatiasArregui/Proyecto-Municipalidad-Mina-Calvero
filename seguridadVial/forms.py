@@ -1,5 +1,5 @@
 from django import forms
-from .models import Persona, Cargo, Elementos, Institucion, InstitucionPersona, CargoPersona
+from .models import Persona, Cargo, Elementos, Institucion, InstitucionCargoPersona
 from django.forms import inlineformset_factory
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -59,43 +59,34 @@ class ElementosForm(forms.ModelForm):
 class InstitucionForm(forms.ModelForm):
     class Meta:
         model = Institucion
-        fields = ("nombre", "direccion", "email", "telefono", 'id_persona_encargado')
+        fields = ("nombre", "direccion", "email", "telefono")
         widgets = {
             'nombre': forms.TextInput(attrs={'class': 'form-control'}),
             'direccion': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.TextInput(attrs={'class': 'form-control'}),
             'telefono': forms.TextInput(attrs={'class': 'form-control'}),
-            'id_persona_encargado': forms.Select(attrs={"class": "form-control"}),
         }
         labels = {
             "nombre":"Nombre",
             "direccion":"Dirección",
             "email":"Email",
             "telefono":"Teléfono",
-            'id_persona_encargado':'Encargado',
         }
         
 #FORMULARIO DE CARGO E INSTITUCION IN-LINE (CREAR, MODIFICAR)
-class InstitucionPersonaForm(forms.ModelForm):
+class InstitucionCargoPersonaForm(forms.ModelForm):
     class Meta:
-        model = InstitucionPersona
-        fields = ("id_institucion",)
+        model = InstitucionCargoPersona
+        fields = ("id_institucion", "id_cargo")
         widgets = {
             "id_institucion": forms.Select(attrs={"class": "form-control"}),
-        }
-        labels = {
-            "id_institucion": "Institución",
-        }
-class CargoPersonaForm(forms.ModelForm):
-    class Meta:
-        model = CargoPersona
-        fields = ("id_cargo",)
-        widgets = {
             "id_cargo": forms.Select(attrs={"class": "form-control"}),
         }
         labels = {
+            "id_institucion": "Institución",
             "id_cargo": "Cargo",
         }
+
         
 #FORMULARIO DE PERSONA (CREAR Y MODIFICAR)
 class PersonaForm(forms.ModelForm):
@@ -115,8 +106,8 @@ class PersonaForm(forms.ModelForm):
 
 
 
-InstitucionPersonaFormSet = inlineformset_factory(Persona, InstitucionPersona, form=InstitucionPersonaForm, extra=2)
-CargoPersonaFormSet = inlineformset_factory(Persona, CargoPersona, form=CargoPersonaForm, extra=2)
+InstitucionCargoPersonaFormSet = inlineformset_factory(Persona, InstitucionCargoPersona, form=InstitucionCargoPersonaForm, extra=2)
+
 
 #FORMULARIO DE CARGO (CREAR Y MODIFICAR)
 class CargoForm(forms.ModelForm):

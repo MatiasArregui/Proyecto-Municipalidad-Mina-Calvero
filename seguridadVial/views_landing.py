@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect, redirect, get_object_or_404
 from django.contrib import messages
-from .models import Cargo, Elementos, Institucion, InstitucionPersona, Persona
-from .forms import PersonaForm, CargoForm,  ElementosForm, AuthenticationForm, InstitucionForm, InstitucionPersonaForm, InstitucionPersonaFormSet
+from .models import Cargo, Elementos, Institucion, InstitucionCargoPersona, Persona
+from .forms import PersonaForm, CargoForm,  ElementosForm, AuthenticationForm, InstitucionForm, InstitucionCargoPersonaForm, InstitucionCargoPersonaFormSet
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.views import LoginView
 from django.db.models import ProtectedError
