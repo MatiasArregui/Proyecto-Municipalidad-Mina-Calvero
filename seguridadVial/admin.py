@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Cargo, Elementos, Institucion, InstitucionCargoPersona, Persona
+from .models import Cargo, Elementos, Institucion, InstitucionCargoPersona, Persona, Catastrophe, Protocole, Refujio
 admin.site.register(Institucion)
 admin.site.register(Cargo)
 admin.site.register(Elementos)
@@ -14,3 +14,19 @@ class PersonaAdmin(admin.ModelAdmin):
     ]
     
 admin.site.register(Persona, PersonaAdmin)
+
+# <----  Admin site ---->
+class ProtocoleInline(admin.TabularInline):
+    model = Protocole
+
+
+class RefujioInline(admin.TabularInline):
+    model = Refujio
+ 
+
+class CatastropheAdmin(admin.ModelAdmin):
+    inlines = [ProtocoleInline, RefujioInline]
+
+admin.site.register(Catastrophe, CatastropheAdmin)
+admin.site.register(Protocole)
+admin.site.register(Refujio)

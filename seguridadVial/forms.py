@@ -1,5 +1,5 @@
 from django import forms
-from .models import Persona, Cargo, Elementos, Institucion, InstitucionCargoPersona
+from .models import Persona, Cargo, Elementos, Institucion, InstitucionCargoPersona, Catastrophe, Protocole, Refujio
 from django.forms import inlineformset_factory
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -120,3 +120,23 @@ class CargoForm(forms.ModelForm):
         labels = {
             "nombre": "Nombre",
         }
+# <---------  landing forms  ---------->
+
+class ProtocoleForm(forms.ModelForm):
+    class Meta:
+        model = Protocole
+        fields = '__all__'
+
+class RefujioForm(forms.ModelForm):
+    class Meta:
+        model = Refujio
+        fields = '__all__'
+
+class CatastropheForm(forms.ModelForm):
+    class Meta:
+        model = Catastrophe
+        fields = '__all__'
+
+# Formset -> inlines 
+ProtocoleFormset = inlineformset_factory(Catastrophe, Protocole, form=ProtocoleForm, extra=5)
+RefujioFormset = inlineformset_factory(Catastrophe, Refujio, form=RefujioForm, extra=5)

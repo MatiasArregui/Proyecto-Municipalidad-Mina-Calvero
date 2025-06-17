@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard de Catástrofes</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dashboard de Catástrofes</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Tipo de Desastre</th>
+                <th>Activo</th>
+                <th>editar</th>
+            </tr>
+        </thead>
+        <tbody>
+           
+            {% for disaster in disaster %}
+            <tr>
+                <td>{{ disaster.type_disaster }}</td>
+                <td>{{ disaster.is_active}}</td>
+                <td><a href='/defensaCivil/update/{{ disaster.id }}/'>Edit</a></td>
+              
+            </tr>
+            {% endfor %}
+           
+        </tbody>
+    </table>
+</body>
+</html>
+<!-- <a href=""></a> -->

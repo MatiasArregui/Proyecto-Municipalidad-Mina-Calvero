@@ -117,3 +117,39 @@ class Cargo(models.Model):
 #     def __str__(self):
 #         return self.nombre
 
+
+
+
+# <------------  Modelos Landing page   --------------->
+from django.db import models
+
+class Catastrophe(models.Model):
+    type_disaster = models.CharField(max_length=255, default=None)
+    is_active = models.BooleanField(default=False)
+    is_default = models.BooleanField(default=False)
+    image_disaster = models.URLField(default=None)
+
+    def __str__(self):
+        return self.type_disaster
+
+class Protocole(models.Model):
+    CHOICE = [
+        ('Antes', 'Antes'),
+        ('Durante', 'Durante'),
+        ('Despues', 'Despues')
+    ]
+    
+    campo_seleccion = models.CharField(max_length=50, choices=CHOICE, default=None, null=True, blank=True)
+    name = models.CharField(max_length=255, default=None, null=True, blank=True)
+    catastrophe = models.ForeignKey(Catastrophe, on_delete=models.CASCADE, related_name="protocoles")
+
+    def __str__(self):
+        return self.name
+
+class Refujio(models.Model):
+    name = models.CharField(max_length=255, default=None, null=True, blank=True)
+    map_frame = models.TextField(default=None, null=True, blank=True)  # Almacena un marco de mapa, puedes usar JSON si es necesario
+    catastrophe = models.ForeignKey(Catastrophe, on_delete=models.CASCADE, related_name="refugios")
+
+    def __str__(self):
+        return self.name

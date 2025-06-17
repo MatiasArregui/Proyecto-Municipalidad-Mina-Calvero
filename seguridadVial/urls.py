@@ -53,6 +53,11 @@ urlpatterns = [
     path("home/protocolosEmergencia/", views_landing.protocolosEmergencia, name="protocolos"),
     path("home/integrantesDC/", views_landing.integrantesDefCivil, name="dc"),
     path("home/mapa/", views_landing.mapa, name="mapa"),
+
+    # Admin  
+    path("dashboard/", views_landing.DashboardCatastrophe, name="dashboard"),
+    path("create/", views_landing.CatastropheCreateView.as_view(), name="create"),
+
     
     
 ]

@@ -1,0 +1,31 @@
+<h2>{% if form.instance.pk %}Editar{% else %}Crear{% endif %} Catástrofe</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <fieldset>
+            <legend>Detalles de la Catástrofe</legend>
+            {{ form.as_p }}
+        </fieldset>
+
+        <fieldset>
+            <legend>Protocolos Relacionados</legend>
+            {{ protocole_formset.management_form }}
+            {% for protocole_form in protocole_formset %}
+                <div class="form-inline">
+                    {{ protocole_form.as_p }}
+                </div>
+            {% endfor %}
+        </fieldset>
+
+        <fieldset>
+            <legend>Bunker Relacionado</legend>
+            {{ refujio_formset.management_form }}
+            {% for refujio_form in refujio_formset %}
+                <div class="form-inline">
+                    {{ refujio_form.as_p }}
+                </div>
+            {% endfor %}
+        </fieldset>
+
+        <button type="submit">Guardar</button>
+    </form>
