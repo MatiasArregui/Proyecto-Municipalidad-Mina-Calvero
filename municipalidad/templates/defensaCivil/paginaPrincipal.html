@@ -51,7 +51,7 @@
     <thead class="bg-light">
       <tr>
         <th scope="col">Nombre</th>
-        <th scope="col" class="d-none d-md-table-cell">Info</th>
+        <th scope="col" class="d-none d-md-table-cell">Tipo</th>
         <th scope="col" class="d-flex justify-content-end">Acción</th>
       </tr>
     </thead>
@@ -65,7 +65,7 @@
                 <td>{{ elemento.nombre| title }}</td>
               {% endif %}
             {% if elemento.get_tipo == "Elemento" %}
-              <td class="d-none d-md-table-cell">{{ elemento.descripcion |default_if_none:"-----" }}</td>
+              <td class="d-none d-md-table-cell">{{ elemento.get_tipo |default_if_none:"-----" }}</td>
               <td>
                   <div class="d-flex justify-content-end align-items-center">
                       <a class="btn btn-primary" href="{% url 'modificarElemento' elemento.id %}">
@@ -82,7 +82,7 @@
                   </div>
                 </td>
               {% elif elemento.get_tipo == "Institucion" %}
-              <td class="d-none d-md-table-cell">{{ elemento.direccion |default_if_none:"-----" }}</td>
+              <td class="d-none d-md-table-cell">{{ elemento.get_tipo |default_if_none:"-----" }}</td>
               <td>
                 <div class="d-flex justify-content-end align-items-center">
                     <a class="btn btn-primary" href="{% url 'modificarInstitucion' elemento.id %}">
@@ -105,13 +105,7 @@
                 </div>
               </td>
               {% elif elemento.get_tipo == "Persona" %}
-                <td class="d-none d-md-table-cell">
-                  {% if elemento.dni == 0 %}
-                    -----
-                  {% else %}
-                    {{ elemento.dni }}
-                  {% endif %}
-                </td>
+                <td class="d-none d-md-table-cell">{{ elemento.get_tipo |default_if_none:"-----" }}</td>
                 <td>
                   <div class="d-flex justify-content-end align-items-center">
                       <a class="btn btn-primary" href="{% url 'modificarPersona' elemento.id %}">
