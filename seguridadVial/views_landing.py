@@ -6,8 +6,8 @@ from django.urls import reverse, reverse_lazy
 from django.db.models import ProtectedError
 
 # -- Models importations --
-from .models import Catastrophe, Protocole, Refujio 
-from .forms import ProtocoleFormset, RefujioFormset, CatastropheForm
+from .models import Catastrophe, Protocole, Refujio, Footer_info
+from .forms import ProtocoleFormset, RefujioFormset, FooterInfoFormset, CatastropheForm
 
 # -- Views -- 
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
@@ -34,25 +34,35 @@ class CatastropheCreateView(CreateView):
         context = super().get_context_data(**kwargs)
         context['protocole_formset'] = ProtocoleFormset()
         context['refujio_formset'] = RefujioFormset()
+        context['footer_formset'] = FooterInfoFormset()
+
         return context
 
     def post(self, request, *args, **kwargs):
         form = CatastropheForm(request.POST)
         protocole_formset = ProtocoleFormset(request.POST)
         refujio_formset = RefujioFormset(request.POST)
+        footer_formset = FooterInfoFormset(request.POST)
 
-        if form.is_valid() and protocole_formset.is_valid() and refujio_formset.is_valid():
+        if form.is_valid() and footer_formset.is_valid() and protocole_formset.is_valid() and refujio_formset.is_valid():
+
             catastrophe = form.save()
+
             protocole_formset.instance = catastrophe
             refujio_formset.instance = catastrophe
+            footer_formset.instance = catastrophe
+
             protocole_formset.save()
             refujio_formset.save()
+            footer_formset.save()
+
             return redirect('/defensaCivil/dashboard/')
 
         return render(request, self.template_name, {
             'form': form,
             'protocole_formset': protocole_formset,
-            'refujio_formset': refujio_formset
+            'refujio_formset': refujio_formset,
+            'footer_formset': footer_formset
         })
 
 class CatastropheUpdateView(UpdateView):
@@ -67,10 +77,14 @@ class CatastropheUpdateView(UpdateView):
         context = super().get_context_data(**kwargs)
         if self.request.POST:
             context['protocole_formset'] = ProtocoleFormset(self.request.POST, instance=self.object)
+
             context['refujio_formset'] = RefujioFormset(self.request.POST, instance=self.object)
+
+            context['footer_formset'] = FooterInfoFormset(self.request.POST, instance=self.object)
         else:
             context['protocole_formset'] = ProtocoleFormset(instance=self.object)
             context['refujio_formset'] = RefujioFormset(instance=self.object)
+            context['footer_formset'] = FooterInfoFormset(instance=self.object)
         return context
 
     def post(self, request, *args, **kwargs):
@@ -79,17 +93,22 @@ class CatastropheUpdateView(UpdateView):
         form = CatastropheForm(request.POST, instance=self.object)
         protocole_formset = ProtocoleFormset(request.POST, instance=self.object)
         refujio_formset = RefujioFormset(request.POST, instance=self.object)
+        footer_formset = FooterInfoFormset(request.POST, instance=self.object)
 
-        if form.is_valid() and protocole_formset.is_valid() and refujio_formset.is_valid():
+        if form.is_valid() and protocole_formset.is_valid() and refujio_formset.is_valid() and footer_formset.is_valid():
+            
             form.save()
             protocole_formset.save()
             refujio_formset.save()
+            footer_formset.save()
+
             return redirect('catastrophe_list')
 
         return render(request, self.template_name, {
             'form': form,
             'protocole_formset': protocole_formset,
-            'refujio_formset': refujio_formset
+            'refujio_formset': refujio_formset,
+            'footer_formset': footer_formset
         })
 
 # Admin view for disaster control
@@ -103,7 +122,8 @@ def ActiveCatastropheListView(request):
     cat = Catastrophe.objects.filter(is_active=True)
     pro = Protocole.objects.filter(catastrophe__in=cat)
     ref = Refujio.objects.filter(catastrophe__in=cat)
-    context = {"catastrophe": cat , "protocole":pro, "refujio":ref}
+    foo = Footer_info.objects.filter(catastrophe__in=cat)
+    context = {"catastrophe": cat , "protocole":pro, "refujio":ref, "footer": foo}
 
     return render(request, template_name=template, context=context)
 
