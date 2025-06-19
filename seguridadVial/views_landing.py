@@ -56,7 +56,7 @@ class CatastropheCreateView(CreateView):
             refujio_formset.save()
             footer_formset.save()
 
-            return redirect('/defensaCivil/dashboard/')
+            return redirect('/defensaCivil/Lista-Desastre/')
 
         return render(request, self.template_name, {
             'form': form,
@@ -102,7 +102,7 @@ class CatastropheUpdateView(UpdateView):
             refujio_formset.save()
             footer_formset.save()
 
-            return redirect('catastrophe_list')
+            return redirect('/defensaCivil/Lista-Desastre/')
 
         return render(request, self.template_name, {
             'form': form,

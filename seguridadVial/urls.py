@@ -55,8 +55,8 @@ urlpatterns = [
     path("home/mapa/", views_landing.mapa, name="mapa"),
 
     # Admin  
-    path("dashboard/", views_landing.DashboardCatastrophe, name="dashboard"),
-    path("create/", views_landing.CatastropheCreateView.as_view(), name="create"),
+    path("Lista-Desastre/", views_landing.DashboardCatastrophe, name="Lista-Desastre"),
+    path("crear/", views_landing.CatastropheCreateView.as_view(), name="crear"),
 
     
     

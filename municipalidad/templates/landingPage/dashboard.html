@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>Dashboard de Catástrofes</title>
     <style>
+        *{
+            font-family: sans-serif;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -19,7 +22,34 @@
     </style>
 </head>
 <body>
-    <h1>Dashboard de Catástrofes</h1>
+
+    <h1>Estado Base</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Estado por defecto</th>
+                <th>Activo</th>
+                <th>editar</th>
+            </tr>
+        </thead>
+        <tbody>
+           
+            {% for disaster in disaster %}
+            {% if disaster.is_default %}
+            <tr>
+                <td>{{ disaster.type_disaster }}</td>
+                <td>{{ disaster.is_default}}</td>
+                <td><a href='/defensaCivil/update/{{ disaster.id }}/'>Edit</a></td>
+              
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Listado de si todas las catastrofes no son un estado por defecto -->
+    <!-- Se especifica en la line 38 -->
+    <h1>lista de Catástrofes</h1>
     <table>
         <thead>
             <tr>
@@ -31,12 +61,14 @@
         <tbody>
            
             {% for disaster in disaster %}
+            {% if not disaster.is_default %}
             <tr>
                 <td>{{ disaster.type_disaster }}</td>
                 <td>{{ disaster.is_active}}</td>
                 <td><a href='/defensaCivil/update/{{ disaster.id }}/'>Edit</a></td>
               
             </tr>
+            {% endif %}
             {% endfor %}
            
         </tbody>
