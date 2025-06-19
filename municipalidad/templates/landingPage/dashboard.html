@@ -43,6 +43,7 @@
               
             </tr>
             {% endif %}
+
             {% endfor %}
         </tbody>
     </table>
@@ -63,14 +64,42 @@
            
             {% for disaster in disaster %}
             {% if not disaster.is_default %}
+
+            <!-- <script type="text/javascript">
+                {% if disaster.is_active %}
+                const isActive = {{ disaster.is_active|yesno:"true,false" }};
+                const disasterId = {{ disaster.id }};
+                {% endif %}
+
+                window.onload = function() {
+                    const btn = document.getElementById("activar-btn");
+                    if (isActive && disasterId !== idObjetivo) {
+                        btn.style.display = "none";
+                    }}
+            </script> -->
+                
+
+            
+                
             <tr>
                 <td>{{ disaster.type_disaster }}</td>
                 <td>{{ disaster.is_active}}</td>
                 <td><a href='/defensaCivil/Modificar/{{ disaster.id }}/'>Edit</a></td>
                 <td>
-                    {% if not disaster.is_active %}
-                    <button>Activar</button>
+                    {% if not disaster.is_active and active %}
+                    <a href="/defensaCivil/Activar/{{ disaster.id }}/">Activar</a>
                     {% endif %}
+
+                     <!-- {% if not disaster.is_active or active %}
+                    <a href="/defensaCivil/Activar/{{ disaster.id }}/">desactivar</a>
+                    {% endif %} -->
+
+                    {% if disaster.is_active %}
+                    <a href="/defensaCivil/Activar/{{ disaster.id }}/">desactivar</a>
+                    {% endif %}
+                   
+
+                 
                 </td>
               
             </tr>

@@ -45,9 +45,9 @@ urlpatterns = [
     path("instituciones/borrar/<str:pk>", login_required(permission_required('seguridadVial.delete_institucion')(views.InstitucionBorrar.as_view())), name="borrarInstitucion"),
 
     
+    # UlRs [Landing Page] 
     
-    
-    # URLs QUE VAN A PERTENECER A LA LANDING PAGE
+    # Public
     path("home/", views_landing.landingPage, name="home"),
     path("home/catastrofes/", views_landing.catastrofes, name="catastrofes"),
     path("home/protocolosEmergencia/", views_landing.protocolosEmergencia, name="protocolos"),
@@ -56,9 +56,9 @@ urlpatterns = [
 
     # Admin  
     path("Lista-Desastre/", views_landing.DashboardCatastrophe, name="Lista-Desastre"),
+    path("Activar/<int:pk>/", views_landing.ActiveDisaster, name="Activar"),
     path("crear/", views_landing.CatastropheCreateView.as_view(), name="crear"),
     path("Modificar/<int:pk>/", views_landing.CatastropheUpdateView.as_view(), name="Modificar"),
-
     
     
 ]

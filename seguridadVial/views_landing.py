@@ -111,8 +111,26 @@ class CatastropheUpdateView(UpdateView):
 
 # Admin view for disaster control
 def DashboardCatastrophe(request):
-    return render(request, template_name=os.path.join("landingPage", "dashboard.html"), context={"disaster":Catastrophe.objects.all()})
+    active = True
+    if Catastrophe.objects.filter(is_active=True):
+        active = False
+    return render(request, template_name=os.path.join("landingPage", "dashboard.html"), context={"disaster":Catastrophe.objects.all(), "active":active})
 
+def ActiveDisaster(request, pk):
+    if request.method == "POST":
+        disaster = Catastrophe.objects.get(id=pk)
+        if disaster.is_active:
+            disaster.is_active = False
+            disaster.save()
+        else:
+            disaster.is_active = True
+            disaster.save()
+            
+        
+        return redirect('/defensaCivil/Lista-Desastre/')
+
+    else:
+        return render(request, template_name=os.path.join("landingPage", "forms", "active.html"), context=None)
 # Landing page defaulte view
 def ActiveCatastropheListView(request):
     
