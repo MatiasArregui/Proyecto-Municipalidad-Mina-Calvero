@@ -1,43 +1,60 @@
-<h2>{% if form.instance.pk %}Editar{% else %}Crear{% endif %} Catástrofe</h2>
+ {% load bootstrap5 %}
+      {% bootstrap_css %}
+      {% bootstrap_javascript %}
+      {% block estilos %}
+      {% endblock %}
+<div class="container my-5">
+  <h2 class="mb-4 text-center">
+    {% if form.instance.pk %}
+      Editar
+    {% else %}
+      Crear
+    {% endif %}
+    Catástrofe
+  </h2>
 
-    <form method="post">
-        {% csrf_token %}
-        <fieldset>
-            <legend>Detalles de la Catástrofe</legend>
-            {{ form.as_p }}
-        </fieldset>
+  <form method="post" class="border p-4 bg-white shadow rounded">
+    {% csrf_token %}
 
-        <fieldset>
-            <legend>Protocolos Relacionados</legend>
-            {{ protocole_formset.management_form }}
-            {% for protocole_form in protocole_formset %}
-                <div class="form-inline">
-                    {{ protocole_form.as_p }}
-                </div>
-            {% endfor %}
-        </fieldset>
+    <fieldset class="mb-4">
+      <legend class="h5">Detalles de la Catástrofe</legend>
+      <div class="mb-3">
+        {{ form.as_p }}
+      </div>
+    </fieldset>
 
-        <fieldset>
-            <legend>Bunker Relacionado</legend>
-            {{ refujio_formset.management_form }}
-            {% for refujio_form in refujio_formset %}
-                <div class="form-inline">
-                    {{ refujio_form.as_p }}
-                </div>
-            {% endfor %}
-        </fieldset>
+    <fieldset class="mb-4">
+      <legend class="h5">Protocolos Relacionados</legend>
+      {{ protocole_formset.management_form }}
+      {% for protocole_form in protocole_formset %}
+        <div class="mb-3">
+          {{ protocole_form.as_p }}
+        </div>
+      {% endfor %}
+    </fieldset>
 
-        <fieldset>
-            <legend>Footer Relacionado</legend>
-            {{ footer_formset.management_form }}
-            {% for footer_form in footer_formset %}
-                <div class="form-inline">
-                    {{ footer_form.as_p }}
-                </div>
-            {% endfor %}
-        </fieldset>
+    <fieldset class="mb-4">
+      <legend class="h5">Bunker Relacionado</legend>
+      {{ refujio_formset.management_form }}
+      {% for refujio_form in refujio_formset %}
+        <div class="mb-3">
+          {{ refujio_form.as_p }}
+        </div>
+      {% endfor %}
+    </fieldset>
 
+    <fieldset class="mb-4">
+      <legend class="h5">Footer Relacionado</legend>
+      {{ footer_formset.management_form }}
+      {% for footer_form in footer_formset %}
+        <div class="mb-3">
+          {{ footer_form.as_p }}
+        </div>
+      {% endfor %}
+    </fieldset>
 
-
-        <button type="submit">Guardar</button>
-    </form>
+    <div class="text-end">
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+  </form>
+</div>
