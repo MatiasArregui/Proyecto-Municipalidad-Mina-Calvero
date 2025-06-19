@@ -57,6 +57,7 @@ urlpatterns = [
     # Admin  
     path("Lista-Desastre/", views_landing.DashboardCatastrophe, name="Lista-Desastre"),
     path("crear/", views_landing.CatastropheCreateView.as_view(), name="crear"),
+    path("Modificar/<int:pk>/", views_landing.CatastropheUpdateView.as_view(), name="Modificar"),
 
     
     

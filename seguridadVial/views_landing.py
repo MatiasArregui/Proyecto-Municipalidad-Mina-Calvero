@@ -68,7 +68,7 @@ class CatastropheCreateView(CreateView):
 class CatastropheUpdateView(UpdateView):
     model = Catastrophe
     form_class = CatastropheForm
-    template_name = os.path.join("Forms", "update.html")
+    template_name = os.path.join("landingPage","Forms", "update.html")
 
     def get_object(self):
         return get_object_or_404(Catastrophe, pk=self.kwargs['pk'])
@@ -77,9 +77,7 @@ class CatastropheUpdateView(UpdateView):
         context = super().get_context_data(**kwargs)
         if self.request.POST:
             context['protocole_formset'] = ProtocoleFormset(self.request.POST, instance=self.object)
-
             context['refujio_formset'] = RefujioFormset(self.request.POST, instance=self.object)
-
             context['footer_formset'] = FooterInfoFormset(self.request.POST, instance=self.object)
         else:
             context['protocole_formset'] = ProtocoleFormset(instance=self.object)
