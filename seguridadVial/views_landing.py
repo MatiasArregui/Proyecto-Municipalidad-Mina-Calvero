@@ -1,9 +1,5 @@
 # -- Django resources --
 from django.shortcuts import render, HttpResponseRedirect, redirect, get_object_or_404
-from django.contrib import messages
-from django.contrib.auth.views import LoginView
-from django.urls import reverse, reverse_lazy
-from django.db.models import ProtectedError
 
 # -- Models importations --
 from .models import Catastrophe, Protocole, Refujio, Footer_info
@@ -13,8 +9,10 @@ from .forms import ProtocoleFormset, RefujioFormset, FooterInfoFormset, Catastro
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 import os
 
+# <-- Public Views -->
 def landingPage(request):
-    return render(request, template_name= os.path.join("landingPage", "pagPrincipal.html"), context=None)
+    return render(request, template_name= os.path.join("landingPage", "index_public.html"), context=None)
+
 def catastrofes(request):
     return render(request, template_name= os.path.join("landingPage", "catastrofes.html"), context=None)
 def protocolosEmergencia(request):
@@ -24,7 +22,7 @@ def integrantesDefCivil(request):
 def mapa(request):
     return render(request, template_name= os.path.join("landingPage", "mapa.html"), context=None)
 
-# <--  Vistas Santy  -->
+# <--  Admin view -->
 class CatastropheCreateView(CreateView):
     model = Catastrophe
     form_class = CatastropheForm
@@ -116,6 +114,7 @@ def DashboardCatastrophe(request):
         active = False
     return render(request, template_name=os.path.join("landingPage", "dashboard.html"), context={"disaster":Catastrophe.objects.all(), "active":active})
 
+# Confirm to activate disaster
 def ActiveDisaster(request, pk):
     if request.method == "POST":
         disaster = Catastrophe.objects.get(id=pk)
@@ -131,15 +130,32 @@ def ActiveDisaster(request, pk):
 
     else:
         return render(request, template_name=os.path.join("landingPage", "forms", "active.html"), context=None)
+
 # Landing page defaulte view
 def ActiveCatastropheListView(request):
     
-    template = os.path.join("landingPage", "pagPrincipal.html")
-    cat = Catastrophe.objects.filter(is_active=True)
-    pro = Protocole.objects.filter(catastrophe__in=cat)
-    ref = Refujio.objects.filter(catastrophe__in=cat)
-    foo = Footer_info.objects.filter(catastrophe__in=cat)
-    context = {"catastrophe": cat , "protocole":pro, "refujio":ref, "footer": foo}
+    template = os.path.join("landingPage", "index_public.html")
+
+    
+    filters_is_active = Catastrophe.objects.filter(is_active=True)
+    if not filters_is_active: 
+        cat = Catastrophe.objects.get(is_default=True) 
+    else:
+        cat = Catastrophe.objects.get(is_active=True)
+    
+    pro = Protocole.objects.filter(catastrophe=cat)
+    ref = Refujio.objects.filter(catastrophe=cat)
+    foo = Footer_info.objects.filter(catastrophe=cat)
+
+    context = {"catastrofe": cat , "protocolo":pro, "refujio":ref, "footer": foo}
+
+    # -- as view
+    print("--------------------------------")
+    print("catastrofe",[cat.image_disaster])
+    print("protocole_formset: ",[pro])
+    print("refujio_formset: ",[ref])
+    print("footer_formset: ",[foo])
+    print("--------------------------------")
 
     return render(request, template_name=template, context=context)
 

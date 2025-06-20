@@ -41,8 +41,11 @@
           {% if disaster.is_default %}
           <tr>
             <td>{{ disaster.type_disaster }}</td>
-        
-            <td><a href="/defensaCivil/Modificar/{{ disaster.id }}/" class="btn btn-sm btn-outline-primary">Editar</a></td>
+
+            <td>
+              {% if active %}
+              <a href="/defensaCivil/Modificar/{{ disaster.id }}/" class="btn btn-sm btn-outline-primary">Editar</a></td>
+              {% endif %}
           </tr>
           {% endif %}
           {% endfor %}
@@ -65,7 +68,12 @@
           {% if not disaster.is_default %}
           <tr>
             <td>{{ disaster.type_disaster }}</td>
-            <td><a href="/defensaCivil/Modificar/{{ disaster.id }}/" class="btn btn-sm btn-outline-secondary">Editar</a></td>
+            <td>
+
+              {% if active %}
+              <a href="/defensaCivil/Modificar/{{ disaster.id }}/" class="btn btn-sm btn-outline-secondary">Editar</a>
+              {% endif %}
+            </td>
             <td>
               {% if not disaster.is_active and active %}
               <a href="/defensaCivil/Activar/{{ disaster.id }}/" class="btn btn-sm btn-success">Activar</a>

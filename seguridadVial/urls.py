@@ -48,7 +48,7 @@ urlpatterns = [
     # UlRs [Landing Page] 
     
     # Public
-    path("home/", views_landing.landingPage, name="home"),
+    path("home/", views_landing.ActiveCatastropheListView, name="home"),
     path("home/catastrofes/", views_landing.catastrofes, name="catastrofes"),
     path("home/protocolosEmergencia/", views_landing.protocolosEmergencia, name="protocolos"),
     path("home/integrantesDC/", views_landing.integrantesDefCivil, name="dc"),

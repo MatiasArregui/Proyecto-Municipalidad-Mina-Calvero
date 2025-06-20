@@ -1,0 +1,33 @@
+/* Header y estilos */
+#nav {
+
+  height: fit-content;
+  padding: 15px 0px;
+  background: linear-gradient(to bottom, black, rgba(0, 0, 0, 0.634), rgba(0, 0, 0, 0));
+}
+
+#logo {
+  width: 3.5rem;
+}
+
+#title {
+  font-size: .9rem;
+  font-weight: 400;
+  color: rgb(184, 223, 243);
+}
+
+/* Image background */
+
+/* Catastrofes  */
+#image-disaster {
+  /* mask-image: linear-gradient(rgb(0, 0, 0) 60%, transparent); */
+  width: 100%;
+}
+
+#disaster {
+  mask-image: linear-gradient(to top, black 80%, transparent);
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  overflow: hidden;
+
