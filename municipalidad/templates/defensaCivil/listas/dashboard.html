@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+{% extends "defensaCivil/base.html" %}
+{% comment %} <!DOCTYPE html>
 <html lang="es">
 <head>
      {% load bootstrap5 %}
@@ -91,4 +92,107 @@
 
 
 </body>
-</html>
+</html> {% endcomment %}
+
+
+
+
+
+{% load static %}
+{% block estilos %}
+<style>
+  /* Contenedor con tamaño fijo */
+  .cont {
+      position: relative; 
+      height: 120px; 
+      border-radius: 10px; 
+      overflow: hidden; 
+      color: white;
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+  }
+
+  /* Imagen de fondo con desenfoque */
+  .cont::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("../../../static/imagenes/defensacivil.jpg"); 
+      background-size: cover;
+      background-position: center;
+      filter: blur(4px); 
+      z-index: -1; 
+      opacity: 0.8; 
+  }
+
+  /* Estilo para el título */
+  .titulo {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.877); 
+  }
+</style>
+{% endblock %}
+{% block contenido %}
+<div class="container mt-5">
+    <div class="cont mb-5">
+     <h1 class="titulo">Estado base</h1>
+    </div>
+    <div class="table-responsive w-100">
+      <table class="table table-bordered table-striped table-hover" id="table">
+        <thead class="table-light">
+          <tr>
+            <th>Estado por defecto</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for disaster in disaster %}
+          {% if disaster.is_default %}
+          <tr>
+            <td>{{ disaster.type_disaster }}</td>
+          </tr>
+          {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <h1 class="mb-4 mt-5 text-success">Lista de Catástrofes</h1>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped table-hover" id="table">
+        <thead class="table-light">
+          <tr>
+            <th>Tipo de Desastre</th>
+            <th>Editar</th>
+            <th>Activar</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for disaster in disaster %}
+          {% if not disaster.is_default %}
+          <tr>
+            <td>{{ disaster.type_disaster }}</td>
+            <td>
+
+              {% if active %}
+              <a href="{% url 'Modificar' disaster.id %}" class="btn btn-sm btn-outline-secondary">Editar</a>
+              {% endif %}
+            </td>
+            <td>
+              {% if not disaster.is_active and active %}
+              <a href="{% url 'Activar' disaster.id %}" class="btn btn-sm btn-success">Activar</a>
+              {% elif disaster.is_active %}
+              <a href="{% url 'Activar' disaster.id %}" class="btn btn-sm btn-danger">Desactivar</a>
+              {% endif %}
+            </td>
+          </tr>
+          {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+{% endblock %}

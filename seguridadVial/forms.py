@@ -125,26 +125,71 @@ class CargoForm(forms.ModelForm):
 class ProtocoleForm(forms.ModelForm):
     class Meta:
         model = Protocole
-        fields = '__all__'
+        fields = ("campo_seleccion", "name",)
+        widgets = {
+            "campo_seleccion": forms.Select(attrs={"class": "form-control"}),
+            "name": forms.TextInput(attrs={"class": "form-control"}),
+        }
+        labels = {
+            "campo_seleccion": "Estado",
+            "name":"nombre",
+        }
 
 class RefujioForm(forms.ModelForm):
     class Meta:
         model = Refujio
-        fields = '__all__'
+        fields = ("Refujio", "map_frame")
+        widgets = {
+            "Refujio": forms.TextInput(attrs={"class": "form-control"}),
+            "map_frame": forms.TextInput(attrs={"class": "form-control"}),
+        }
+        labels = {
+            "Refujio": "Refugio",
+            "map_frame":"Url (Frame map)",
+        }
+
+        
 class FooterInfoForm(forms.ModelForm):
     class Meta:
         model = Footer_info
-        fields = '__all__'
+        fields = ("icono", "info")
+        widgets = {
+            "icono": forms.TextInput(attrs={"class": "form-control"}),
+            "info": forms.TextInput(attrs={"class": "form-control"}),
+        }
+        labels = {
+            "icono": "Url imagen",
+            "info":"Información",
+        }
 
 class UrlForm(forms.ModelForm):
     class Meta:
         model = url_map
-        fields = '__all__'
+        fields = ("url", "colors")
+        widgets = {
+            "url": forms.TextInput(attrs={"class": "form-control"}),
+            "colors": forms.TextInput(attrs={"class": "form-control"}),
+        }
+        labels = {
+            "url": "Url map",
+            "colors":"Color",
+        }
+        
 
 class CatastropheForm(forms.ModelForm):
     class Meta:
         model = Catastrophe
-        fields = '__all__'
+        fields = ("type_disaster", "image_disaster")
+        widgets = {
+            "type_disaster": forms.TextInput(attrs={"class": "form-control"}),
+            "image_disaster": forms.TextInput(attrs={"class": "form-control"}),
+        }
+        labels = {
+            "type_disaster": "Momento desastre",
+            "image_disaster":"imagen",
+        }
+
+        
 
 # Formset -> inlines 
 ProtocoleFormset = inlineformset_factory(Catastrophe, Protocole, form=ProtocoleForm, extra=5)

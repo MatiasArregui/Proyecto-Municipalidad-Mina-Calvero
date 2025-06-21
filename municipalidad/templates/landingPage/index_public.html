@@ -11,6 +11,14 @@
 
         <link rel="stylesheet" type="text/css" href="{% static 'styles/index.css' %}">
         <title>Desastres Mina Clavero</title>
+        <style>
+          iframe {
+               width: 100% !important;
+               height: 100% !important;
+               border: 0;
+          };
+
+        </style>
     </head>
     <body>
      
@@ -35,21 +43,23 @@
                <img src="{{ catastrofe.image_disaster }}" alt="" id="image-disaster">
                <h2 id="text-overlay"class="text-center" style="color: aliceblue;font-weight: 200; margin: 30px 20px;">Juntos protegemos Mina clavero</h2>
           </div>
-          <!-- Cards de refujios -->
+         <!-- Cards de refugios -->
           <div class="container py-5">
-               <h2 class="mb-4 text-center">Listado de Refugios</h2>
-               <div class="row g-4">
-                    {% for item in refujio %}
-                    <div class="col-sm-12 col-md-6 col-lg-4">
-                         <div class="card shadow-sm h-100">
-                              <div class="card-body">
-                                   <h5 class="card-title">{{ item.Refujio }}</h5>
-                                   <p class="card-text">{{ item.map_frame }}</p>
-                              </div>
+             <h2 class="mb-4 text-center">Listado de Refugios</h2>
+             <div class="row g-4">
+                {% for item in refujio %}
+                <div class="col-sm-12 col-md-6 col-lg-4">
+                   <div class="card shadow-sm">
+                      <div class="card-body">
+                         <h5 class="card-title">{{ item.Refujio | title}}</h5>
+                         <div class="ratio ratio-4x3">
+                            {{ item.map_frame | safe }}
                          </div>
-                    </div>
-                    {% endfor %}
-               </div>
+                      </div>
+                   </div>
+                </div>
+                {% endfor %}
+             </div>
           </div>
 
           <!-- maps  -->

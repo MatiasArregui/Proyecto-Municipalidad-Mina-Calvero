@@ -149,6 +149,8 @@
             {% comment %} <a href="{% url "listaCategorias" %}" class="nav-link text-white">Categorias</a> {% endcomment %}
             {% comment %} Ancla que lleva a elementos {% endcomment %}
             <a href="{% url "listaElementos" %}" class="nav-link text-white">Elementos</a>
+            {% comment %} Ancla que lleva a personas {% endcomment %}
+            <a href="{% url "Lista-Desastre" %}" class="nav-link text-white">Catastrofes</a>
             {% if user.is_authenticated %}
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle bg-dark" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">

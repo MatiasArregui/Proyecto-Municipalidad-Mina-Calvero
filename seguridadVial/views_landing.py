@@ -26,7 +26,7 @@ def mapa(request):
 class CatastropheCreateView(CreateView):
     model = Catastrophe
     form_class = CatastropheForm
-    template_name = os.path.join("landingPage", "Forms", "create.html")
+    template_name = os.path.join("defensaCivil", "formularios", "create.html")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -58,7 +58,7 @@ class CatastropheCreateView(CreateView):
             footer_formset.save()
             url_formset.save()
 
-            return redirect('/defensaCivil/Lista-Desastre/')
+            return redirect('Lista-Desastre')
 
         return render(request, self.template_name, {
             'form': form,
@@ -71,7 +71,7 @@ class CatastropheCreateView(CreateView):
 class CatastropheUpdateView(UpdateView):
     model = Catastrophe
     form_class = CatastropheForm
-    template_name = os.path.join("landingPage","Forms", "update.html")
+    template_name = os.path.join("defensaCivil", "formularios", "update.html")
 
     def get_object(self):
         return get_object_or_404(Catastrophe, pk=self.kwargs['pk'])
@@ -107,7 +107,7 @@ class CatastropheUpdateView(UpdateView):
             footer_formset.save()
             url_formset.save()
 
-            return redirect('/defensaCivil/Lista-Desastre/')
+            return redirect('Lista-Desastre')
 
         return render(request, self.template_name, {
             'form': form,
@@ -122,7 +122,7 @@ def DashboardCatastrophe(request):
     active = True
     if Catastrophe.objects.filter(is_active=True):
         active = False
-    return render(request, template_name=os.path.join("landingPage", "dashboard.html"), context={"disaster":Catastrophe.objects.all(), "active":active})
+    return render(request, template_name=os.path.join("defensaCivil", "listas", "dashboard.html"), context={"disaster":Catastrophe.objects.all(), "active":active})
 
 # Confirm to activate disaster
 def ActiveDisaster(request, pk):
@@ -134,10 +134,10 @@ def ActiveDisaster(request, pk):
         else:
             disaster.is_active = True
             disaster.save()
-        return redirect('/defensaCivil/Lista-Desastre/')
+        return redirect('Lista-Desastre')
 
     else:
-        return render(request, template_name=os.path.join("landingPage", "forms", "active.html"), context=None)
+        return render(request, template_name=os.path.join("defensaCivil", "formularios", "active.html"), context=None)
 
 # Landing page defaulte view
 def ActiveCatastropheListView(request):

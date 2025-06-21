@@ -18,11 +18,7 @@
     <fieldset class="mb-4">
       <legend class="h5 text-primary">Detalles de la Catástrofe</legend>
       <div class="mb-3">
-      
-        
-        <p>Nombre:{{ form.type_disaster }}</p>
-      
-        <p>Imagen:{{ form.image_disaster }}</p>
+        {{ form.as_p }}
       </div>
     </fieldset>
 
@@ -45,7 +41,7 @@
         </div>
       {% endfor %}
     </fieldset>
-    br
+
 
     <fieldset class="mb-4">
       <legend class="h5 text-info">Footer Relacionado</legend>

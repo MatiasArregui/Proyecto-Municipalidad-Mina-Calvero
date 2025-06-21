@@ -55,10 +55,10 @@ urlpatterns = [
     path("home/mapa/", views_landing.mapa, name="mapa"),
 
     # Admin  
-    path("Lista-Desastre/", views_landing.DashboardCatastrophe, name="Lista-Desastre"),
-    path("Activar/<int:pk>/", views_landing.ActiveDisaster, name="Activar"),
+    path("listaDesastre/", views_landing.DashboardCatastrophe, name="Lista-Desastre"),
+    path("activar/<int:pk>/", views_landing.ActiveDisaster, name="Activar"),
     path("crear/", views_landing.CatastropheCreateView.as_view(), name="crear"),
-    path("Modificar/<int:pk>/", views_landing.CatastropheUpdateView.as_view(), name="Modificar"),
+    path("modificar/<int:pk>/", views_landing.CatastropheUpdateView.as_view(), name="Modificar"),
     
     
 ]
