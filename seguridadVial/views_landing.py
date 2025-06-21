@@ -134,8 +134,6 @@ def ActiveDisaster(request, pk):
         else:
             disaster.is_active = True
             disaster.save()
-            
-        
         return redirect('/defensaCivil/Lista-Desastre/')
 
     else:

@@ -156,6 +156,7 @@ class Refujio(models.Model):
 class Footer_info(models.Model):
     icono = models.URLField(blank=True, null=True, default=None)
     info = models.CharField(max_length=255, default=None, null=True, blank=True)
+    
     catastrophe = models.ForeignKey(Catastrophe, on_delete=models.CASCADE, related_name="footer_info")
 
 class url_map(models.Model):

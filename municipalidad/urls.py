@@ -28,9 +28,10 @@ import os
 urlpatterns = [
     path('admin/', admin.site.urls),
     # Login ----------------------------------------------------------------------------------->
-    path('', LoginView.as_view(
+   
+    path('login/', LoginView.as_view(
         template_name=os.path.join("registration", "login.html"),
         authentication_form=LoginForm
     ), name='ingreso'),
-    path("defensaCivil/", include("seguridadVial.urls")),
+    path("", include("seguridadVial.urls")),
 ] +  static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
