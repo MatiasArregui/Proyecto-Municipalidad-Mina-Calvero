@@ -14,6 +14,12 @@
       height: 100vh;
       margin: 0;
     }
+    form{
+      display:flex;
+      flex-direction: column;
+      align-items:center;
+      justify-content: center;
+    }
 
     h1 {
       color: #444;
@@ -50,8 +56,8 @@
 </head>
 <body>
 
-  <h1>¿Deseás activar la catástrofe?</h1>
-  <form method="post">
+  <form method="post" style="margin: 0 auto; width: 100%;">
+  <h1 style="margin:0 auto;">¿Deseás activar la catástrofe?</h1>
     {% csrf_token %}
   <div class="button-group">
 

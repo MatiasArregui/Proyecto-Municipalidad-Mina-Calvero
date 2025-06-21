@@ -1,4 +1,7 @@
-
+ {% load bootstrap5 %}
+      {% bootstrap_css %}
+      {% bootstrap_javascript %}
+      
       {% block estilos %}
       {% endblock %}
 <div class="container my-5">
@@ -47,6 +50,16 @@
       {% for footer_form in footer_formset %}
         <div class="mb-3">
           {{ footer_form.as_p }}
+        </div>
+      {% endfor %}
+    </fieldset>
+
+    <fieldset class="mb-4">
+      <legend class="h5">Url_map  y Colores </legend>
+      {{ url_formset.management_form }}
+      {% for url_form in url_formset %}
+        <div class="mb-3">
+          {{ url_form.as_p }}
         </div>
       {% endfor %}
     </fieldset>

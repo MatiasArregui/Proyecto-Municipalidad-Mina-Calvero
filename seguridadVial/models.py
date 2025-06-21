@@ -121,7 +121,6 @@ class Cargo(models.Model):
 
 
 # <------------  Modelos Landing page   --------------->
-from django.db import models
 
 class Catastrophe(models.Model):
     type_disaster = models.CharField(max_length=255, default=None)
@@ -148,16 +147,19 @@ class Protocole(models.Model):
 
 class Refujio(models.Model):
     Refujio = models.CharField(max_length=255, default=None, null=True, blank=True)
-    map_frame = models.TextField(default=None, null=True, blank=True)  # Almacena un marco de mapa, puedes usar JSON si es necesario
+    map_frame = models.CharField(max_length=555,default=None, null=True, blank=True)  # Almacena un marco de mapa, puedes usar JSON si es necesario
     catastrophe = models.ForeignKey(Catastrophe, on_delete=models.CASCADE, related_name="refugios")
 
     def __str__(self):
-        return self.name
+        return self.Refujio
 
 class Footer_info(models.Model):
     icono = models.URLField(blank=True, null=True, default=None)
     info = models.CharField(max_length=255, default=None, null=True, blank=True)
     catastrophe = models.ForeignKey(Catastrophe, on_delete=models.CASCADE, related_name="footer_info")
 
-
+class url_map(models.Model):
+    url = models.CharField(max_length=700, null=True, default=None, blank=True)
+    colors = models.CharField(max_length=700, null=True, default=None, blank=True)
+    catastrophe = models.ForeignKey(Catastrophe, on_delete=models.CASCADE, related_name="url")
         

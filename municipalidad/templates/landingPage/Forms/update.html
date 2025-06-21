@@ -56,6 +56,16 @@
         </div>
       {% endfor %}
     </fieldset>
+    
+     <fieldset class="mb-4">
+      <legend class="h5">Url_map  y Colores </legend>
+      {{ url_formset.management_form }}
+      {% for url_form in url_formset %}
+        <div class="mb-3">
+          {{ url_form.as_p }}
+        </div>
+      {% endfor %}
+    </fieldset>
 
     <div class="text-end">
       <button type="submit" class="btn btn-primary" style="width: 100%;">Guardar</button>

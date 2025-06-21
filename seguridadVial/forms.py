@@ -1,5 +1,5 @@
 from django import forms
-from .models import Persona, Cargo, Elementos, Institucion, InstitucionCargoPersona, Catastrophe, Protocole, Refujio, Footer_info
+from .models import Persona, Cargo, Elementos, Institucion, InstitucionCargoPersona, Catastrophe, Protocole, Refujio, Footer_info, url_map
 from django.forms import inlineformset_factory
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -136,6 +136,11 @@ class FooterInfoForm(forms.ModelForm):
         model = Footer_info
         fields = '__all__'
 
+class UrlForm(forms.ModelForm):
+    class Meta:
+        model = url_map
+        fields = '__all__'
+
 class CatastropheForm(forms.ModelForm):
     class Meta:
         model = Catastrophe
@@ -145,3 +150,5 @@ class CatastropheForm(forms.ModelForm):
 ProtocoleFormset = inlineformset_factory(Catastrophe, Protocole, form=ProtocoleForm, extra=5)
 FooterInfoFormset = inlineformset_factory(Catastrophe, Footer_info, form=FooterInfoForm, extra=5)
 RefujioFormset = inlineformset_factory(Catastrophe, Refujio, form=RefujioForm, extra=5)
+UrlFormset = inlineformset_factory(Catastrophe, url_map, form=UrlForm, extra=1)
+

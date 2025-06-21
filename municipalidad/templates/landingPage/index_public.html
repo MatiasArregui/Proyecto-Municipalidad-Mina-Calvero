@@ -18,7 +18,7 @@
      <nav class="navbar  fixed-top" id="nav">
           <div class="container-fluid gap-1">
                <span class="navbar-brand" id="title">
-                    <img src="{% static 'assets/logo.png' %}" alt="" >
+                    <img src="{% static 'assets/logo.png' %}" alt="" id="logo-muni">
                     <img src="{% static 'assets/logo defensa civil.png' %}" alt="" id="logo">
                </span>
                <span class="" id="title">Prevención, unidad y acción: juntos protegemos Mina Clavero.</span>
@@ -35,6 +35,39 @@
                <img src="{{ catastrofe.image_disaster }}" alt="" id="image-disaster">
                <h2 id="text-overlay"class="text-center" style="color: aliceblue;font-weight: 200; margin: 30px 20px;">Juntos protegemos Mina clavero</h2>
           </div>
+          <!-- Cards de refujios -->
+          <div class="container py-5">
+               <h2 class="mb-4 text-center">Listado de Refugios</h2>
+               <div class="row g-4">
+                    {% for item in refujio %}
+                    <div class="col-sm-12 col-md-6 col-lg-4">
+                         <div class="card shadow-sm h-100">
+                              <div class="card-body">
+                                   <h5 class="card-title">{{ item.Refujio }}</h5>
+                                   <p class="card-text">{{ item.map_frame }}</p>
+                              </div>
+                         </div>
+                    </div>
+                    {% endfor %}
+               </div>
+          </div>
+
+          <!--  -->
+          <!-- <div class="container w-100" style="width: 100%;">
+               <div class="card shadow">
+                    <div class="card-header bg-danger text-white">Ubicación del Refugio: Mina Clavero, Córdoba
+                    </div>
+                    <div class="">
+                         <div class="map-responsive"> -->
+                              {% for item in maps %}
+                             {{ item.url|safe }}
+                              {% endfor %}
+                        <!--  </div>
+                    </div>
+               </div>
+          </div> -->
+
+
      </main>
 
     </body>

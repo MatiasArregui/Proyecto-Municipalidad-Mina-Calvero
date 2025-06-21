@@ -3,7 +3,7 @@ from django.shortcuts import render, HttpResponseRedirect, redirect, get_object_
 
 # -- Models importations --
 from .models import Catastrophe, Protocole, Refujio, Footer_info
-from .forms import ProtocoleFormset, RefujioFormset, FooterInfoFormset, CatastropheForm
+from .forms import ProtocoleFormset, RefujioFormset, FooterInfoFormset, CatastropheForm, UrlFormset, url_map
 
 # -- Views -- 
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
@@ -33,6 +33,7 @@ class CatastropheCreateView(CreateView):
         context['protocole_formset'] = ProtocoleFormset()
         context['refujio_formset'] = RefujioFormset()
         context['footer_formset'] = FooterInfoFormset()
+        context['url_formset'] = UrlFormset()
 
         return context
 
@@ -41,18 +42,21 @@ class CatastropheCreateView(CreateView):
         protocole_formset = ProtocoleFormset(request.POST)
         refujio_formset = RefujioFormset(request.POST)
         footer_formset = FooterInfoFormset(request.POST)
+        url_formset = UrlFormset(request.POST)
 
-        if form.is_valid() and footer_formset.is_valid() and protocole_formset.is_valid() and refujio_formset.is_valid():
+        if form.is_valid() and footer_formset.is_valid() and protocole_formset.is_valid() and refujio_formset.is_valid() and url_formset.is_valid():
 
             catastrophe = form.save()
 
             protocole_formset.instance = catastrophe
             refujio_formset.instance = catastrophe
             footer_formset.instance = catastrophe
+            url_formset.instance = catastrophe
 
             protocole_formset.save()
             refujio_formset.save()
             footer_formset.save()
+            url_formset.save()
 
             return redirect('/defensaCivil/Lista-Desastre/')
 
@@ -60,7 +64,8 @@ class CatastropheCreateView(CreateView):
             'form': form,
             'protocole_formset': protocole_formset,
             'refujio_formset': refujio_formset,
-            'footer_formset': footer_formset
+            'footer_formset': footer_formset,
+            'url_formset': url_formset
         })
 
 class CatastropheUpdateView(UpdateView):
@@ -77,10 +82,12 @@ class CatastropheUpdateView(UpdateView):
             context['protocole_formset'] = ProtocoleFormset(self.request.POST, instance=self.object)
             context['refujio_formset'] = RefujioFormset(self.request.POST, instance=self.object)
             context['footer_formset'] = FooterInfoFormset(self.request.POST, instance=self.object)
+            context['url_formset'] = UrlFormset(self.request.POST, instance=self.object)
         else:
             context['protocole_formset'] = ProtocoleFormset(instance=self.object)
             context['refujio_formset'] = RefujioFormset(instance=self.object)
             context['footer_formset'] = FooterInfoFormset(instance=self.object)
+            context['url_formset'] = UrlFormset(instance=self.object)
         return context
 
     def post(self, request, *args, **kwargs):
@@ -90,13 +97,15 @@ class CatastropheUpdateView(UpdateView):
         protocole_formset = ProtocoleFormset(request.POST, instance=self.object)
         refujio_formset = RefujioFormset(request.POST, instance=self.object)
         footer_formset = FooterInfoFormset(request.POST, instance=self.object)
+        url_formset = UrlFormset(request.POST, instance=self.object)
 
-        if form.is_valid() and protocole_formset.is_valid() and refujio_formset.is_valid() and footer_formset.is_valid():
+        if form.is_valid() and protocole_formset.is_valid() and refujio_formset.is_valid() and footer_formset.is_valid() and url_formset.is_valid():
             
             form.save()
             protocole_formset.save()
             refujio_formset.save()
             footer_formset.save()
+            url_formset.save()
 
             return redirect('/defensaCivil/Lista-Desastre/')
 
@@ -104,7 +113,8 @@ class CatastropheUpdateView(UpdateView):
             'form': form,
             'protocole_formset': protocole_formset,
             'refujio_formset': refujio_formset,
-            'footer_formset': footer_formset
+            'footer_formset': footer_formset,
+            'url_formset': url_formset
         })
 
 # Admin view for disaster control
@@ -146,8 +156,9 @@ def ActiveCatastropheListView(request):
     pro = Protocole.objects.filter(catastrophe=cat)
     ref = Refujio.objects.filter(catastrophe=cat)
     foo = Footer_info.objects.filter(catastrophe=cat)
+    maps =  url_map.objects.filter(catastrophe=cat)
 
-    context = {"catastrofe": cat , "protocolo":pro, "refujio":ref, "footer": foo}
+    context = {"catastrofe": cat , "protocolo":pro, "refujio":ref, "footer": foo, "maps": maps}
 
     # -- as view
     print("--------------------------------")
@@ -155,6 +166,7 @@ def ActiveCatastropheListView(request):
     print("protocole_formset: ",[pro])
     print("refujio_formset: ",[ref])
     print("footer_formset: ",[foo])
+    print("map_formset:",[maps])
     print("--------------------------------")
 
     return render(request, template_name=template, context=context)
