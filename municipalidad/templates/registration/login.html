@@ -55,7 +55,7 @@
         font-size: 1.2rem;
         font-weight: 600;
         text-align: center;
-        color:rgb(20, 11, 190);
+        color:rgb(17, 11, 128);
         margin-top: 1rem;
     }
 
@@ -137,11 +137,17 @@
         <img src={% static "imagenes/mina.png" %} alt="Logo Defensa Civil">
         <p class="form-title">Defensa Civil | Mina Clavero</p>
           {% csrf_token %}
-          {{ form.as_p }}
-          <button type="button" id="togglePassword" class="btn mb-3" style="background: none; border: none; cursor: pointer;">
+             <div class="input-container">
+      <div class="input__wrapper">
+        {{ form.username }}
+      </div>
+      <div class="input__wrapper">
+        {{ form.password }}
+      </div>
+    </div>
+          <button type="button" id="togglePassword" class="btn mt-3" style="background: none; border: none; cursor: pointer;">
                 👁️ Ver Contraseña
           </button>
-        </div>
         <button type="submit" class="submit">Ingresar</button>
         <p class="signup-link">Página reservada para uso municipal</p>
     </form>
