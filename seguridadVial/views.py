@@ -218,9 +218,11 @@ def institucionDetalle(request, pk):
     institucion = Institucion.objects.get(id=pk)
     personas_institucion = [x.id_persona.pk for x in InstitucionCargoPersona.objects.filter(id_institucion=pk) ]
     personas = [ x for x in Persona.objects.all() if x.pk in personas_institucion]
+    cargos =  [{"id_persona": x.id_persona.pk, "cargo":x.id_cargo.nombre} for x in InstitucionCargoPersona.objects.filter(id_institucion=pk) ]
     elementos_institucion = Elementos.objects.filter(id_institucion=pk)
+    print(cargos)
 
-    context= {"institucion":institucion, "personas": personas, "elementos": elementos_institucion}
+    context= {"institucion":institucion, "personas": personas, "elementos": elementos_institucion, "cargos": cargos}
     return render(request, os.path.join("defensaCivil", "detalles", "institucionDetalle.html"), context=context)
 # class InstitucionNueva(CreateView):
 #     model = Institucion
@@ -258,6 +260,8 @@ class InstitucionModificar(UpdateView):
         print(personas)
         elementos_institucion = Elementos.objects.filter(id_institucion=id)
         print(personas_institucion)
+        cargos =  [{"id_persona": x.id_persona.pk, "cargo":x.id_cargo.nombre} for x in InstitucionCargoPersona.objects.filter(id_institucion=id) ]
+        context['cargos'] = cargos
         context['personas'] = personas
         context['elementos'] = elementos_institucion
         return context
