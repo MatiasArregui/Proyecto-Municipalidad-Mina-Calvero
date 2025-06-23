@@ -46,7 +46,6 @@
         <thead class="bg-light">
           <tr>
             <th scope="col">Nombre</th>
-            <th scope="col" class="d-none d-sm-table-cell">Representante</th>
             <th scope="col" class="d-none d-md-table-cell">Teléfono</th>
             <th scope="col" class="d-none d-md-table-cell">Dirección</th>
             <th scope="col" class="d-flex justify-content-end d-table-cell d-lg-none no-print">Accion</th>
@@ -55,7 +54,6 @@
         <tbody>
             <tr>
               <td style="cursor: pointer;" onclick="window.location.href='{% url 'modificarInstitucion' institucion.id %}'">{{ institucion.nombre | title}}</td>
-              <td style="cursor: pointer;" class="d-none d-sm-table-cell" onclick="window.location.href='{% url 'modificarInstitucion' institucion.id %}'">{{ institucion.id_persona_encargado.nombre_apellido | title}}</td>
               <td style="cursor: pointer;" class="d-none d-md-table-cell" onclick="window.location.href='{% url 'modificarInstitucion' institucion.id %}'">{{ institucion.telefono |default_if_none:"--" }}</td>
               <td style="cursor: pointer;" class="d-none d-md-table-cell" onclick="window.location.href='{% url 'modificarInstitucion' institucion.id %}'">{{ institucion.direccion |default_if_none:"--" }}</td>
               <td class="d-table-cell d-lg-none no-print">
