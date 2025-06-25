@@ -68,6 +68,8 @@ class CatastropheCreateView(CreateView):
             'url_formset': url_formset
         })
 
+
+
 class CatastropheUpdateView(UpdateView):
     model = Catastrophe
     form_class = CatastropheForm
@@ -144,7 +146,7 @@ def ActiveCatastropheListView(request):
     
     template = os.path.join("landingPage", "index_public.html")
 
-    
+    all_disaster = Catastrophe.objects.filter(is_default=False)
     filters_is_active = Catastrophe.objects.filter(is_active=True)
     if not filters_is_active: 
         cat = Catastrophe.objects.get(is_default=True) 
@@ -156,7 +158,8 @@ def ActiveCatastropheListView(request):
     foo = Footer_info.objects.filter(catastrophe=cat)
     maps =  url_map.objects.filter(catastrophe=cat)
 
-    context = {"catastrofe": cat , "protocolo":pro, "refujio":ref, "footer": foo, "maps": maps}
+
+    context = {"catastrofe": cat , "protocolo":pro, "refujio":ref, "footer": foo, "maps": maps, "all": all_disaster}
 
     # -- as view
     print("--------------------------------")
