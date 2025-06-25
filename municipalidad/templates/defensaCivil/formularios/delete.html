@@ -1,0 +1,42 @@
+{% load static %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Eliminacion</title>
+        <link rel="stylesheet" href="">
+        <link rel="author" href="humans.txt">
+    </head>
+    <body>
+        <style type="text/css">
+            body{
+                display: flex;
+                align-items:center;
+                justify-content: center;
+            }
+        </style>
+        <div class="container" style="align-items: center; justify-content: center;display: flex;">
+    <div class="card border-danger">
+        <div class="card-header bg-danger">
+            Confirmar eliminación
+        </div>
+        <div class="card-body text-center">
+            <p>¿Estás seguro de que deseas eliminar el desastre: <strong>{{ object }}</strong>?</p>
+            <form method="post" class="text-center">
+                {% csrf_token %}
+                <a href="{% url 'Lista-Desastre' %}" onclick="history.back()" class="btn btn-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+    </body>
+</html>
+

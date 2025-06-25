@@ -1,103 +1,4 @@
 {% extends "defensaCivil/base.html" %}
-{% comment %} <!DOCTYPE html>
-<html lang="es">
-<head>
-     {% load bootstrap5 %}
-      {% bootstrap_css %}
-      {% bootstrap_javascript %}
-      
-  <meta charset="UTF-8">
-  <title>Dashboard de Catástrofes</title>
-</head>
-<body class="bg-light">
-    
-    <nav class="navbar navbar-expand-lg " >
-
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#defecto">Panel de Control</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-    </div>
-    </div>
-    </div>
-    </nav>
-
-
-  <div class="container">
-    <h1 class="mb-4 text-primary">Estado Base</h1>
-    <div class="table-responsive w-100">
-      <table class="table table-bordered table-striped table-hover" id="table">
-        <thead class="table-light">
-          <tr>
-            <th>Estado por defecto</th>
-            
-            <th>Editar</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for disaster in disaster %}
-          {% if disaster.is_default %}
-          <tr>
-            <td>{{ disaster.type_disaster }}</td>
-
-            <td>
-              {% if active %}
-              <a href="/defensaCivil/Modificar/{{ disaster.id }}/" class="btn btn-sm btn-outline-primary">Editar</a></td>
-              {% endif %}
-          </tr>
-          {% endif %}
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-
-    <h1 class="mb-4 mt-5 text-success">Lista de Catástrofes</h1>
-    <div class="table-responsive">
-      <table class="table table-bordered table-striped table-hover" id="table">
-        <thead class="table-light">
-          <tr>
-            <th>Tipo de Desastre</th>
-            <th>Editar</th>
-            <th>Activar</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for disaster in disaster %}
-          {% if not disaster.is_default %}
-          <tr>
-            <td>{{ disaster.type_disaster }}</td>
-            <td>
-
-              {% if active %}
-              <a href="/defensaCivil/Modificar/{{ disaster.id }}/" class="btn btn-sm btn-outline-secondary">Editar</a>
-              {% endif %}
-            </td>
-            <td>
-              {% if not disaster.is_active and active %}
-              <a href="/defensaCivil/Activar/{{ disaster.id }}/" class="btn btn-sm btn-success">Activar</a>
-              {% elif disaster.is_active %}
-              <a href="/defensaCivil/Activar/{{ disaster.id }}/" class="btn btn-sm btn-danger">Desactivar</a>
-              {% endif %}
-            </td>
-          </tr>
-          {% endif %}
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-
-</body>
-</html> {% endcomment %}
-
-
-
-
-
 {% load static %}
 {% block estilos %}
 <style>
@@ -112,7 +13,21 @@
       align-items: center; 
       justify-content: center; 
   }
+  .btn{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: fit-content;
+  }
+@media screen and (max-width: 600px){
+  .btn{
+    font-size: 10px;
+  }
+  img{
+    width: 10px;
+  }
 
+}
   /* Imagen de fondo con desenfoque */
   .cont::before {
       content: "";
@@ -167,6 +82,7 @@
             <th>Tipo de Desastre</th>
             <th>Editar</th>
             <th>Activar</th>
+            <th>Eliminar</th>
           </tr>
         </thead>
         <tbody>
@@ -174,19 +90,42 @@
           {% if not disaster.is_default %}
           <tr>
             <td>{{ disaster.type_disaster }}</td>
+            
             <td>
-
               {% if active %}
-              <a href="{% url 'Modificar' disaster.id %}" class="btn btn-sm btn-outline-secondary">Editar</a>
+              <a href="{% url 'Modificar' disaster.id %}" class="btn btn-sm btn-secondary">
+                <img src="{% static 'assets/edit.svg' %}" style="width: 20px;">
+              Editar
+            </a>
               {% endif %}
             </td>
+
             <td>
               {% if not disaster.is_active and active %}
-              <a href="{% url 'Activar' disaster.id %}" class="btn btn-sm btn-success">Activar</a>
+              <a href="{% url 'Activar' disaster.id %}" class="btn btn-sm btn-success">
+                <img src="{% static 'assets/active.svg' %}" style="width: 20px;">
+              Activar</a>
               {% elif disaster.is_active %}
-              <a href="{% url 'Activar' disaster.id %}" class="btn btn-sm btn-danger">Desactivar</a>
+              <a href="{% url 'Activar' disaster.id %}" class="btn btn-sm btn-danger">
+                <img src="{% static 'assets/deactivate.svg' %}" style="width: 20px;">
+              Desactivar</a>
               {% endif %}
             </td>
+
+            <td>
+
+              {% if not disaster.is_active   and active %}
+              <a href="{% url 'Eliminar' disaster.id %}" class="btn btn-sm btn-danger">
+                <img src="{% static 'assets/eliminar.svg' %}" style="width: 20px;">Eliminar
+              </a>
+              {% elif not disaster.is_active  and active%}
+              <a href="{% url 'Eliminar' disaster.id %}" class="btn btn-sm btn-danger">
+                <img src="{% static 'assets/eliminar.svg' %}" style="width: 20px;">Eliminar
+              </a>
+              {% endif %}
+            </td>
+
+
           </tr>
           {% endif %}
           {% endfor %}

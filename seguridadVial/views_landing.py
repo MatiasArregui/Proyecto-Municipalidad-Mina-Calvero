@@ -23,6 +23,11 @@ def mapa(request):
     return render(request, template_name= os.path.join("landingPage", "mapa.html"), context=None)
 
 # <--  Admin view -->
+class DeleteDisaster(DeleteView):
+    model = Catastrophe
+    template_name = os.path.join('defensaCivil', 'formularios', 'delete.html')
+    success_url = '/Lista-Desastre/'
+
 class CatastropheCreateView(CreateView):
     model = Catastrophe
     form_class = CatastropheForm

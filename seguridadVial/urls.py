@@ -59,6 +59,7 @@ urlpatterns = [
     path("activar/<int:pk>/", views_landing.ActiveDisaster, name="Activar"),
     path("crear/", views_landing.CatastropheCreateView.as_view(), name="crear"),
     path("modificar/<int:pk>/", views_landing.CatastropheUpdateView.as_view(), name="Modificar"),
+    path("Eliminar/<int:pk>/", views_landing.DeleteDisaster .as_view(), name="Eliminar"),
     
     
 ]
