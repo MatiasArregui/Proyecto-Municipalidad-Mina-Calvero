@@ -26,7 +26,7 @@ def mapa(request):
 class DeleteDisaster(DeleteView):
     model = Catastrophe
     template_name = os.path.join('defensaCivil', 'formularios', 'delete.html')
-    success_url = '/Lista-Desastre/'
+    success_url = '/listaDesastre/'
 
 class CatastropheCreateView(CreateView):
     model = Catastrophe
@@ -142,7 +142,6 @@ def ActiveDisaster(request, pk):
             disaster.is_active = True
             disaster.save()
         return redirect('Lista-Desastre')
-
     else:
         return render(request, template_name=os.path.join("defensaCivil", "formularios", "active.html"), context=None)
 

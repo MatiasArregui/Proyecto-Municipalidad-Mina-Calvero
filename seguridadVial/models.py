@@ -124,6 +124,7 @@ class Cargo(models.Model):
 
 class Catastrophe(models.Model):
     type_disaster = models.CharField(max_length=255, default=None)
+    descripcion = models.TextField()
     is_active = models.BooleanField(default=False)
     is_default = models.BooleanField(default=False)
     image_disaster = models.URLField(default=None)
@@ -154,9 +155,8 @@ class Refujio(models.Model):
         return self.Refujio
 
 class Footer_info(models.Model):
-    icono = models.URLField(blank=True, null=True, default=None)
+    icono = models.CharField(blank=True, null=True, default=None, max_length=120)
     info = models.CharField(max_length=255, default=None, null=True, blank=True)
-    
     catastrophe = models.ForeignKey(Catastrophe, on_delete=models.CASCADE, related_name="footer_info")
 
 class url_map(models.Model):

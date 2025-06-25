@@ -120,8 +120,10 @@ class CargoForm(forms.ModelForm):
         labels = {
             "nombre": "Nombre",
         }
-# <---------  landing forms  ---------->
 
+
+
+# <---------  landing forms  ---------->
 class ProtocoleForm(forms.ModelForm):
     class Meta:
         model = Protocole
@@ -179,14 +181,18 @@ class UrlForm(forms.ModelForm):
 class CatastropheForm(forms.ModelForm):
     class Meta:
         model = Catastrophe
-        fields = ("type_disaster", "image_disaster")
+        fields = ("type_disaster", "image_disaster", "descripcion",)
         widgets = {
             "type_disaster": forms.TextInput(attrs={"class": "form-control"}),
             "image_disaster": forms.TextInput(attrs={"class": "form-control"}),
+            "descripcion": forms.Textarea(attrs={"class": "form-control", "rows":"3"}),
+
         }
         labels = {
             "type_disaster": "Momento desastre",
             "image_disaster":"imagen",
+            "descripcion":"descripcion",
+
         }
 
         
