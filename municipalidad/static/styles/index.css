@@ -183,9 +183,7 @@ footer {
     margin: 0;
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+    flex-wrap: nowwrap;
     flex: 2 0 140px;
     width: 100%;
     gap: 1rem;
@@ -195,6 +193,7 @@ footer {
 }
 
 .footer-columns ul {
+    width: 100%;
     list-style-type: none;
     padding: 0;
     margin: 0;
@@ -210,6 +209,7 @@ footer {
 }
 
 .footer-columns ul li {
+    margin: 0 auto;
     margin-bottom: 1rem;
 }
 

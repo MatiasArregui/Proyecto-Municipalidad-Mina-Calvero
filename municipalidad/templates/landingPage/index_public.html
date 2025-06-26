@@ -306,13 +306,17 @@
 
     <!-- conteiner for content -->
     <div class="footer-wrapper">
+    <h4 style="font-weight:300; text-align: left:0%;">Contactos</h3>
         <div class="footer-columns">
-            {% for item in footer %}
+            {% for item in refujio %}
             <section>
-                <h3>{{ item.icono }}asd</h3>
+                <h3 style="font-size: 1rem;">{{ item.institucion.nombre}}</h3>
                 <ul>
                     <li>
-                        <a href="#" title="">{{ item.info }}</a>
+                        <a href="#" title="">{{ item.institucion.telefono }}</a>
+                    </li>
+                    <li>
+                      <a href="#"> {{item.institucion.email}}</a>
                     </li>
                 </ul>
             </section>
