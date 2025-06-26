@@ -32,7 +32,7 @@ class CatastropheCreateView(CreateView):
         protocole_formset = ProtocoleFormset(request.POST)
         refujio_formset = RefujioFormset(request.POST)
 
-        if form.is_valid() and footer_formset.is_valid() and protocole_formset.is_valid():
+        if form.is_valid() and protocole_formset.is_valid() and refujio_formset.is_valid():
 
             catastrophe = form.save()
 
@@ -145,7 +145,6 @@ def ActiveCatastropheListView(request):
     print("catastrofe",[cat.image_disaster])
     print("protocole_formset: ",[pro])
     print("refujio_formset: ",[ref])
-    print("footer_formset: ",[foo])
     print("--------------------------------")
 
     return render(request, template_name=template, context=context)
