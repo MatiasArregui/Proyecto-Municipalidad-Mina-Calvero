@@ -59,18 +59,20 @@ class ElementosForm(forms.ModelForm):
 class InstitucionForm(forms.ModelForm):
     class Meta:
         model = Institucion
-        fields = ("nombre", "direccion", "email", "telefono")
+        fields = ("nombre", "direccion", "email", "telefono", "descripcion")
         widgets = {
             'nombre': forms.TextInput(attrs={'class': 'form-control'}),
             'direccion': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.TextInput(attrs={'class': 'form-control'}),
             'telefono': forms.TextInput(attrs={'class': 'form-control'}),
+            'descripcion': forms.Textarea(attrs={'class': 'form-control'}),
         }
         labels = {
             "nombre":"Nombre",
             "direccion":"Dirección",
             "email":"Email",
             "telefono":"Teléfono",
+            "descripcion":"Descripción",
         }
         
 #FORMULARIO DE CARGO E INSTITUCION IN-LINE (CREAR, MODIFICAR)

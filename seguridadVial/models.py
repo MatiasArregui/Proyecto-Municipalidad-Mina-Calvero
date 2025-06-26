@@ -40,6 +40,7 @@ class Elementos(models.Model):
     
 class Institucion(models.Model):
     nombre = models.CharField(max_length=120)
+    descripcion = models.CharField(max_length=240)
     direccion = models.CharField(max_length=120, default="", null=True, blank=True)
     email = models.CharField(max_length=120, default="", null=True, blank=True)
     telefono = models.CharField(max_length=30, default="",null=True, blank=True)
