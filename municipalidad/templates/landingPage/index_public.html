@@ -1,242 +1,186 @@
-{% load bootstrap5 %}
 {% load static %}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
 <!doctype html>
 <html>
     <head>
         <meta charset="utf-8">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" href="{% static 'assets/def_civil.ico' %}" type="image/x-icon">
-        <link rel="stylesheet" type="text/css" href="{% static 'styles/index.css' %}">
         <title>Desastres Mina Clavero</title>
          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
 
-<style>
-  .map-responsive {
-      position: relative;
-      padding-bottom: 56.25%; /* Relación 16:9 */
-      height: 0;
-      overflow: hidden;
-  }
-  
-  .map-responsive iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-  }
-  
-  #card-size{
-    width: 18rem;
-    /*height: 4rem;*/
-  }
-  #img-card{
-      height:200px;
-      width: 100%;
-  }
-  @media screen and (max-width: 770px) and (min-width:550px){
-        #card-size{
-          width: 11rem;
-        
-          }
-        
-        
-  }
-  .card-cover{
-    background: linear-gradient(345deg, rgb(171, 222, 211) 2%,rgb(226, 171, 248) 90%, rgb(234, 222, 238));
-  }
-  .card-cat{
-    background-size: conver;
-    background-repeat: no-repeat;
-    width: 100%;
-    height: 100%;
-  }
-</style>
-
-</head>
+    </head>
     <body>
-     
-     <!-- as heading -->
-     <nav class="navbar fixed-top" id="nav">
-          <div class="container-fluid gap-1">
-               <span class="navbar-brand" id="title">
-                    <img src="{% static 'assets/logo.png' %}" alt="" id="logo-muni">
-                    <img src="{% static 'assets/logo defensa civil.png' %}" alt="" id="logo">
-               </span>
-               <span class="" id="title">Prevención, unidad y acción: juntos protegemos Mina Clavero.</span>
-               <span class="" id="title">Secretaria de Gobierno</span>
-          </div>
-     </nav>
+      
 
-     <!-- as main content -->
-     <main>
+      <nav class="navbar navbar-expand-lg fixed-top" style=" backdrop-filter: blur(1rem); background-color: rgba(0, 0, 0, 0.249);">
+  <div class="container-fluid d-flex justify-content-between align-items-center">
+    
+    <a class="navbar-brand" href="#">
+      <img src="{% static 'assets/logo.png' %}" alt="" style="width: 5rem;">
+      <img src="{% static 'assets/logo defensa civil.png' %}" style="width: 1.2rem;"></a>
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-
-          <!-- background image -->
-          <div id="disaster">
-               <img src="{{ catastrofe.image_disaster }}" alt="" id="image-disaster">
-               <h2 id="text-overlay"class="text-center" style="color: aliceblue;font-weight: 200; margin: 30px 20px;">{{catastrofe.type_disaster}}</h2>
-          </div>
-         <!-- Cards de areas -->
-          {% if catastrofe.is_active %}
-          <div class="container px-4 py-5" id="custom-cards">
-            <h2 class="text-center title-main w-100">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75 2.25 12l4.179 2.25m0-4.5 5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0 4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0-5.571 3-5.571-3" />
-              </svg> Areas Relaciondas
-            </h2>
-            <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
-              {% for institucion in refujio %}
-                <div class="col">
-                  <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg">
-                    <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                      <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">{{ institucion.institucion.nombre | title}}</h2>
-                      <ul class="d-flex list-unstyled mt-auto">
-                        <li class="me-auto">
-                          <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-                        </li>
-                        {% if institucion.institucion.telefono %}
-                          <li class="d-flex align-items-center me-3">
-                            <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"/></svg>
-                            <small>{{ institucion.institucion.telefono}}</small>
-                          </li>
-                        {% endif %}
-                        <li class="d-flex align-items-center">
-                          <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"/></svg>
-                          <small>{{ institucion.institucion.descripcion}}</small>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              {% endfor %}
-          </div>
-          {% endif %}
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
         
-        <!-- Areas -->
-        {% if catastrofe.is_default %}
-          <div class="container px-2 py-2" id="custom-cards">
-            <h2 class="text-center title-main w-100">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75 2.25 12l4.179 2.25m0-4.5 5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0 4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0-5.571 3-5.571-3" />
-              </svg> Areas
-            </h2>
-            <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-3">
-              {% for institucion in refujio %}
-                <div class="col">
-                  <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg">
-                    <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                      <h2 class="pt-3 mt-5 mb-4 display-6 lh-1 fw-bold">{{ institucion.nombre | title}}</h2>
-                      <ul class="d-flex list-unstyled mt-auto">
-                        <li class="me-auto">
-                          <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-                        </li>
-                        {% if institucion.institucion.telefono %}
-                          <li class="d-flex align-items-center me-3">
-                            <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"/></svg>
-                            <small>{{ institucion.telefono}}</small>
-                          </li>
-                        {% endif %}
-                        <li class="d-flex align-items-center">
-                          <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"/></svg>
-                          <small>{{ institucion.descripcion}}</small>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              {% endfor %}
-          </div>
-        {% endif %}
-          {% comment %} <div class="container py-5">
-             <div class="row g-4">
-                {% for item in refujio %}
-                <div class="col-sm-12 col-md-6 col-lg-4">
-                   <div class="card shadow-sm">
-                      <div class="card-body">
-                         <h5 class="card-title">{{ item.Refujio | title}}</h5>
-                         <div class="ratio ratio-4x3">
-                            {{ item.map_frame | safe }}
-                         </div>
-                      </div>
-                   </div>
-                </div>
-                {% endfor %}
-             </div>
-          </div> {% endcomment %}
-          
+        <a class="nav-link text-white fw-light" href="#" style="font-size: .8rem;">Prevención, unidad y acción: juntos protegemos Mina Clavero.</a>
+        <a class="nav-link text-white fw-light" href="#"style="font-size: .8rem;">Prevención, unidad y acción: juntos protegemos Mina Clavero.</a>
+  
+      </div>
+    </div>
+  </div>
+</nav>
 
-          <!-- mapa de refujios -->
-          {% if catastrofe.is_active %}
-            <h2 class="text-center title-main">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+
+<div class="position-relative overflow-hidden w-100" style="height: 300px;">
+  <img src="{{ catastrofe.image_disaster }}" alt="" class="img-fluid w-100 h-100 object-fit-cover">
+  <h2 class="position-absolute top-50 start-50 translate-middle text-center text-white fw-light w-100 px-3" style="margin-top: 60px;">
+    {{ catastrofe.type_disaster }}
+  </h2>
+</div>
+{% if catastrofe.is_active %}
+<div class="container py-4">
+  <div class="d-flex flex-nowrap overflow-auto gap-3">
+    {% for institucion in refujio %}
+      <div class="flex-shrink-0 bg-dark text-white rounded-4 shadow-sm p-4" style="min-width: 280px; max-width: 320px;">
+        <h5 class="fw-bold mb-3">{{ institucion.institucion.nombre | title }}</h5>
+        <ul class="list-unstyled d-flex flex-column gap-2">
+          <li class="d-flex align-items-center">
+            <img src="https://github.com/twbs.png" alt="Logo" width="32" height="32" class="rounded-circle border border-white me-2">
+            <span class="fw-light">Logo</span>
+          </li>
+          {% if institucion.institucion.telefono %}
+            <li class="d-flex align-items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="me-2" viewBox="0 0 16 16">
+                <path d="M3.654 1.328a.678.678 0 0 1 .761-.21c..."/> <!-- truncado -->
               </svg>
-             Mapa de Refugios
-            </h2>
+              <small>{{ institucion.institucion.telefono }}</small>
+            </li>
           {% endif %}
+          <li class="d-flex align-items-start">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="me-2 mt-1" viewBox="0 0 16 16">
+              <path d="M4 .5a.5.5..."/> <!-- truncado -->
+            </svg>
+            <small class="text-wrap w-100" style="max-height: 4.5rem; overflow-y: auto; display: block;">
+              {{ institucion.institucion.descripcion }}
+            </small>
+          </li>
+        </ul>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
 
-          {% if catastrofe.is_default %}
-            <h2 class="text-center title-main">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-              </svg>
-               Mapa de Areas
-            </h2>
-          {% endif %}
-
-          <div class="container w-100" style="width: 100%;">
-               <div class="card shadow">
-                {% if catastrofe.is_active %}
-                    <div class="card-header bg-danger text-white">
-                      Ubicaciones Refugios: Mina Clavero, Córdoba
-                    </div>
-                {% endif %}
-                {% if catastrofe.is_default %}
-                    <div class="card-header bg-danger text-white">
-                      Ubicaciones Areas: Mina Clavero, Córdoba
-                    </div>
-                {% endif %}
-                    <div class="">
-                         <div class="map-responsive">
-                          <iframe src="{{ catastrofe.mapa_interactivo }}" frameborder="0"></iframe>
-                         </div>
-                    </div>
-               </div>
-          </div>
-
-<!------------------- catastrofes  if default -->
-
-{%  if catastrofe.is_default %}
-
-  <div class="container px-2 py-2" id="custom-cards">
-    <h2 class="text-center title-main w-100">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75 2.25 12l4.179 2.25m0-4.5 5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0 4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0-5.571 3-5.571-3" />
-      </svg> Catástrofes
+{% if catastrofe.is_default %}
+  <div class="container px-3 py-4" id="custom-cards">
+    <h2 class="w-100 mb-4 d-flex align-items-center justify-content-center">
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" class="me-2">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M6.429 9.75 2.25 12l4.179 2.25m0-4.5 
+             5.571 3 5.571-3m-11.142 0L2.25 7.5 
+             12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 
+             2.25m0 0 4.179 2.25L12 21.75 
+             2.25 16.5l4.179-2.25m11.142 0-5.571 3-5.571-3" />
+      </svg>
+      Áreas
     </h2>
-    <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-3">
+
+    <div class="d-flex flex-nowrap overflow-auto gap-3 pb-2">
+      {% for institucion in refujio %}
+        <div class="flex-shrink-0 bg-dark text-white rounded-4 shadow-sm p-4" style="min-width: 280px; max-width: 320px;">
+          <h5 class="fw-bold mb-3">{{ institucion.nombre | title }}</h5>
+          <ul class="list-unstyled d-flex flex-column gap-2">
+            <li class="d-flex align-items-center">
+              <img src="https://github.com/twbs.png" alt="Logo" width="32" height="32" class="rounded-circle border border-white me-2">
+              <span class="fw-light">Logo</span>
+            </li>
+
+            {% if institucion.institucion.telefono %}
+              <li class="d-flex align-items-center">
+                <svg class="bi me-2" width="20" height="20" fill="currentColor">
+                  <use xlink:href="#geo-fill"/>
+                </svg>
+                <small>{{ institucion.telefono }}</small>
+              </li>
+            {% endif %}
+
+            <li class="d-flex align-items-start">
+              <svg class="bi me-2 mt-1" width="20" height="20" fill="currentColor">
+                <use xlink:href="#calendar3"/>
+              </svg>
+              <small class="text-wrap w-100" style="max-height: 4.5rem; overflow-y: auto; display: block;">
+                {{ institucion.descripcion }}
+              </small>
+            </li>
+          </ul>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
+
+
+
+
+{% if catastrofe.is_active %}
+  <h4 class=" px-3 py-2 rounded-top text-center">
+    Ubicaciones Refugios: Mina Clavero, Córdoba
+  </h4>
+{% endif %}
+
+{% if catastrofe.is_default %}
+  <h4 class="px-3 py-2 rounded-top text-center">
+    Ubicaciones Áreas: Mina Clavero, Córdoba
+  </h4>
+{% endif %}
+
+<div class="container my-4">
+  {% if catastrofe.mapa_interactivo %}
+    <div class="ratio ratio-16x9">
+      {{ catastrofe.mapa_interactivo | safe }}
+    </div>
+  {% else %}
+    <p class="text-center text-muted">No hay mapa interactivo disponible.</p>
+  {% endif %}
+</div>
+
+
+<!-- is Default -->
+{% if catastrofe.is_default %}
+  <div class="container px-2 py-3" id="custom-cards">
+    <h2 class="text-center title-main w-100 mb-4">
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" class="me-2">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M6.429 9.75 2.25 12l4.179 2.25m0-4.5 
+             5.571 3 5.571-3m-11.142 0L2.25 7.5 
+             12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 
+             2.25m0 0 4.179 2.25L12 21.75 
+             2.25 16.5l4.179-2.25m11.142 0-5.571 3-5.571-3" />
+      </svg>
+      Catástrofes
+    </h2>
+
+    <div class="d-flex flex-nowrap overflow-auto gap-3 pb-3">
       {% for item in all %}
-        <div class="col">
-          <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url({{item.image_disaster}}); background-size: cover; background-position: center; background-repeat: no-repeat;">
-            <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-              <h2 class="pt-3 mt-5 mb-4 display-6 lh-1 fw-bold">{{ item.type_disaster | title}}</h2>
-              <ul class="d-flex list-unstyled mt-auto">
-                <li class="me-auto">
-                  <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-                </li>
-              </ul>
-            </div>
+        <div class="flex-shrink-0 text-white rounded-5 " 
+             style="min-width: 280px; max-width: 320px; background-image: url('{{ item.image_disaster | safe }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+          <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1" style="background-color: transparent;">
+            <h2 class="pt-3 mt-5 mb-4 display-6 lh-1 fw-bold">{{ item.type_disaster | title }}</h2>
+            <ul class="d-flex list-unstyled mt-auto">
+              <li class="me-auto">
+                <img src="https://github.com/twbs.png" alt="Logo" width="32" height="32"
+                     class="rounded-circle border border-white">
+              </li>
+            </ul>
           </div>
         </div>
       {% endfor %}
+    </div>
   </div>
 {% endif %}
 
@@ -245,7 +189,7 @@
 <br>
 <br>
 <h2 class="title-list text-center">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-4">
+    <svg xmlns="http://www.w3.org/2000/svg" width="1rem" viewBox="0 0 16 16" fill="currentColor" class="size-4">
     <path
       d="M2.75 2a.75.75 0 0 0-.75.75v10.5a.75.75 0 0 0 1.5 0v-2.624l.33-.083A6.044 6.044 0 0 1 8 11c1.29.645 2.77.807 4.17.457l1.48-.37a.462.462 0 0 0 .35-.448V3.56a.438.438 0 0 0-.544-.425l-1.287.322C10.77 3.808 9.291 3.646 8 3a6.045 6.045 0 0 0-4.17-.457l-.34.085A.75.75 0 0 0 2.75 2Z" />
   </svg>
@@ -322,58 +266,104 @@
       </div>
     </div>
   </div>
-
-
 {% endif %}
-<!--  -->
-</main>
-<br>
-
-<!-- As footer -->
-<footer>
-    <div class="footer-line"></div>
-    <section class="footer-logo">
-        <img src="{% static 'imagenes/mina.png' %}" alt="">
-    </section>
-
-    <!-- conteiner for content -->
-    <div class="footer-wrapper">
-    <h4 style="font-weight:300; text-align: left:0%;">Contactos</h3>
-        <div class="footer-columns">
-            {% for item in refujio %}
-            <section>
-                <h3 style="font-size: 1rem;">{{ item.institucion.nombre}}</h3>
-                <ul>
-                    <li>
-                        <a href="#" title="">{{ item.institucion.telefono }}</a>
-                    </li>
-                    <li>
-                      <a href="#"> {{item.institucion.email}}</a>
-                    </li>
-                </ul>
-            </section>
-            {% endfor %}
 
 
+
+<footer class="bg-dark text-white py-5 mt-5">
+  <div class="container">
+    <!-- Sección superior: Logo y contactos -->
+    <div class="row gy-4 align-items-start">
+      <!-- Logo -->
+      <div class="col-12 col-md-4 text-center text-md-start">
+        <img src="{% static 'imagenes/mina.png' %}" alt="Logo Mina Clavero" class="img-fluid mb-3" style="max-width: 160px;">
+        <p class="small">Gobierno local de Mina Clavero, Córdoba</p>
+      </div>
+
+      <!-- Contactos -->
+      <div class="col-12 col-md-8">
+        <h5 class="fw-light mb-4">Contactos</h5>
+        
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+          {% if catastrofe.is_active %}
+          {% for item in refujio %}
+          <div class="col overflow-hidden">
+            <h6 class="fw-semibold">{{ item.institucion.nombre }}</h6>
+            <ul class="list-unstyled">
+              
+              <li>
+                <a href="tel:{{ item.institucion.telefono | safe}}" class="text-white text-decoration-none small d-block">
+                  📞 {{ item.institucion.telefono}}
+                </a>
+              </li>
+              
+              
+              <li>
+                <a href="mailto:{{ item.institucion.email | safe }}" class="text-white text-decoration-none small d-block">
+                  📧 {{ item.institucion.email }}
+
+                </a>
+              </li>
+              
+            </ul>
+          </div>
+          {% endfor %}
+          {% endif %}
+          {% if catastrofe.is_default %}
+          {% for item in refujio %}
+          <div class="col overflow-hidden">
+            <h6 class="fw-semibold">{{ item.nombre }}</h6>
+            <ul class="list-unstyled">
+              
+              <li>
+                <a href="tel:{{ item.telefono | safe}}" class="text-white text-decoration-none small d-block">
+                  📞 {{ item.telefono}}
+                </a>
+              </li>
+              
+              
+              <li>
+                <a href="mailto:{{ item.email | safe }}" class="text-white text-decoration-none small d-block">
+                  📧 {{ item.email }}
+
+                </a>
+              </li>
+              
+            </ul>
+          </div>
+          {% endfor %}
+          {% endif %}
         </div>
-                
-    <!-- redes sociales mina -->
-    <div class="footer-bottom">
-        <small>© Mina Clavero. <span id="year"></span>, todos los derechos reservados</small>
-        <span class='social-links'>
-            <a href="#" title="Instagram">
-                <img src="{% static 'assets/instagram.svg' %}" alt='Instagram'></a>
-            <a href="#" title="Youtube"><img src="{% static 'assets/youtube.svg' %}" alt='YouTube'></a>
-                       
-        </span>
+      </div>
     </div>
-</div>
+
+    <!-- Separador -->
+    <hr class="border-secondary my-4">
+
+    <!-- Sección inferior: redes y derechos -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center text-center text-md-start gap-3">
+      <small class="d-block">&copy; Mina Clavero <span id="year"></span>. Todos los derechos reservados.</small>
+      <div class="d-flex gap-3">
+        <a href="#" title="Instagram">
+          <img src="{% static 'assets/instagram.svg' %}" alt="Instagram" width="24" height="24">
+        </a>
+        <a href="#" title="YouTube">
+          <img src="{% static 'assets/youtube.svg' %}" alt="YouTube" width="24" height="24">
+        </a>
+      </div>
+    </div>
+  </div>
 </footer>
 
+<script>
+  // Inserta automáticamente el año actual
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous">
   </script>
-<script>document.getElementById("year").innerHTML = new Date().getFullYear();</script>
     </body>
 </html>
