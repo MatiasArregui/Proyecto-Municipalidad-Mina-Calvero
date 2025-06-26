@@ -11,9 +11,7 @@
         <h2>Instituciones Perteneciente</h2>
         {{ formset_institucion_cargo.management_form }}
         {% for form in formset_institucion_cargo %}
-            <div>
-                {{ form.as_p }}
-            </div>
+            {{ form.as_p }}
         {% endfor %}
 
         <button class="btn btn-primary mb-3" type="submit">Guardar</button>
@@ -25,4 +23,43 @@
       </svg>
     </a>
 </div>
+
+
+<script>
+    const selects = document.querySelectorAll('.select_insti');
+
+    // Función para actualizar las opciones disponibles en cada select
+    function updateOptions() {
+        let selectedValues = [];
+
+        // Obtener los valores seleccionados actualmente
+        selects.forEach(select => {
+            selectedValues.push(select.value);
+        });
+
+        // Actualizar las opciones de cada select
+        selects.forEach(select => {
+            Array.from(select.options).forEach(option => {
+                if (
+                    option.value === "" ||
+                    !selectedValues.includes(option.value) ||
+                    select.value === option.value
+                ) {
+                    option.style.display = '';
+                } else {
+                    option.style.display = 'none';
+                }
+            });
+        });
+    }
+
+    // Agregar el listener a cada select
+    selects.forEach(select => {
+        select.addEventListener('change', updateOptions);
+    });
+
+    // Ejecutar al cargar
+    updateOptions();
+</script>
+
 {% endblock %}

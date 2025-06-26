@@ -81,7 +81,7 @@ class InstitucionCargoPersonaForm(forms.ModelForm):
         model = InstitucionCargoPersona
         fields = ("id_institucion", "id_cargo")
         widgets = {
-            "id_institucion": forms.Select(attrs={"class": "form-control"}),
+            "id_institucion": forms.Select(attrs={"class": "form-control select_insti"}),
             "id_cargo": forms.Select(attrs={"class": "form-control"}),
         }
         labels = {

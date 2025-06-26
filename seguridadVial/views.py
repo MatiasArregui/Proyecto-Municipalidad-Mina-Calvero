@@ -20,7 +20,7 @@ def paginaPrincipal(request):
         context = {"todo": todo}
         return render(request, template_name=os.path.join("defensaCivil", "paginaPrincipal.html"), context=context)
     except Exception as e:
-        return render(request, template_name=os.path.join("defensaCivil", "paginaPrincipal.html"), context=context)
+        return render(request, template_name=os.path.join("defensaCivil", "paginaPrincipal.html"), context=None)
         
 
 
