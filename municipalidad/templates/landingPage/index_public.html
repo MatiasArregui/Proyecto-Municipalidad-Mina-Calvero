@@ -13,14 +13,7 @@
         <title>Desastres Mina Clavero</title>
          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-        <!-- <style>
-          iframe {
-               width: 100% !important;
-               height: 100% !important;
-               border: 0;
-          }
 
-        </style> -->
 <style>
   .map-responsive {
       position: relative;
@@ -54,9 +47,18 @@
         
         
   }
+  .card-cover{
+    background: linear-gradient(345deg, rgb(171, 222, 211) 2%,rgb(226, 171, 248) 90%, rgb(234, 222, 238));
+  }
+  .card-cat{
+    background-size: conver;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+  }
 </style>
 
-    </head>
+</head>
     <body>
      
      <!-- as heading -->
@@ -81,54 +83,74 @@
                <h2 id="text-overlay"class="text-center" style="color: aliceblue;font-weight: 200; margin: 30px 20px;">{{catastrofe.type_disaster}}</h2>
           </div>
          <!-- Cards de areas -->
-         {% if catastrofe.is_active %}
-          <h2 class="text-center title-main w-100">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75 2.25 12l4.179 2.25m0-4.5 5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0 4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0-5.571 3-5.571-3" />
-            </svg> Areas Relaciondas
-          </h2>
-          <div class="container mt-4">
-            <div class="row">
+          {% if catastrofe.is_active %}
+          <div class="container px-4 py-5" id="custom-cards">
+            <h2 class="text-center title-main w-100">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75 2.25 12l4.179 2.25m0-4.5 5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0 4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0-5.571 3-5.571-3" />
+              </svg> Areas Relaciondas
+            </h2>
+            <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
               {% for institucion in refujio %}
-                <div class="col-md-6 mb-3">
-                  <div class="card shadow-sm">
-                    <div class="card-body">
-                      <h6 class="card-title mb-0">{{ institucion.institucion.nombre }}</h6>
-                      {% if institucion.institucion.telefono %}
-                        <p>{{ institucion.institucion.telefono}}</p>
-                      {% endif %}
-                      <p>{{ institucion.institucion.descripcion}}</p>
+                <div class="col">
+                  <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg">
+                    <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                      <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">{{ institucion.institucion.nombre | title}}</h2>
+                      <ul class="d-flex list-unstyled mt-auto">
+                        <li class="me-auto">
+                          <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
+                        </li>
+                        {% if institucion.institucion.telefono %}
+                          <li class="d-flex align-items-center me-3">
+                            <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"/></svg>
+                            <small>{{ institucion.institucion.telefono}}</small>
+                          </li>
+                        {% endif %}
+                        <li class="d-flex align-items-center">
+                          <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"/></svg>
+                          <small>{{ institucion.institucion.descripcion}}</small>
+                        </li>
+                      </ul>
                     </div>
                   </div>
                 </div>
               {% endfor %}
-            </div>
           </div>
-        {% endif %}
+          {% endif %}
+        
         <!-- Areas -->
         {% if catastrofe.is_default %}
-          <h2 class="text-center title-main">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75 2.25 12l4.179 2.25m0-4.5 5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0 4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0-5.571 3-5.571-3" />
-            </svg>
-            Areas
-          </h2>
-          <div class="container mt-4">
-            <div class="row">
+          <div class="container px-2 py-2" id="custom-cards">
+            <h2 class="text-center title-main w-100">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75 2.25 12l4.179 2.25m0-4.5 5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0 4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0-5.571 3-5.571-3" />
+              </svg> Areas
+            </h2>
+            <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-3">
               {% for institucion in refujio %}
-                <div class="col-md-2 mb-3">
-                  <div class="card shadow-sm">
-                    <div class="card-body">
-                      <h6 class="card-title mb-0">{{ institucion.nombre }}</h6>
-                      {% if institucion.telefono %}
-                        <p>{{ institucion.telefono}}</p>
-                      {% endif %}
-                        <p>{{ institucion.descripcion}}</p>
+                <div class="col">
+                  <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg">
+                    <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                      <h2 class="pt-3 mt-5 mb-4 display-6 lh-1 fw-bold">{{ institucion.nombre | title}}</h2>
+                      <ul class="d-flex list-unstyled mt-auto">
+                        <li class="me-auto">
+                          <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
+                        </li>
+                        {% if institucion.institucion.telefono %}
+                          <li class="d-flex align-items-center me-3">
+                            <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"/></svg>
+                            <small>{{ institucion.telefono}}</small>
+                          </li>
+                        {% endif %}
+                        <li class="d-flex align-items-center">
+                          <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"/></svg>
+                          <small>{{ institucion.descripcion}}</small>
+                        </li>
+                      </ul>
                     </div>
                   </div>
                 </div>
               {% endfor %}
-            </div>
           </div>
         {% endif %}
           {% comment %} <div class="container py-5">
@@ -193,19 +215,29 @@
 <!------------------- catastrofes  if default -->
 
 {%  if catastrofe.is_default %}
-<h2 class="title-main text-center">Catastrofe</h2>
-<div class="w-100 d-flex flex-wrap justify-content-center align-items-center gap-3">
-    {% for item in all %}
-    <div class="card" style="" id="card-size">
-      <img src="{{ item.image_disaster }}" alt="..." id="img-card">
-      <div class="card-body">
-        <p class="card-text">{{ item.type_disaster }}</p>
-      </div>
-    </div>
-    {% endfor %}
-</div>
 
-
+  <div class="container px-2 py-2" id="custom-cards">
+    <h2 class="text-center title-main w-100">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75 2.25 12l4.179 2.25m0-4.5 5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0 4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0-5.571 3-5.571-3" />
+      </svg> Catástrofes
+    </h2>
+    <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-3">
+      {% for item in all %}
+        <div class="col">
+          <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url({{item.image_disaster}}); background-size: cover; background-position: center; background-repeat: no-repeat;">
+            <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+              <h2 class="pt-3 mt-5 mb-4 display-6 lh-1 fw-bold">{{ item.type_disaster | title}}</h2>
+              <ul class="d-flex list-unstyled mt-auto">
+                <li class="me-auto">
+                  <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+  </div>
 {% endif %}
 
 <!--------------------  Protocols ------------------>
