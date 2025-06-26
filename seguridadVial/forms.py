@@ -166,11 +166,10 @@ class CatastropheForm(forms.ModelForm):
 
         }
         labels = {
-            "type_disaster": "Momento desastre",
-            "image_disaster":"imagen",
-            "descripcion":"descripcion",
-            "mapa_interactivo" : "url my maps",
-
+            "type_disaster": "Nombre Catástrofe",
+            "image_disaster":"Imagen Cabecera de Página",
+            "descripcion":"Texto de Cabecera",
+            "mapa_interactivo" : "Enlace o hipervínculo a mapa interactivo",
         }
 
         

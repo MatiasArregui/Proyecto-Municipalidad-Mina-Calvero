@@ -27,7 +27,7 @@ class Elementos(models.Model):
     cantidad = models.IntegerField(default=1, null=True, blank=True)
     observaciones = models.CharField(max_length=240, null=True, blank=True)
     estado = models.BooleanField(default=True, null=True, blank=True)
-    id_persona = models.ForeignKey("Persona", on_delete=models.CASCADE)
+    id_persona = models.ForeignKey("Persona", on_delete=models.PROTECT)
     id_institucion = models.ForeignKey("Institucion", on_delete=models.CASCADE)
 
     
@@ -98,8 +98,7 @@ class Persona(models.Model):
 class InstitucionCargoPersona(models.Model):
     id_institucion = models.ForeignKey(Institucion, on_delete=models.CASCADE)
     id_persona = models.ForeignKey(Persona, on_delete=models.CASCADE)
-    id_cargo = models.ForeignKey("Cargo", on_delete=models.CASCADE)
-
+    id_cargo = models.ForeignKey("Cargo", on_delete=models.PROTECT)
 
 
 

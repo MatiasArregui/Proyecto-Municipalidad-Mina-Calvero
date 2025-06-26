@@ -89,6 +89,17 @@ class PersonaBorrar(DeleteView):
     template_name = os.path.join("defensaCivil", "confirmacionBorrado", "personaBorrar.html")
     success_url = reverse_lazy('listaPersonas')
 
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        try:
+            self.object.delete()
+            return redirect(self.success_url)
+        except ProtectedError:
+            messages.error(request, "No se puede eliminar esta persona porque tiene elementos relacionados.")
+            context = self.get_context_data(object=self.object)
+            return self.render_to_response(context)
+
+
 # Categoria Views ------------------------------------------------------------------------------>
     #Ver categorias
 # class listaCategoria(ListView):
@@ -150,15 +161,21 @@ class CargoModificar(UpdateView):
         context['personas'] = personas
         return context
     
-    
-    
-    
-    
     #Borrar cargo
 class CargoBorrar(DeleteView):
     model = Cargo
     template_name = os.path.join("defensaCivil", "confirmacionBorrado", "cargoBorrar.html")
     success_url = reverse_lazy('listaCargos')
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        try:
+            self.object.delete()
+            return redirect(self.success_url)
+        except ProtectedError:
+            messages.error(request, "No se puede eliminar este cargo porque tiene personas relacionadas.")
+            context = self.get_context_data(object=self.object)
+            return self.render_to_response(context)
+
 
 
 # Elemento Views ------------------------------------------------------------------------------>
