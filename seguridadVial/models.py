@@ -122,7 +122,6 @@ class Cargo(models.Model):
 
 
 # <------------  Modelos Landing page   --------------->
-
 class Catastrophe(models.Model):
     type_disaster = models.CharField(max_length=255, default=None)
     descripcion = models.TextField()
@@ -156,8 +155,3 @@ class Refujio(models.Model):
 
     def __str__(self):
         return f"Refugio de {self.institucion} en caso de {self.catastrofe}"
-
-class Footer_info(models.Model):
-    icono = models.CharField(blank=True, null=True, default=None, max_length=120)
-    info = models.CharField(max_length=255, default=None, null=True, blank=True)
-    catastrophe = models.ForeignKey(Catastrophe, on_delete=models.CASCADE, related_name="footer_info")

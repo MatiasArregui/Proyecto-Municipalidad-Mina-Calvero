@@ -1,5 +1,5 @@
 from django import forms
-from .models import Persona, Cargo, Elementos, Institucion, InstitucionCargoPersona, Catastrophe, Protocole, Refujio, Footer_info
+from .models import Persona, Cargo, Elementos, Institucion, InstitucionCargoPersona, Catastrophe, Protocole, Refujio
 from django.forms import inlineformset_factory
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -151,21 +151,8 @@ class RefujioForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
-            field.widget.attrs.update({'class': 'form-control'})
+            field.widget.attrs.update({'class': 'form-control select_insti'})
         
-class FooterInfoForm(forms.ModelForm):
-    class Meta:
-        model = Footer_info
-        fields = ("icono", "info")
-        widgets = {
-            "icono": forms.TextInput(attrs={"class": "form-control"}),
-            "info": forms.TextInput(attrs={"class": "form-control"}),
-        }
-        labels = {
-            "icono": "Url imagen",
-            "info":"Información",
-        }
-
 
 class CatastropheForm(forms.ModelForm):
     class Meta:
@@ -190,7 +177,6 @@ class CatastropheForm(forms.ModelForm):
 
 # Formset -> inlines 
 ProtocoleFormset = inlineformset_factory(Catastrophe, Protocole, form=ProtocoleForm, extra=5)
-FooterInfoFormset = inlineformset_factory(Catastrophe, Footer_info, form=FooterInfoForm, extra=5)
 RefujioFormset = inlineformset_factory(Catastrophe, Refujio, form=RefujioForm, extra=5)
 
 
