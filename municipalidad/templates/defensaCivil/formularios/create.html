@@ -28,9 +28,6 @@
       <li class="nav-item" role="presentation">
         <button class="nav-link" id="bunkers-tab" data-bs-toggle="tab" data-bs-target="#bunkers" type="button" role="tab">Areas</button>
       </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="footer-tab" data-bs-toggle="tab" data-bs-target="#footer" type="button" role="tab">Footer</button>
-      </li>
     </ul>
 
     <div class="tab-content" id="formTabsContent">
@@ -49,12 +46,7 @@
           {{ f.as_p }}
         {% endfor %}
       </div>
-      <div class="tab-pane fade" id="footer" role="tabpanel">
-        {{ footer_formset.management_form }}
-        {% for f in footer_formset %}
-          {{ f.as_p }}
-        {% endfor %}
-      </div>
+      
     </div>
 
     <div class="text-end mt-4">
