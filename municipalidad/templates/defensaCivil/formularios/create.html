@@ -26,13 +26,10 @@
         <button class="nav-link" id="protocolos-tab" data-bs-toggle="tab" data-bs-target="#protocolos" type="button" role="tab">Protocolos</button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link" id="bunkers-tab" data-bs-toggle="tab" data-bs-target="#bunkers" type="button" role="tab">Refujio</button>
+        <button class="nav-link" id="bunkers-tab" data-bs-toggle="tab" data-bs-target="#bunkers" type="button" role="tab">Areas</button>
       </li>
       <li class="nav-item" role="presentation">
         <button class="nav-link" id="footer-tab" data-bs-toggle="tab" data-bs-target="#footer" type="button" role="tab">Footer</button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="url-tab" data-bs-toggle="tab" data-bs-target="#url" type="button" role="tab">Mapa y Colores</button>
       </li>
     </ul>
 
@@ -55,12 +52,6 @@
       <div class="tab-pane fade" id="footer" role="tabpanel">
         {{ footer_formset.management_form }}
         {% for f in footer_formset %}
-          {{ f.as_p }}
-        {% endfor %}
-      </div>
-      <div class="tab-pane fade" id="url" role="tabpanel">
-        {{ url_formset.management_form }}
-        {% for f in url_formset %}
           {{ f.as_p }}
         {% endfor %}
       </div>

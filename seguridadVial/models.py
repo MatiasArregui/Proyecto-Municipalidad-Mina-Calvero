@@ -129,6 +129,9 @@ class Catastrophe(models.Model):
     is_active = models.BooleanField(default=False)
     is_default = models.BooleanField(default=False)
     image_disaster = models.URLField(default=None)
+    mapa_interactivo = models.URLField(default=None)
+
+
 
     def __str__(self):
         return self.type_disaster
@@ -158,9 +161,3 @@ class Footer_info(models.Model):
     icono = models.CharField(blank=True, null=True, default=None, max_length=120)
     info = models.CharField(max_length=255, default=None, null=True, blank=True)
     catastrophe = models.ForeignKey(Catastrophe, on_delete=models.CASCADE, related_name="footer_info")
-
-class url_map(models.Model):
-    url = models.CharField(max_length=700, null=True, default=None, blank=True)
-    colors = models.CharField(max_length=700, null=True, default=None, blank=True)
-    catastrophe = models.ForeignKey(Catastrophe, on_delete=models.CASCADE, related_name="url")
-        

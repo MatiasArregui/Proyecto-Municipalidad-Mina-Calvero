@@ -1,5 +1,5 @@
 from django import forms
-from .models import Persona, Cargo, Elementos, Institucion, InstitucionCargoPersona, Catastrophe, Protocole, Refujio, Footer_info, url_map
+from .models import Persona, Cargo, Elementos, Institucion, InstitucionCargoPersona, Catastrophe, Protocole, Refujio, Footer_info
 from django.forms import inlineformset_factory
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -135,8 +135,8 @@ class ProtocoleForm(forms.ModelForm):
             "name": forms.TextInput(attrs={"class": "form-control"}),
         }
         labels = {
-            "campo_seleccion": "Estado",
-            "name":"nombre",
+            "campo_seleccion": "Estado Del Protocolo",
+            "name":"Descripción de protocolo",
         }
 
 
@@ -166,19 +166,6 @@ class FooterInfoForm(forms.ModelForm):
             "info":"Información",
         }
 
-class UrlForm(forms.ModelForm):
-    class Meta:
-        model = url_map
-        fields = ("url", "colors")
-        widgets = {
-            "url": forms.TextInput(attrs={"class": "form-control"}),
-            "colors": forms.TextInput(attrs={"class": "form-control"}),
-        }
-        labels = {
-            "url": "Url map",
-            "colors":"Color",
-        }
-        
 
 class CatastropheForm(forms.ModelForm):
     class Meta:
@@ -203,5 +190,5 @@ class CatastropheForm(forms.ModelForm):
 ProtocoleFormset = inlineformset_factory(Catastrophe, Protocole, form=ProtocoleForm, extra=5)
 FooterInfoFormset = inlineformset_factory(Catastrophe, Footer_info, form=FooterInfoForm, extra=5)
 RefujioFormset = inlineformset_factory(Catastrophe, Refujio, form=RefujioForm, extra=5)
-UrlFormset = inlineformset_factory(Catastrophe, url_map, form=UrlForm, extra=1)
+
 
