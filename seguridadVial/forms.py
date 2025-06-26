@@ -139,19 +139,19 @@ class ProtocoleForm(forms.ModelForm):
             "name":"nombre",
         }
 
+
 class RefujioForm(forms.ModelForm):
     class Meta:
         model = Refujio
-        fields = ("Refujio", "map_frame")
-        widgets = {
-            "Refujio": forms.TextInput(attrs={"class": "form-control"}),
-            "map_frame": forms.TextInput(attrs={"class": "form-control"}),
-        }
+        fields = ['institucion']
         labels = {
-            "Refujio": "Refugio",
-            "map_frame":"Url (Frame map)",
+            'institucion': 'Area Relacionada | Catastrofe',
         }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs.update({'class': 'form-control'})
         
 class FooterInfoForm(forms.ModelForm):
     class Meta:

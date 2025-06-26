@@ -148,12 +148,11 @@ class Protocole(models.Model):
         return self.name
 
 class Refujio(models.Model):
-    Refujio = models.CharField(max_length=255, default=None, null=True, blank=True)
-    map_frame = models.CharField(max_length=555,default=None, null=True, blank=True)  # Almacena un marco de mapa, puedes usar JSON si es necesario
-    catastrophe = models.ForeignKey(Catastrophe, on_delete=models.CASCADE, related_name="refugios")
+    institucion = models.ForeignKey(Institucion, on_delete=models.CASCADE)
+    catastrofe = models.ForeignKey(Catastrophe, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.Refujio
+        return f"Refugio de {self.institucion} en caso de {self.catastrofe}"
 
 class Footer_info(models.Model):
     icono = models.CharField(blank=True, null=True, default=None, max_length=120)
