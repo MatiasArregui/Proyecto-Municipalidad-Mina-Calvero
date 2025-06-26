@@ -2,7 +2,7 @@
 from django.shortcuts import render, HttpResponseRedirect, redirect, get_object_or_404
 
 # -- Models importations --
-from .models import Catastrophe, Protocole, Refujio, Footer_info
+from .models import Catastrophe, Protocole, Refujio, Footer_info, Institucion
 from .forms import ProtocoleFormset, RefujioFormset, FooterInfoFormset, CatastropheForm
 
 # -- Views -- 
@@ -144,11 +144,19 @@ def ActiveCatastropheListView(request):
     filters_is_active = Catastrophe.objects.filter(is_active=True)
     if not filters_is_active: 
         cat = Catastrophe.objects.get(is_default=True) 
+        # Obtengo todas las pk de las instituciones en refugios
+        all_cat = [x.institucion.pk for x in Refujio.objects.all() ]
+        print(all_cat)
+        # Muestro en la pagina estandard solo aquellas areas pertenecientes a una catastrofe
+        ref = [x for x in Institucion.objects.all() if x.pk in all_cat]
+        print(cat.pk)
+        for c in ref:
+            print(c)
     else:
         cat = Catastrophe.objects.get(is_active=True)
+        ref = Refujio.objects.filter(catastrofe=cat)
     
     pro = Protocole.objects.filter(catastrophe=cat)
-    ref = Refujio.objects.filter(catastrophe=cat)
     foo = Footer_info.objects.filter(catastrophe=cat)
   
 

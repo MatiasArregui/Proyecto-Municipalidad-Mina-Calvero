@@ -21,6 +21,41 @@
           }
 
         </style> -->
+<style>
+  .map-responsive {
+      position: relative;
+      padding-bottom: 56.25%; /* Relación 16:9 */
+      height: 0;
+      overflow: hidden;
+  }
+  
+  .map-responsive iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+  }
+  
+  #card-size{
+    width: 18rem;
+    /*height: 4rem;*/
+  }
+  #img-card{
+      height:200px;
+      width: 100%;
+  }
+  @media screen and (max-width: 770px) and (min-width:550px){
+        #card-size{
+          width: 11rem;
+        
+          }
+        
+        
+  }
+</style>
+
     </head>
     <body>
      
@@ -47,19 +82,56 @@
           </div>
          <!-- Cards de areas -->
          {% if catastrofe.is_active %}
-        <h2 class="text-center title-main w-100"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75 2.25 12l4.179 2.25m0-4.5 5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0 4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0-5.571 3-5.571-3" />
-</svg>
-Areas Relaciondas</h2>
+          <h2 class="text-center title-main w-100">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75 2.25 12l4.179 2.25m0-4.5 5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0 4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0-5.571 3-5.571-3" />
+            </svg> Areas Relaciondas
+          </h2>
+          <div class="container mt-4">
+            <div class="row">
+              {% for institucion in refujio %}
+                <div class="col-md-6 mb-3">
+                  <div class="card shadow-sm">
+                    <div class="card-body">
+                      <h6 class="card-title mb-0">{{ institucion.institucion.nombre }}</h6>
+                      {% if institucion.institucion.telefono %}
+                        <p>{{ institucion.institucion.telefono}}</p>
+                      {% endif %}
+                      <p>{{ institucion.institucion.descripcion}}</p>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
         {% endif %}
         <!-- Areas -->
         {% if catastrofe.is_default %}
-        <h2 class="text-center title-main"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75 2.25 12l4.179 2.25m0-4.5 5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0 4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0-5.571 3-5.571-3" />
-</svg>
- Areas</h2>
+          <h2 class="text-center title-main">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75 2.25 12l4.179 2.25m0-4.5 5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0 4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0-5.571 3-5.571-3" />
+            </svg>
+            Areas
+          </h2>
+          <div class="container mt-4">
+            <div class="row">
+              {% for institucion in refujio %}
+                <div class="col-md-2 mb-3">
+                  <div class="card shadow-sm">
+                    <div class="card-body">
+                      <h6 class="card-title mb-0">{{ institucion.nombre }}</h6>
+                      {% if institucion.telefono %}
+                        <p>{{ institucion.telefono}}</p>
+                      {% endif %}
+                        <p>{{ institucion.descripcion}}</p>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
         {% endif %}
-          <div class="container py-5">
+          {% comment %} <div class="container py-5">
              <div class="row g-4">
                 {% for item in refujio %}
                 <div class="col-sm-12 col-md-6 col-lg-4">
@@ -74,61 +146,52 @@ Areas Relaciondas</h2>
                 </div>
                 {% endfor %}
              </div>
-          </div>
+          </div> {% endcomment %}
           
 
           <!-- mapa de refujios -->
           {% if catastrofe.is_active %}
-          <h2 class="text-center title-main"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-</svg>
- Mapa de Refugios</h2>
+            <h2 class="text-center title-main">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+              </svg>
+             Mapa de Refugios
+            </h2>
           {% endif %}
 
           {% if catastrofe.is_default %}
-          <h2 class="text-center title-main"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-</svg>
- Mapa de Areas</h2>
+            <h2 class="text-center title-main">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+              </svg>
+               Mapa de Areas
+            </h2>
           {% endif %}
 
           <div class="container w-100" style="width: 100%;">
                <div class="card shadow">
-                    <div class="card-header bg-danger text-white">Ubicación del Refugio: Mina Clavero, Córdoba
+                {% if catastrofe.is_active %}
+                    <div class="card-header bg-danger text-white">
+                      Ubicaciones Refugios: Mina Clavero, Córdoba
                     </div>
+                {% endif %}
+                {% if catastrofe.is_default %}
+                    <div class="card-header bg-danger text-white">
+                      Ubicaciones Areas: Mina Clavero, Córdoba
+                    </div>
+                {% endif %}
                     <div class="">
                          <div class="map-responsive">
-                              {% for item in maps %}
-                             {{ item.url|safe }}
-                              {% endfor %}
+                          <iframe src="{{ catastrofe.mapa_interactivo }}" frameborder="0"></iframe>
                          </div>
                     </div>
                </div>
           </div>
 
 <!------------------- catastrofes  if default -->
-<style type="text/css">
-#card-size{
-  width: 18rem;
-  /*height: 4rem;*/
-}
-#img-card{
-    height:200px;
-    width: 100%;
-}
-@media screen and (max-width: 770px) and (min-width:550px){
-      #card-size{
-        width: 11rem;
 
-        }
-
-
-    }
-
-
-</style>
 {%  if catastrofe.is_default %}
 <h2 class="title-main text-center">Catastrofe</h2>
 <div class="w-100 d-flex flex-wrap justify-content-center align-items-center gap-3">
@@ -153,7 +216,8 @@ Areas Relaciondas</h2>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-4">
     <path
       d="M2.75 2a.75.75 0 0 0-.75.75v10.5a.75.75 0 0 0 1.5 0v-2.624l.33-.083A6.044 6.044 0 0 1 8 11c1.29.645 2.77.807 4.17.457l1.48-.37a.462.462 0 0 0 .35-.448V3.56a.438.438 0 0 0-.544-.425l-1.287.322C10.77 3.808 9.291 3.646 8 3a6.045 6.045 0 0 0-4.17-.457l-.34.085A.75.75 0 0 0 2.75 2Z" />
-  </svg>Protocolo de Acciones en Caso de {{ catastrofe.type_disaster }} - Mina Clavero 
+  </svg>
+   Protocolo de Acciones en Caso de {{ catastrofe.type_disaster }} - Mina Clavero 
 </h2>
 <br>
 <br>
@@ -173,9 +237,9 @@ Areas Relaciondas</h2>
         <ul class="list-group list-group-flush">
 
           {% for item in protocolo %}
-          {% if item.campo_seleccion == 'Antes' %}
-          <li class="list-group-item">{{ item.name }}</li>
-          {% endif %}
+            {% if item.campo_seleccion == 'Antes' %}
+              <li class="list-group-item">{{ item.name }}</li>
+            {% endif %}
           {% endfor %}
 
         </ul>
@@ -194,9 +258,9 @@ Areas Relaciondas</h2>
         <ul class="list-group list-group-flush">
 
           {% for item in protocolo %}
-          {% if item.campo_seleccion == 'Durante' %}
-          <li class="list-group-item">{{ item.name }}</li>
-          {% endif %}
+            {% if item.campo_seleccion == 'Durante' %}
+              <li class="list-group-item">{{ item.name }}</li>
+            {% endif %}
           {% endfor %}
 
         </ul>
@@ -217,9 +281,9 @@ Areas Relaciondas</h2>
         <ul class="list-group list-group-flush">
 
           {% for item in protocolo %}
-          {% if item.campo_seleccion == 'Despues' %}
-          <li class="list-group-item">{{ item.name }}</li>
-          {% endif %}
+            {% if item.campo_seleccion == 'Despues' %}
+              <li class="list-group-item">{{ item.name }}</li>
+            {% endif %}
           {% endfor %}
 
         </ul>

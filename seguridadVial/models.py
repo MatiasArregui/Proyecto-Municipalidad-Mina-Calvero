@@ -128,8 +128,8 @@ class Catastrophe(models.Model):
     descripcion = models.TextField()
     is_active = models.BooleanField(default=False)
     is_default = models.BooleanField(default=False)
-    image_disaster = models.URLField(default=None)
-    mapa_interactivo = models.URLField(default=None)
+    image_disaster = models.CharField(max_length=255)
+    mapa_interactivo = models.CharField(max_length=255, default=None)
 
 
 

@@ -170,17 +170,19 @@ class FooterInfoForm(forms.ModelForm):
 class CatastropheForm(forms.ModelForm):
     class Meta:
         model = Catastrophe
-        fields = ("type_disaster", "image_disaster", "descripcion",)
+        fields = ("type_disaster", "image_disaster", "descripcion", "mapa_interactivo")
         widgets = {
             "type_disaster": forms.TextInput(attrs={"class": "form-control"}),
             "image_disaster": forms.TextInput(attrs={"class": "form-control"}),
             "descripcion": forms.Textarea(attrs={"class": "form-control", "rows":"3"}),
+            "mapa_interactivo": forms.TextInput(attrs={"class": "form-control"}),
 
         }
         labels = {
             "type_disaster": "Momento desastre",
             "image_disaster":"imagen",
             "descripcion":"descripcion",
+            "mapa_interactivo" : "url my maps",
 
         }
 
