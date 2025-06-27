@@ -229,7 +229,7 @@ class InstitucionModificar(UpdateView):
         print(personas)
         elementos_institucion = Elementos.objects.filter(id_institucion=id)
         print(personas_institucion)
-        cargos =  [{"id_persona": x.id_persona.pk, "cargo":x.id_cargo.nombre} for x in InstitucionCargoPersona.objects.filter(id_institucion=id) ]
+        cargos =  [{"id_persona": x.id_persona.pk, "cargo":x.cargo} for x in InstitucionCargoPersona.objects.filter(id_institucion=id) ]
         context['cargos'] = cargos
         context['personas'] = personas
         context['elementos'] = elementos_institucion
