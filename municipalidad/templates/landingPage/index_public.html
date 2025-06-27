@@ -21,18 +21,16 @@
       <img src="{% static 'assets/logo.png' %}" alt="" style="width: 5rem;">
       <img src="{% static 'assets/logo defensa civil.png' %}" style="width: 1.2rem;"></a>
     
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
+    </button> -->
+   
         
-        <a class="nav-link text-white fw-light" href="#" style="font-size: .8rem;">Prevención, unidad y acción: juntos protegemos Mina Clavero.</a>
-        <a class="nav-link text-white fw-light" href="#"style="font-size: .8rem;">Prevención, unidad y acción: juntos protegemos Mina Clavero.</a>
-  
-      </div>
-    </div>
+        <a class="nav-link text-white fw-light d-md-block d-none" id="te-vamos" href="#" style="font-size: .8rem;">Prevención, unidad y acción: juntos protegemos Mina Clavero.</a>
+
+        <a class="nav-link text-white fw-light d-none d-md-block " href="#"style="font-size: .8rem;"> Defensa Civil</a>
+
+   
   </div>
 </nav>
 
@@ -159,7 +157,7 @@
              style="min-width: 280px; max-width: 320px; background-image: url('{{ item.image_disaster | safe }}'); background-size: cover; background-position: center; background-repeat: no-repeat; ">
           
           <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1" style="background-color: transparent;">
-            <a href="#" class="text-decoration-none"><h2 class="pt-3 mt-5 mb-4 display-6 lh-1 fw-bold text-white" >{{ item.type_disaster | title }}</h2></a>
+            <a href="/detalleCatastrofe/{{ item.id }}/" class="text-decoration-none"><h2 class="pt-3 mt-5 mb-4 display-6 lh-1 fw-bold text-white" >{{ item.type_disaster | title }}</h2></a>
             <ul class="d-flex list-unstyled mt-auto">
               <li class="me-auto" style="background: linear-gradient(343deg, rgb(191, 151, 255), rgb(32, 181, 250)); border-radius: 4rem;">
                 <img src="{% static 'assets/ex.svg' %}" alt="Logo" width="32" height="32"
@@ -290,12 +288,7 @@
               </li>
               
               
-              <li>
-                <a href="mailto:{{ item.institucion.email | safe }}" class="text-black text-decoration-none small d-block">
-                  📧 {{ item.institucion.email }}
-
-                </a>
-              </li>
+              
               
             </ul>
           </div>
@@ -313,13 +306,7 @@
                 </a>
               </li>
               
-              
-              <li>
-                <a href="mailto:{{ item.email | safe }}" class="text-black text-decoration-none small d-block">
-                  📧 {{ item.email }}
-
-                </a>
-              </li>
+             
               
             </ul>
           </div>

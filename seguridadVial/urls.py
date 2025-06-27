@@ -49,6 +49,7 @@ urlpatterns = [
     
     # Public
     path("", views_landing.ActiveCatastropheListView, name="home"), # esta 
+    path("detalleCatastrofe/<int:pk>/", views_landing.DetalleCatastrofe, name="detalleCatastrofe"), # esta 
 
     # Admin  
     path("listaDesastre/", login_required(views_landing.DashboardCatastrophe), name="Lista-Desastre"),

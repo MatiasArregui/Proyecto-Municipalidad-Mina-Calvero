@@ -9,6 +9,20 @@ from .forms import ProtocoleFormset, RefujioFormset, CatastropheForm
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 import os
 
+def DetalleCatastrofe(request, pk):
+    template = os.path.join("landingPage", "catastrofes.html")
+
+    cat = Catastrophe.objects.get(pk=pk)
+    ref = Refujio.objects.filter(catastrofe=cat)
+    pro = Protocole.objects.filter(catastrophe=cat)
+
+    context = {"catastrofe": cat , "protocolo":pro, "area":ref}
+    
+    return render(request, template_name=template, context=context)
+
+
+
+
 # <--  Admin view -->
 class DeleteDisaster(DeleteView):
     model = Catastrophe
@@ -123,13 +137,11 @@ def ActiveCatastropheListView(request):
 
         # Obtengo todas las pk de las instituciones en refugios
         all_cat = [x.institucion.pk for x in Refujio.objects.all() ]
-        print(all_cat)
+    
 
         # Muestro en la pagina estandard solo aquellas areas pertenecientes a una catastrofe
         ref = [x for x in Institucion.objects.all() if x.pk in all_cat]
-        print(cat.pk)
-        for c in ref:
-            print(c)
+        
     else:
         cat = Catastrophe.objects.get(is_active=True)
         ref = Refujio.objects.filter(catastrofe=cat)
