@@ -1,239 +1,311 @@
+{% load static %}
 <!DOCTYPE html>
-<html data-bs-theme="dark">
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-  <meta name="generator" content="Astro v5.9.2">
-  <title>Carousel Template · Bootstrap v5.3</title>
-  <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/carousel/">
-  <script src="../assets/js/color-modes.js"></script>
-  <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="{% static 'styles/index.css' %}">
+        <title>Desastres Mina Clavero</title>
+         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-  <meta name="theme-color" content="#712cf9">
-  <link href="carousel.css" rel="stylesheet">
-
-</head>
+          {% load bootstrap5 %}
+          {% bootstrap_css %}
+          {% bootstrap_javascript %}
+    </head>
 <style>
-  .custom {
-    width: 100px;
-    height: 100px;
-    background-color: aliceblue;
-  }
 
-  .bd-placeholder-img {
-    font-size: 1.125rem;
-    text-anchor: middle;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
-  }
-
-  @media (min-width: 768px) {
-    .bd-placeholder-img-lg {
-      font-size: 3.5rem;
-    }
-  }
-
-  .b-example-divider {
-    width: 100%;
-    height: 3rem;
-    background-color: #0000001a;
-    border: solid rgba(0, 0, 0, .15);
-    border-width: 1px 0;
-    box-shadow: inset 0 .5em 1.5em #0000001a, inset 0 .125em .5em #00000026;
-  }
-
-  .b-example-vr {
-    flex-shrink: 0;
-    width: 1.5rem;
-    height: 100vh;
-  }
-
-  .bi {
-    vertical-align: -.125em;
-    fill: currentColor;
-  }
-
-  .nav-scroller {
-    position: relative;
-    z-index: 2;
-    height: 2.75rem;
-    overflow-y: hidden;
-  }
-
-  .nav-scroller .nav {
+/* boton nuevo */
+.customButton{
     display: flex;
-    flex-wrap: nowrap;
-    padding-bottom: 1rem;
-    margin-top: -1px;
-    overflow-x: auto;
+    position: fixed;
+    width: 55px;
+    height: 55px;
+    bottom: 60px;
+    right: 30px;
+    border-radius: 50px;
     text-align: center;
-    white-space: nowrap;
-    -webkit-overflow-scrolling: touch;
-  }
-.area{
-  color: blueviolet;
-  /* background: linear-gradient(to left, rgb(210, 95, 95) , white); */
-  color: white;
-  border: 1px solid whitesmoke;
-  border-radius: 7px;
-  margin: 5px;
-  padding: 10px;
+    font-size: 30px;
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color:rgb(118, 60, 212);
+    color:beige;
+    text-decoration: none;
+    transition: 0.3s; 
 }
-  .btn-bd-primary {
-    --bd-violet-bg: #32068b;
-    --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
-    --bs-btn-font-weight: 600;
-    --bs-btn-color: var(--bs-white);
-    --bs-btn-bg: var(--bd-violet-bg);
-    --bs-btn-border-color: var(--bd-violet-bg);
-    --bs-btn-hover-color: var(--bs-white);
-    --bs-btn-hover-bg: #6528e0;
-    --bs-btn-hover-border-color: #6528e0;
-    --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
-    --bs-btn-active-color: var(--bs-btn-hover-color);
-    --bs-btn-active-bg: #5a23c8;
-    --bs-btn-active-border-color: #5a23c8;
-  }
 
-  .bd-mode-toggle {
-    z-index: 1500
-  }
-
-  .bd-mode-toggle .bi {
-    width: 1em;
-    height: 1em
-  }
-
-  .bd-mode-toggle .dropdown-menu .active .bi {
-    display: block !important
-  }
+.customButton:hover{
+    color: white;
+    background-color:rgb(110, 12, 202);
+    transform: scale(1.05); 
+    opacity: 0.9; 
+    cursor: pointer;
+}
 </style>
 
 <body>
-  <main>
-    <div class="position-relative overflow-hidden w-100" style="height: 300px;">
-  <img src="{{ catastrofe.image_disaster }}" alt="" class="img-fluid w-100 h-100 object-fit-cover">
-  <h2 class="position-absolute top-50 start-50 translate-middle text-center text-white fw-light w-100 px-3" style="margin-top: 60px;">
-    {{ catastrofe.type_disaster }}
-  </h2>
-</div>
-<button onclick="history.back()" class="w-100 fw-light btn btn-outline-ligh">volver</button>
+  <nav class="navbar navbar-expand-lg fixed-top" style=" backdrop-filter: blur(1rem); background-color: rgba(0, 0, 0, 0.249);">
+  <div class="container-fluid d-flex justify-content-between align-items-center">
+    <a class="navbar-brand" href="#">
+      <img src="{% static 'assets/logo.png' %}" alt="" style="width: 5rem;">
+      <img src="{% static 'assets/logo defensa civil.png' %}" style="width: 1.2rem;"></a>
+    <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button> -->
+        <a class="nav-link text-white fw-light d-sm-block d-none" id="te-vamos" href="#" style="font-size: .8rem;">Prevención, unidad y acción: juntos protegemos Mina Clavero.</a>
+        <a class="nav-link text-white fw-light" href="#"style="font-size: .8rem;"> Defensa Civil</a>
+  </div>
+</nav>
+  <div class="position-relative overflow-hidden w-100" style="height: 300px;">
+    <img src="{{ catastrofe.image_disaster }}" alt="" class="img-fluid w-100 h-100 object-fit-cover">
+    <h2 class="position-absolute top-50 start-50 translate-middle text-center text-white fw-light w-100 px-3" style="margin-top: 60px;">
+      {{ catastrofe.type_disaster }}
+    </h2>
+  </div>
+  <button onclick="history.back()" class="customButton">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708z"/>
+    </svg>
+  </button>
     <!-- Wrap the rest of the page in another container to center all the content. -->
-    <h2 class="text-center fw-light">Areas</h2>
-    <div class="container marketing"> <!-- Three columns of text below the carousel -->
-      <div class="row d-flex flex-nowrap overflow-auto gap-3 pb-2">
-        {% for item in area %}
+<div class="container px-3 py-4" id="custom-cards">
+  <h2 class="w-100 mb-4 d-flex align-items-center justify-content-center">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" class="me-2">
+      <path stroke-linecap="round" stroke-linejoin="round"
+        d="M6.429 9.75 2.25 12l4.179 2.25m0-4.5 
+           5.571 3 5.571-3m-11.142 0L2.25 7.5 
+           12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 
+           2.25m0 0 4.179 2.25L12 21.75 
+           2.25 16.5l4.179-2.25m11.142 0-5.571 3-5.571-3" />
+    </svg>
+    Áreas
+  </h2>
 
-        <div class="col-lg-4 area" style="width:400px;">
-          <h2 class="fw-normal">{{ item.institucion.nombre }}</h2>
-          <p>{{ item.institucion.descripcion }}</p>
-          <div style="width:100%;" class="d-flex flex-nowrap gap-3">
-            <p><a class="btn btn-success" href="tel:{{ item.intitucion.telefono }}">llamer</a></p>
-            
-          </div>
-        </div><!-- /.col-lg-4 -->
-        {% endfor %}
+  <div class="d-flex flex-nowrap overflow-auto gap-3 pb-2">
+    {% for item in area %}
+      <div class="flex-shrink-0  rounded-4 shadow-sm p-4 text-light" style="min-width: 280px; max-width: 320px;  background: linear-gradient(343deg, rgb(191, 151, 255), rgb(32, 181, 250));">
+        <h5 class="fw-bold mb-3">{{ item.nombre | title }}</h5>
+        <ul class="list-unstyled d-flex flex-column gap-2">
+          <li class="d-flex align-items-start">
+            <small class="text-wrap w-100" style="max-height: 4.5rem; overflow-y: auto; display: block;">
+            {{ item.descripcion }}
+            </small>
+          </li>
+          {% if item.telefono %}
+            <li class="d-flex align-items-center">
+              <a href="tel:{{ item.telefono }}" class="btn btn-success btn-sm">
+                <img src="{% static 'assets/phone.svg' %}" alt=""> {{ item.telefono }}
+              </a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    {% endfor %}
+  </div>
+</div>
 
+<br>
+<br>
+<h2 class="title-list text-center">
+    <svg xmlns="http://www.w3.org/2000/svg" width="1rem" viewBox="0 0 16 16" fill="currentColor" class="size-4">
+    <path
+      d="M2.75 2a.75.75 0 0 0-.75.75v10.5a.75.75 0 0 0 1.5 0v-2.624l.33-.083A6.044 6.044 0 0 1 8 11c1.29.645 2.77.807 4.17.457l1.48-.37a.462.462 0 0 0 .35-.448V3.56a.438.438 0 0 0-.544-.425l-1.287.322C10.77 3.808 9.291 3.646 8 3a6.045 6.045 0 0 0-4.17-.457l-.34.085A.75.75 0 0 0 2.75 2Z" />
+  </svg>
+   Protocolo de Acciones en Caso de {{ catastrofe.type_disaster }} - Mina Clavero 
+</h2>
+<br>
+<br>
 
-
-      </div><!-- /.row --> <!-- START THE FEATURETTES -->
-      <h1 class="text-center fw-light">Protocolos</h1>
-      <hr class="featurette-divider">
-
-      <div class="row featurette">
-    <div class="col-md-7">
-      <h2 class="featurette-heading fw-normal lh-1">Protocolos Antes.
-            <span class="text-body-secondary">Del Desastre</span>
-          </h2>
-          <p class="lead">He a qui una lista de que hacer en este caso</p>
-  
+  <div class="container-fluid">
+    <hr class="featurette-divider">
+    <div class="row featurette">
+      <div class="col-md-7">
+        <h2 class="featurette-heading fw-normal lh-1">
+          <div
+          class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3 p-2 rounded">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-4" width="1em">
+            <path fill-rule="evenodd"
+              d="M15 8A7 7 0 1 1 1 8a7 7 0 0 1 14 0ZM9 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM6.75 8a.75.75 0 0 0 0 1.5h.75v1.75a.75.75 0 0 0 1.5 0v-2.5A.75.75 0 0 0 8.25 8h-1.5Z"
+              clip-rule="evenodd" />
+          </svg>
+        </div>
+          Alerta Termprana
+          <span class="text-body-secondary">{{ catastrofe.type_disaster | title}}</span>
+        </h2>
+        <p class="lead">Indicaciones</p>
         <ul class="list-group list-group-flush">
           {% for item in protocolo %}
           {% if item.campo_seleccion == 'Antes' %}
-          <li class="list-group-item fw-light">{{ item.name }}</li>
+          <li class="list-group-item fw-light">{{ item.name | title}}</li>
           {% endif %}
           {% endfor %}
         </ul>
-     
+      </div>
+      <div class="col-md-5 d-none d-md-block"> <img src="{{ catastrofe.image_disaster }}"
+       alt="Imagen relacionada al desastre"
+       class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
+       width="500"
+       height="500" />
+      </div>
     </div>
+    <hr class="featurette-divider">
 
-    <div class="col-md-5"> <img src="{{ catastrofe.image_disaster }}"
-     alt="Imagen relacionada al desastre"
-     class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
-     width="500"
-     height="500" /></div>
-  </div>
-  <hr class="featurette-divider">
-  <div class="row featurette">
-    <div class="col-md-7 order-md-2">
-      <h2 class="featurette-heading fw-normal lh-1">Que hacer Durante
-            <span class="text-body-secondary">Desastre</span>
-          </h2>
-          <p class="lead">A continuacion te lo mostraremos</p>
-          <div class="accordion" id="accordionExample">
-
-
-           
-
-                  <ul class="list-group list-group-flush">
-
-                    {% for item in protocolo %}
-                    {% if item.campo_seleccion == 'Durante' %}
-                    <li class="list-group-item fw-light">{{ item.name }}</li>
-                    {% endif %}
-                    {% endfor %}
-
-                  </ul>
-                </div>
-              
-
+    <div class="row featurette">
+      <div class="col-md-7 order-md-2">
+        <h2 class="featurette-heading fw-normal lh-1">
+        <div
+          class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-danger fs-2 mb-3 rounded p-2">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-4" width="1em">
+            <path fill-rule="evenodd"
+              d="M6.701 2.25c.577-1 2.02-1 2.598 0l5.196 9a1.5 1.5 0 0 1-1.299 2.25H2.804a1.5 1.5 0 0 1-1.3-2.25l5.197-9ZM8 4a.75.75 0 0 1 .75.75v3a.75.75 0 1 1-1.5 0v-3A.75.75 0 0 1 8 4Zm0 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
+              clip-rule="evenodd" />
+          </svg>
+        </div>
+          Emergencia
+          <span class="text-body-secondary">{{ catastrofe.type_disaster | title}}</span>
+        </h2>
+          <p class="lead">Indicaciones</p>
+            <ul class="list-group list-group-flush">
+              {% for item in protocolo %}
+              {% if item.campo_seleccion == 'Durante' %}
+              <li class="list-group-item fw-light">{{ item.name | title}}</li>
+              {% endif %}
+              {% endfor %}
+            </ul>
+      </div>
+      <div class="col-md-5 order-md-1 d-none d-md-block">
+        <img src="{{ catastrofe.image_disaster }}"
+        alt="Imagen relacionada al desastre"
+        class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
+        width="500"
+        height="500" />
+      </div>
     </div>
-    <div class="col-md-5 order-md-1"> <img src="{{ catastrofe.image_disaster }}"
-     alt="Imagen relacionada al desastre"
-     class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
-     width="500"
-     height="500" /> </div>
-  </div>
-  <hr class="featurette-divider">
-  <div class="row featurette">
-    <div class="col-md-7">
-      <h2 class="featurette-heading fw-normal lh-1">Que hacer luego
-            <span class="text-body-secondary">El Desastre</span>
-          </h2>
-          <p class="lead">Lo prodras leer aqui abajo</p>
-
-        <ul class="list-group list-group-flush">
-
-                    {% for item in protocolo %}
-                    {% if item.campo_seleccion == 'Despues' %}
-                    <li class="list-group-item fw-light">{{ item.name }}</li>
-                    {% endif %}
-                    {% endfor %}
-
-                  </ul>
+    <hr class="featurette-divider">
+    <div class="row featurette">
+      <div class="col-md-7">
+        <h2 class="featurette-heading fw-normal lh-1">
+        <div
+          class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-success p-2 rounded bg-gradient fs-2 mb-3">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="white" class="size-4" width="1em"
+            aria-hidden="true">
+            <path fill-rule="evenodd"
+              d="M7.5 1.709a.75.75 0 0 1 1 0 8.963 8.963 0 0 0 4.84 2.217.75.75 0 0 1 .654.72 10.499 10.499 0 0 1-5.647 9.672.75.75 0 0 1-.694-.001 10.499 10.499 0 0 1-5.647-9.672.75.75 0 0 1 .654-.719A8.963 8.963 0 0 0 7.5 1.71ZM8 5a.75.75 0 0 1 .75.75v2a.75.75 0 0 1-1.5 0v-2A.75.75 0 0 1 8 5Zm0 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
+              clip-rule="evenodd" />
+          </svg>
+        </div>
+          Post Emergencia
+          <span class="text-body-secondary">{{ catastrofe.type_disaster | title}}</span>
+        </h2>
+          <p class="lead">Indicaciones</p>
+          <ul class="list-group list-group-flush">
+            {% for item in protocolo %}
+              {% if item.campo_seleccion == 'Despues' %}
+                <li class="list-group-item fw-light">{{ item.name | title}}</li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+      </div>
+      <div class="col-md-5 d-none d-md-block"><img src="{{ catastrofe.image_disaster }}"
+       alt="Imagen relacionada al desastre"
+       class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
+       width="500"
+       height="500" />
+      </div>
     </div>
-    <div class="col-md-5"><img src="{{ catastrofe.image_disaster }}"
-     alt="Imagen relacionada al desastre"
-     class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
-     width="500"
-     height="500" /></div>
+    <hr class="featurette-divider"> <!-- /END THE FEATURETTES -->
+    
   </div>
-  <hr class="featurette-divider"> <!-- /END THE FEATURETTES -->
+    
+
+
+  <h4 class=" px-3 py-2 rounded-top text-center">
+    Ubicaciones Refugios: Mina Clavero, Córdoba
+  </h4>
+<div class="container my-4">
+  {% if catastrofe.mapa_interactivo %}
+    <div class="ratio ratio-16x9">
+      {{ catastrofe.mapa_interactivo | safe }}
+    </div>
+  {% else %}
+    <p class="text-center text-muted">No hay mapa interactivo disponible.</p>
+  {% endif %}
 </div>
-      <hr class="featurette-divider"> <!-- /END THE FEATURETTES -->
-    </div><!-- /.container --> <!-- FOOTER -->
-    <footer class="container">
-      <p class="float-end"><a href="#">ir arriba</a></p>
-      <p>&copy; 2025 Company, @matias@santy <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
-    </footer>
-  </main>
+
+
+
+
+
+
+
+
+<footer class="text-black py-5 mt-5">
+  <div class="container">
+    <!-- Sección superior: Logo y contactos -->
+    <div class="row gy-4 align-items-start">
+      <!-- Logo -->
+      <div class="col-12 col-md-4 text-center text-md-start">
+        <img src="{% static 'imagenes/mina.png' %}" alt="Logo Mina Clavero" class="img-fluid mb-3" style="max-width: 160px;">
+        <p class="small">Gobierno local de Mina Clavero, Córdoba</p>
+      </div>
+
+      <!-- Contactos -->
+      <div class="col-12 col-md-8">
+        <h5 class="fw-light mb-4">Contactos</h5>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          {% for item in area %}
+            <div class="col overflow-hidden">
+            <h6 class="fw-semibold">{{ item.nombre }}</h6>
+            <ul class="list-unstyled">
+              <li>
+                <a href="tel:{{ item.telefono | safe}}" class="text-black text-decoration-none small d-block">
+                  📞 {{ item.telefono}}
+                </a>
+              </li>
+            </ul>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Separador -->
+    <hr class="border-secondary my-4">
+
+    <!-- Sección inferior: redes y derechos -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center text-center text-md-start gap-3">
+      <small class="d-block">&copy; Mina Clavero <span id="year"></span>. Todos los derechos reservados.</small>
+      <div class="d-flex gap-3">
+        <a href="#" title="Instagram">
+          <img src="{% static 'assets/instagram.svg' %}" alt="Instagram" width="24" height="24">
+        </a>
+        <a href="#" title="YouTube">
+          <img src="{% static 'assets/youtube.svg' %}" alt="YouTube" width="24" height="24">
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
 
-    </body>
+</body>
 
 </html>

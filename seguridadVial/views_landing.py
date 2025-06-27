@@ -13,9 +13,10 @@ def DetalleCatastrofe(request, pk):
     template = os.path.join("landingPage", "catastrofes.html")
 
     cat = Catastrophe.objects.get(pk=pk)
-    ref = Refujio.objects.filter(catastrofe=cat)
+    all_inst = [x.institucion.pk for x in Refujio.objects.filter(catastrofe=cat)]
+    ref = [x for x in Institucion.objects.all() if x.pk in all_inst]
     pro = Protocole.objects.filter(catastrophe=cat)
-
+    print(ref)
     context = {"catastrofe": cat , "protocolo":pro, "area":ref}
     
     return render(request, template_name=template, context=context)

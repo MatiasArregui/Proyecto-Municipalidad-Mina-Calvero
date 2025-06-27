@@ -153,4 +153,4 @@ class Refujio(models.Model):
     catastrofe = models.ForeignKey(Catastrophe, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"Refugio de {self.institucion} en caso de {self.catastrofe}"
+        return f"Refugio de {self.institucion.telefono} en caso de {self.catastrofe}"

@@ -9,7 +9,9 @@
         <title>Desastres Mina Clavero</title>
          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-
+          {% load bootstrap5 %}
+          {% bootstrap_css %}
+          {% bootstrap_javascript %}
     </head>
     <body>
       
@@ -26,9 +28,9 @@
     </button> -->
    
         
-        <a class="nav-link text-white fw-light d-md-block d-none" id="te-vamos" href="#" style="font-size: .8rem;">Prevención, unidad y acción: juntos protegemos Mina Clavero.</a>
+        <a class="nav-link text-white fw-light d-sm-block d-none" id="te-vamos" href="#" style="font-size: .8rem;">Prevención, unidad y acción: juntos protegemos Mina Clavero.</a>
 
-        <a class="nav-link text-white fw-light d-none d-md-block " href="#"style="font-size: .8rem;"> Defensa Civil</a>
+        <a class="nav-link text-white fw-light" href="#"style="font-size: .8rem;"> Defensa Civil</a>
 
    
   </div>
@@ -45,21 +47,20 @@
 <div class="container py-4">
   <div class="d-flex flex-nowrap overflow-auto gap-3">
     {% for institucion in refujio %}
-      <div class="flex-shrink-0 rounded-4 shadow-sm p-4 c-card" style="min-width: 280px; max-width: 320px;">
+      <div class="flex-shrink-0 rounded-4 shadow-sm p-4 text-light" style="min-width: 280px; max-width: 320px;  background: linear-gradient(343deg, rgb(191, 151, 255), rgb(32, 181, 250));">
         <h5 class="fw-bold mb-3">{{ institucion.institucion.nombre | title }}</h5>
         <ul class="list-unstyled d-flex flex-column gap-2">
-        
-          {% if institucion.institucion.telefono %}
-            <li class="d-flex align-items-center">
-              <img src="{% static 'assets/phone.svg' %}" alt="">
-              <small><a href="tel:{{ institucion.institucion.telefono }}" class="p-2 text-white"> {{ institucion.institucion.telefono }}</a></small>
-            </li>
-          {% endif %}
           <li class="d-flex align-items-start">
             <small class="text-wrap w-100" style="max-height: 4.5rem; overflow-y: auto; display: block;">
               {{ institucion.institucion.descripcion }}
             </small>
           </li>
+          {% if institucion.institucion.telefono %}
+            <li class="d-flex align-items-center">
+              <small><a href="tel:{{ institucion.institucion.telefono }}" class="btn btn-success btn-sm">
+              <img src="{% static 'assets/phone.svg' %}" alt=""> {{ institucion.institucion.telefono }}</a></small>
+            </li>
+          {% endif %}
         </ul>
       </div>
     {% endfor %}
@@ -83,25 +84,21 @@
 
     <div class="d-flex flex-nowrap overflow-auto gap-3 pb-2">
       {% for institucion in refujio %}
-        <div class="flex-shrink-0  rounded-4 shadow-sm p-4" style="min-width: 280px; max-width: 320px;  background: linear-gradient(343deg, rgb(191, 151, 255), rgb(32, 181, 250));">
+        <div class="flex-shrink-0  rounded-4 shadow-sm p-4 text-light" style="min-width: 280px; max-width: 320px;  background: linear-gradient(343deg, rgb(191, 151, 255), rgb(32, 181, 250));">
           <h5 class="fw-bold mb-3">{{ institucion.nombre | title }}</h5>
           <ul class="list-unstyled d-flex flex-column gap-2">
-
-            {% if institucion.telefono %}
-              <li class="d-flex align-items-center">
-                <img src="{% static 'assets/phone.svg' %}" alt="">
-                          <small><a href="tel:{{ institucion.institucion.telefono }}" class="p-2 text-white"> {{ institucion.telefono }}</a></small>
-              </li>
-            {% endif %}
-
             <li class="d-flex align-items-start">
-              <svg class="bi me-2 mt-1" width="20" height="20" fill="currentColor">
-                <use xlink:href="#calendar3"/>
-              </svg>
               <small class="text-wrap w-100" style="max-height: 4.5rem; overflow-y: auto; display: block;">
-                {{ institucion.descripcion }}
+              {{ institucion.descripcion }}
               </small>
             </li>
+            {% if institucion.telefono %}
+              <li class="d-flex align-items-center">
+                <a href="tel:{{ institucion.telefono }}" class="btn btn-success btn-sm">
+                  <img src="{% static 'assets/phone.svg' %}" alt=""> {{ institucion.telefono }}
+                </a>
+              </li>
+            {% endif %}
           </ul>
         </div>
       {% endfor %}
@@ -338,6 +335,7 @@
   // Inserta automáticamente el año actual
   document.getElementById("year").textContent = new Date().getFullYear();
 </script>
+
 
 
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
