@@ -16,23 +16,16 @@
     <body>
       
 
-      <nav class="navbar navbar-expand-lg fixed-top" style=" backdrop-filter: blur(1rem); background-color: rgba(0, 0, 0, 0.249);">
+<nav class="navbar navbar-expand-lg fixed-top" style=" backdrop-filter: blur(1rem); background-color: rgba(0, 0, 0, 0.249);">
   <div class="container-fluid d-flex justify-content-between align-items-center">
-    
     <a class="navbar-brand" href="#">
       <img src="{% static 'assets/logo.png' %}" alt="" style="width: 5rem;">
       <img src="{% static 'assets/logo defensa civil.png' %}" style="width: 1.2rem;"></a>
-    
     <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button> -->
-   
-        
         <a class="nav-link text-white fw-light d-sm-block d-none" id="te-vamos" href="#" style="font-size: .8rem;">Prevención, unidad y acción: juntos protegemos Mina Clavero.</a>
-
         <a class="nav-link text-white fw-light" href="#"style="font-size: .8rem;"> Defensa Civil</a>
-
-   
   </div>
 </nav>
 
@@ -237,7 +230,6 @@
               d="M7.5 1.709a.75.75 0 0 1 1 0 8.963 8.963 0 0 0 4.84 2.217.75.75 0 0 1 .654.72 10.499 10.499 0 0 1-5.647 9.672.75.75 0 0 1-.694-.001 10.499 10.499 0 0 1-5.647-9.672.75.75 0 0 1 .654-.719A8.963 8.963 0 0 0 7.5 1.71ZM8 5a.75.75 0 0 1 .75.75v2a.75.75 0 0 1-1.5 0v-2A.75.75 0 0 1 8 5Zm0 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
               clip-rule="evenodd" />
           </svg>
-         
         </div>
         <h3 class=" title">Post Emergencia {{catastrofe.type_disaster}}</h3>
         <ul class="list-group list-group-flush">
@@ -319,6 +311,20 @@
     <!-- Sección inferior: redes y derechos -->
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-center text-center text-md-start gap-3">
       <small class="d-block">&copy; Mina Clavero <span id="year"></span>. Todos los derechos reservados.</small>
+      <small class="d-block">Arregui Matias
+        <a href="https://www.linkedin.com/in/matiasnicolasarregui/" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">
+            <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/>
+          </svg>
+        </a>
+      </small>
+      <small class="d-block">Cuello Santiago
+        <a href="https://www.linkedin.com/in/santy-cuello-69b147371" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">
+            <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/>
+          </svg>
+        </a>
+      </small>
       <div class="d-flex gap-3">
         <a href="#" title="Instagram">
           <img src="{% static 'assets/instagram.svg' %}" alt="Instagram" width="24" height="24">
