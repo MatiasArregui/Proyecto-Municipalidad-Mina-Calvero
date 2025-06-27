@@ -51,12 +51,12 @@ urlpatterns = [
     path("", views_landing.ActiveCatastropheListView, name="home"), # esta 
     path("detalleCatastrofe/<int:pk>/", views_landing.DetalleCatastrofe, name="detalleCatastrofe"), # esta 
 
-    # Admin  
-    path("listaDesastre/", login_required(views_landing.DashboardCatastrophe), name="Lista-Desastre"),
-    path("activar/<int:pk>/", login_required(views_landing.ActiveDisaster), name="Activar"),
-    path("crear/", login_required(views_landing.CatastropheCreateView.as_view()), name="crear"),
-    path("modificar/<int:pk>/", login_required(views_landing.CatastropheUpdateView.as_view()), name="Modificar"),
-    path("Eliminar/<int:pk>/", login_required(views_landing.DeleteDisaster.as_view()), name="Eliminar"),
+    # Admin  login_required(permission_required('miAplicacion.add_orden')(views.ordenNuevo)), name="ordenNueva"),
+    path("listaDesastre/", login_required(permission_required('defensaCivil.add_catastrophe')(views_landing.DashboardCatastrophe)), name="Lista-Desastre"),
+    path("activar/<int:pk>/", login_required(permission_required('defensaCivil.add_catastrophe')(views_landing.ActiveDisaster)), name="Activar"),
+    path("crear/", login_required(permission_required('defensaCivil.add_catastrophe')(views_landing.CatastropheCreateView.as_view())), name="crear"),
+    path("modificar/<int:pk>/", login_required(permission_required('defensaCivil.add_catastrophe')(views_landing.CatastropheUpdateView.as_view())), name="Modificar"),
+    path("Eliminar/<int:pk>/", login_required(permission_required('defensaCivil.add_catastrophe')(views_landing.DeleteDisaster.as_view())), name="Eliminar"),
     
     
 ]
