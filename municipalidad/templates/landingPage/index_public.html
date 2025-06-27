@@ -5,6 +5,7 @@
         <meta charset="utf-8">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="{% static 'styles/index.css' %}">
         <title>Desastres Mina Clavero</title>
          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
@@ -46,25 +47,17 @@
 <div class="container py-4">
   <div class="d-flex flex-nowrap overflow-auto gap-3">
     {% for institucion in refujio %}
-      <div class="flex-shrink-0 bg-dark text-white rounded-4 shadow-sm p-4" style="min-width: 280px; max-width: 320px;">
+      <div class="flex-shrink-0 rounded-4 shadow-sm p-4 c-card" style="min-width: 280px; max-width: 320px;">
         <h5 class="fw-bold mb-3">{{ institucion.institucion.nombre | title }}</h5>
         <ul class="list-unstyled d-flex flex-column gap-2">
-          <li class="d-flex align-items-center">
-            <img src="https://github.com/twbs.png" alt="Logo" width="32" height="32" class="rounded-circle border border-white me-2">
-            <span class="fw-light">Logo</span>
-          </li>
+        
           {% if institucion.institucion.telefono %}
             <li class="d-flex align-items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="me-2" viewBox="0 0 16 16">
-                <path d="M3.654 1.328a.678.678 0 0 1 .761-.21c..."/> <!-- truncado -->
-              </svg>
-              <small>{{ institucion.institucion.telefono }}</small>
+              <img src="{% static 'assets/phone.svg' %}" alt="">
+              <small><a href="tel:{{ institucion.institucion.telefono }}" class="p-2 text-white"> {{ institucion.institucion.telefono }}</a></small>
             </li>
           {% endif %}
           <li class="d-flex align-items-start">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="me-2 mt-1" viewBox="0 0 16 16">
-              <path d="M4 .5a.5.5..."/> <!-- truncado -->
-            </svg>
             <small class="text-wrap w-100" style="max-height: 4.5rem; overflow-y: auto; display: block;">
               {{ institucion.institucion.descripcion }}
             </small>
@@ -92,20 +85,14 @@
 
     <div class="d-flex flex-nowrap overflow-auto gap-3 pb-2">
       {% for institucion in refujio %}
-        <div class="flex-shrink-0 bg-dark text-white rounded-4 shadow-sm p-4" style="min-width: 280px; max-width: 320px;">
+        <div class="flex-shrink-0  rounded-4 shadow-sm p-4" style="min-width: 280px; max-width: 320px;  background: linear-gradient(343deg, rgb(191, 151, 255), rgb(32, 181, 250));">
           <h5 class="fw-bold mb-3">{{ institucion.nombre | title }}</h5>
           <ul class="list-unstyled d-flex flex-column gap-2">
-            <li class="d-flex align-items-center">
-              <img src="https://github.com/twbs.png" alt="Logo" width="32" height="32" class="rounded-circle border border-white me-2">
-              <span class="fw-light">Logo</span>
-            </li>
 
-            {% if institucion.institucion.telefono %}
+            {% if institucion.telefono %}
               <li class="d-flex align-items-center">
-                <svg class="bi me-2" width="20" height="20" fill="currentColor">
-                  <use xlink:href="#geo-fill"/>
-                </svg>
-                <small>{{ institucion.telefono }}</small>
+                <img src="{% static 'assets/phone.svg' %}" alt="">
+                          <small><a href="tel:{{ institucion.institucion.telefono }}" class="p-2 text-white"> {{ institucion.telefono }}</a></small>
               </li>
             {% endif %}
 
@@ -167,18 +154,22 @@
 
     <div class="d-flex flex-nowrap overflow-auto gap-3 pb-3">
       {% for item in all %}
+      
         <div class="flex-shrink-0 text-white rounded-5 " 
-             style="min-width: 280px; max-width: 320px; background-image: url('{{ item.image_disaster | safe }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+             style="min-width: 280px; max-width: 320px; background-image: url('{{ item.image_disaster | safe }}'); background-size: cover; background-position: center; background-repeat: no-repeat; ">
+          
           <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1" style="background-color: transparent;">
-            <h2 class="pt-3 mt-5 mb-4 display-6 lh-1 fw-bold">{{ item.type_disaster | title }}</h2>
+            <a href="#" class="text-decoration-none"><h2 class="pt-3 mt-5 mb-4 display-6 lh-1 fw-bold text-white" >{{ item.type_disaster | title }}</h2></a>
             <ul class="d-flex list-unstyled mt-auto">
-              <li class="me-auto">
-                <img src="https://github.com/twbs.png" alt="Logo" width="32" height="32"
-                     class="rounded-circle border border-white">
+              <li class="me-auto" style="background: linear-gradient(343deg, rgb(191, 151, 255), rgb(32, 181, 250)); border-radius: 4rem;">
+                <img src="{% static 'assets/ex.svg' %}" alt="Logo" width="32" height="32"
+                     class="">
               </li>
             </ul>
           </div>
+          
         </div>
+        
       {% endfor %}
     </div>
   </div>
@@ -270,7 +261,7 @@
 
 
 
-<footer class="bg-dark text-white py-5 mt-5">
+<footer class="text-black py-5 mt-5">
   <div class="container">
     <!-- Sección superior: Logo y contactos -->
     <div class="row gy-4 align-items-start">
@@ -293,14 +284,14 @@
             <ul class="list-unstyled">
               
               <li>
-                <a href="tel:{{ item.institucion.telefono | safe}}" class="text-white text-decoration-none small d-block">
+                <a href="tel:{{ item.institucion.telefono | safe}}" class="text-black text-decoration-none small d-block">
                   📞 {{ item.institucion.telefono}}
                 </a>
               </li>
               
               
               <li>
-                <a href="mailto:{{ item.institucion.email | safe }}" class="text-white text-decoration-none small d-block">
+                <a href="mailto:{{ item.institucion.email | safe }}" class="text-black text-decoration-none small d-block">
                   📧 {{ item.institucion.email }}
 
                 </a>
@@ -317,14 +308,14 @@
             <ul class="list-unstyled">
               
               <li>
-                <a href="tel:{{ item.telefono | safe}}" class="text-white text-decoration-none small d-block">
+                <a href="tel:{{ item.telefono | safe}}" class="text-black text-decoration-none small d-block">
                   📞 {{ item.telefono}}
                 </a>
               </li>
               
               
               <li>
-                <a href="mailto:{{ item.email | safe }}" class="text-white text-decoration-none small d-block">
+                <a href="mailto:{{ item.email | safe }}" class="text-black text-decoration-none small d-block">
                   📧 {{ item.email }}
 
                 </a>
