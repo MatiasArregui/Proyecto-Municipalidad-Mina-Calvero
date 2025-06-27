@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect, redirect, get_object_or_404
 from django.contrib import messages
-from .models import Cargo, Elementos, Institucion, InstitucionCargoPersona,  Persona
-from .forms import PersonaForm, CargoForm, ElementosForm, AuthenticationForm, InstitucionForm, InstitucionCargoPersonaForm, InstitucionCargoPersonaFormSet
+from .models import Elementos, Institucion, InstitucionCargoPersona,  Persona
+from .forms import PersonaForm,ElementosForm, AuthenticationForm, InstitucionForm, InstitucionCargoPersonaForm, InstitucionCargoPersonaFormSet
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.views import LoginView
 from django.db.models import ProtectedError
@@ -128,54 +128,6 @@ class PersonaBorrar(DeleteView):
 #     template_name = os.path.join("defensaCivil", "confirmacionBorrado", "categoriaBorrar.html")
 #     success_url = reverse_lazy('listaCategorias')
 
-# Cargo Views ------------------------------------------------------------------------------>
-    #Ver cargos
-class listaCargos(ListView):
-    model = Cargo
-    template_name = os.path.join("defensaCivil", "listas", "listaCargos.html")
-    context_object_name = 'cargos'
-    paginate_by = 7
-    def get_queryset(self):
-        # Ordenar alfabéticamente por el atributo 'nombre'
-        return Cargo.objects.all().order_by('nombre')
-    #Crear cargos
-class CargoNuevo(CreateView):
-    model = Cargo
-    form_class = CargoForm
-    template_name = os.path.join("defensaCivil", "formularios", "cargoForm.html")
-    success_url = reverse_lazy('listaCargos')
-    #Modificar cargo
-class CargoModificar(UpdateView):
-    model = Cargo
-    form_class = CargoForm
-    template_name = os.path.join("defensaCivil", "formularios", "cargoForm.html")
-    success_url = reverse_lazy('listaCargos')
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # context['institucion_id'] = self.object.id  # Obtener el ID de la institución
-        id = self.get_object().id
-        personas_cargo = [x.id_persona.pk for x in InstitucionCargoPersona.objects.filter(id_cargo=id) ]
-        personas = [ x for x in Persona.objects.all() if x.pk in personas_cargo]
-        print(personas)
-        context['personas'] = personas
-        return context
-    
-    #Borrar cargo
-class CargoBorrar(DeleteView):
-    model = Cargo
-    template_name = os.path.join("defensaCivil", "confirmacionBorrado", "cargoBorrar.html")
-    success_url = reverse_lazy('listaCargos')
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        try:
-            self.object.delete()
-            return redirect(self.success_url)
-        except ProtectedError:
-            messages.error(request, "No se puede eliminar este cargo porque tiene personas relacionadas.")
-            context = self.get_context_data(object=self.object)
-            return self.render_to_response(context)
-
 
 
 # Elemento Views ------------------------------------------------------------------------------>
@@ -235,7 +187,7 @@ def institucionDetalle(request, pk):
     institucion = Institucion.objects.get(id=pk)
     personas_institucion = [x.id_persona.pk for x in InstitucionCargoPersona.objects.filter(id_institucion=pk) ]
     personas = [ x for x in Persona.objects.all() if x.pk in personas_institucion]
-    cargos =  [{"id_persona": x.id_persona.pk, "cargo":x.id_cargo.nombre} for x in InstitucionCargoPersona.objects.filter(id_institucion=pk) ]
+    cargos =  [{"id_persona": x.id_persona.pk, "cargo":x.cargo} for x in InstitucionCargoPersona.objects.filter(id_institucion=pk) ]
     elementos_institucion = Elementos.objects.filter(id_institucion=pk)
     print(cargos)
 

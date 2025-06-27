@@ -32,12 +32,6 @@ urlpatterns = [
     # path("categorias/borrarCategoria/<str:pk>", login_required(permission_required('seguridadVial.delete_categoria')(views.CategoriaBorrar.as_view())), name="borrarCategoria"),
     
     # Personas URLs--------------------------------------------------------------------------------->
-    path("cargos/", login_required(permission_required('seguridadVial.view_cargo')(views.listaCargos.as_view())), name="listaCargos"),
-    path("cargos/nuevoCargo", login_required(permission_required('seguridadVial.add_cargo')(views.CargoNuevo.as_view())), name="nuevoCargo"),
-    path("cargos/modificarCargo/<str:pk>", login_required(permission_required('seguridadVial.change_cargo')(views.CargoModificar.as_view())), name="modificarCargo"),
-    path("cargos/borrarCargo/<str:pk>", login_required(permission_required('seguridadVial.delete_cargo')(views.CargoBorrar.as_view())), name="borrarCargo"),
-   
-    # Personas URLs--------------------------------------------------------------------------------->
     path("instituciones/", login_required(permission_required('seguridadVial.view_institucion')(views.ListaInstitucion.as_view())), name="listaInstituciones"),
     path("instituciones/detalle/<str:pk>", login_required(permission_required('seguridadVial.view_institucion')(views.institucionDetalle)), name="institucionDetalle"),
     path("instituciones/nueva", login_required(permission_required('seguridadVial.add_institucion')(views.InstitucionNueva.as_view())), name="nuevaInstitucion"),

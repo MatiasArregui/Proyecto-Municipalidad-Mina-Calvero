@@ -98,15 +98,8 @@ class Persona(models.Model):
 class InstitucionCargoPersona(models.Model):
     id_institucion = models.ForeignKey(Institucion, on_delete=models.CASCADE)
     id_persona = models.ForeignKey(Persona, on_delete=models.CASCADE)
-    id_cargo = models.ForeignKey("Cargo", on_delete=models.PROTECT)
+    cargo = models.CharField(max_length=120)
 
-
-
-class Cargo(models.Model):
-    nombre = models.CharField(max_length=120)
-    
-    def __str__(self):
-        return self.nombre
 
 
 # class catastrofe(models.Model):

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Persona, Cargo, Elementos, Institucion, InstitucionCargoPersona, Catastrophe, Protocole, Refujio
+from .models import Persona, Elementos, Institucion, InstitucionCargoPersona, Catastrophe, Protocole, Refujio
 from django.forms import inlineformset_factory
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -79,14 +79,14 @@ class InstitucionForm(forms.ModelForm):
 class InstitucionCargoPersonaForm(forms.ModelForm):
     class Meta:
         model = InstitucionCargoPersona
-        fields = ("id_institucion", "id_cargo")
+        fields = ("id_institucion", "cargo")
         widgets = {
             "id_institucion": forms.Select(attrs={"class": "form-control select_insti"}),
-            "id_cargo": forms.Select(attrs={"class": "form-control"}),
+            "cargo": forms.TextInput(attrs={'class': 'form-control'}),
         }
         labels = {
             "id_institucion": "Institución",
-            "id_cargo": "Cargo",
+            "cargo": "Cargo",
         }
 
         
@@ -109,19 +109,6 @@ class PersonaForm(forms.ModelForm):
 
 
 InstitucionCargoPersonaFormSet = inlineformset_factory(Persona, InstitucionCargoPersona, form=InstitucionCargoPersonaForm, extra=2)
-
-
-#FORMULARIO DE CARGO (CREAR Y MODIFICAR)
-class CargoForm(forms.ModelForm):
-    class Meta:
-        model = Cargo
-        fields = ("nombre",)
-        widgets = {
-            "nombre": forms.TextInput(attrs={"class": "form-control"}),
-        }
-        labels = {
-            "nombre": "Nombre",
-        }
 
 
 

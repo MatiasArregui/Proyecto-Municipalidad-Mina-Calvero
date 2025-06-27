@@ -1,7 +1,6 @@
 from django.contrib import admin
-from .models import Cargo, Elementos, Institucion, InstitucionCargoPersona, Persona, Catastrophe, Protocole, Refujio
+from .models import Elementos, Institucion, InstitucionCargoPersona, Persona, Catastrophe, Protocole, Refujio
 admin.site.register(Institucion)
-admin.site.register(Cargo)
 admin.site.register(Elementos)
 
 # INLINE DETALLE  ---------------------------->
