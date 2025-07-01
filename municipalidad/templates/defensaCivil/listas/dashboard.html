@@ -124,29 +124,29 @@
         </tbody>
       </table>
 
-      <h1 class="mb-4 mt-5 text-primary">Lista de Protocolos</h1>
+      <h1 class="mb-4 mt-5 text-primary">Listas de PDF</h1>
     <div class="table-responsive">
       <table class="table table-bordered table-striped table-hover" id="table">
         <thead class="table-light">
           <tr>
             <th>Nombree</th>
             <th>Editar</th>
+            <th>Eliminar</th>
 
           </tr>
         </thead>
         <tbody>
-         
+         {% for pdf in pdf %}
           <tr>
-            <td>awdwdawadadw</td>
-            
+            <td>{{ pdf.name }}</td>
             <td>
-             adwdwadwaawd
+             <a href="{% url 'pdf_update' pdf.id %}">link</a>
             </td>
-
-            
-            
-
+            <td>
+              <a href="{% url 'pdf_delete' pdf.id %}">Eliminar</a>
+            </td>
           </tr>
+          {% endfor %}
       
         </tbody>
       </table>
