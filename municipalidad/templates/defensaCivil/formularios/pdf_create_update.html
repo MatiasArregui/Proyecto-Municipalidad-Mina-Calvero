@@ -1,0 +1,63 @@
+{% extends "defensaCivil/base.html" %}
+{% load static %}
+
+
+{% block contenido %}
+<div class="container">
+    <div class="cont mb-2" onclick="window.location.href='{% url "Lista-Desastre" %}'">
+        <h3 class="display-4 titulo-volver">{{ view.object.pk|yesno:"Editar PDF,Nuevo PDF" }}</h3>
+    </div>
+    <form method="post">
+      {% csrf_token %}
+        {{ form.as_p }}
+        {{ cat_formset.management_form }}
+        {% for form in cat_formset %}
+            {{ form.as_p}}
+        {% endfor%}
+      <button type="submit" class="btn btn-primary">Guardar</button>
+      <a href="{% url 'Lista-Desastre' %}" class="btn btn-danger">Cancelar</a>
+    </form>
+    <a href="{% url 'Lista-Desastre' %}" class="customButton">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708z"/>
+      </svg>
+    </a>
+</div>
+
+<script>
+    const selects = document.querySelectorAll('.select_insti');
+
+    // Función para actualizar las opciones disponibles en cada select
+    function updateOptions() {
+        let selectedValues = [];
+
+        // Obtener los valores seleccionados actualmente
+        selects.forEach(select => {
+            selectedValues.push(select.value);
+        });
+
+        // Actualizar las opciones de cada select
+        selects.forEach(select => {
+            Array.from(select.options).forEach(option => {
+                if (
+                    option.value === "" ||
+                    !selectedValues.includes(option.value) ||
+                    select.value === option.value
+                ) {
+                    option.style.display = '';
+                } else {
+                    option.style.display = 'none';
+                }
+            });
+        });
+    }
+
+    // Agregar el listener a cada select
+    selects.forEach(select => {
+        select.addEventListener('change', updateOptions);
+    });
+
+    // Ejecutar al cargar
+    updateOptions();
+</script>
+{% endblock%}

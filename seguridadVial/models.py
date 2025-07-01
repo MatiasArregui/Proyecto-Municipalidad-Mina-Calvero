@@ -1,22 +1,5 @@
 from django.db import models
 
-# # Funcion de remplazo del set, les dejo el ejemplo
-# def seleccionar_categoria_remplazo():
-#     # Buscamos el mozo comun o base que remplazara a los demas
-#     categoria_alternativa = Categoria.objects.filter(nombre__exact="seleccionar categoria").first()
-#     if categoria_alternativa:
-#         return categoria_alternativa
-# def seleccionar_persona_remplazo():
-#     # Buscamos el mozo comun o base que remplazara a los demas
-#     persona_alternativa = Persona.objects.filter(nombre__exact="seleccionar persona").first()
-#     if persona_alternativa:
-#         return persona_alternativa
-# def seleccionar_cargo_remplazo():
-#     # Buscamos el mozo comun o base que remplazara a los demas
-#     cargo_alternativo = Cargo.objects.filter(nombre__exact="seleccionar cargo").first()
-#     if cargo_alternativo:
-#         return cargo_alternativo
-
 
 
 # Create your models here.
@@ -145,10 +128,14 @@ class Protocole(models.Model):
 class PdfFrame(models.Model):
     name = models.CharField(max_length=255)
     url = models.URLField()
-    pk_catastrofe = models.ForeignKey(Catastrophe, on_delete=models.CASCADE)
+    pk_catastrofe = models.ManyToManyField(Catastrophe,through="CatPdf")
 
     def __str__(self):
         return f"Pdf de :{self.name}"
+    
+class CatPdf(models.Model):
+    id_cat = models.ForeignKey(Catastrophe, on_delete=models.CASCADE)
+    id_pdf = models.ForeignKey(PdfFrame, on_delete=models.CASCADE)
         
 class Refujio(models.Model):
     institucion = models.ForeignKey(Institucion, on_delete=models.CASCADE)

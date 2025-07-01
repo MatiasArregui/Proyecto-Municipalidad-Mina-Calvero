@@ -8,11 +8,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 urlpatterns = [
     # Pagina principal con tabla general ----------------------------------------------------------->
     path("inicio/", login_required(permission_required('seguridadVial.view_elementos')(views.paginaPrincipal)), name="paginaPrincipal"),
-                    #   login_required(permission_required('miAplicacion.view_cliente')(views.listaClientes.as_view())),
-                    # add_cargo
-                    # change_cargo
-                    # delete_cargo
-                    # view_cargo
+                  
     # Personas URLs--------------------------------------------------------------------------------->
     path("personas/", login_required(permission_required('seguridadVial.view_persona')(views.listaPersona.as_view())), name="listaPersonas"),
     path("personas/nuevaPersona", login_required(permission_required('seguridadVial.add_persona')(views.PersonaNueva.as_view())), name="nuevaPersona"),
@@ -25,11 +21,7 @@ urlpatterns = [
     path("elementos/modificarElemento/<str:pk>", login_required(permission_required('seguridadVial.change_elementos')(views.ElementoModificar.as_view())), name="modificarElemento"),
     path("elementos/borrarElemento/<str:pk>", login_required(permission_required('seguridadVial.delete_elementos')(views.ElementoBorrar.as_view())), name="borrarElemento"),
     
-    # Personas URLs--------------------------------------------------------------------------------->
-    # path("categorias/", login_required(permission_required('seguridadVial.view_categoria')(views.listaCategoria.as_view())), name="listaCategorias"),
-    # path("categorias/nuevaCategoria", login_required(permission_required('seguridadVial.add_categoria')(views.CategoriaNueva.as_view())), name="nuevaCategoria"),
-    # path("categorias/modificarCategoria/<str:pk>", login_required(permission_required('seguridadVial.change_categoria')(views.CategoriaModificar.as_view())), name="modificarCategoria"),
-    # path("categorias/borrarCategoria/<str:pk>", login_required(permission_required('seguridadVial.delete_categoria')(views.CategoriaBorrar.as_view())), name="borrarCategoria"),
+   
     
     # Personas URLs--------------------------------------------------------------------------------->
     path("instituciones/", login_required(permission_required('seguridadVial.view_institucion')(views.ListaInstitucion.as_view())), name="listaInstituciones"),
@@ -53,9 +45,9 @@ urlpatterns = [
     path("Eliminar/<int:pk>/", login_required(permission_required('defensaCivil.add_catastrophe')(views_landing.DeleteDisaster.as_view())), name="Eliminar"),
 
     # Pdf frameMap
-    path('crear/', login_required(views_landing.PdfFrameCreateView.as_view()), name='pdf_create'),
-    path('editar/<int:pk>/', login_required(views_landing.PdfFrameUpdateView.as_view()), name='pdf_update'),
-    path('eliminar/<int:pk>/', login_required(views_landing.PdfFrameDeleteView.as_view()), name='pdf_delete'),
+    path('crear/frame/', login_required(permission_required('defensaCivil.add_PdfFrame')(views_landing.PdfFrameCreateView.as_view())), name='pdf_create'),
+    path('editar/<int:pk>/', login_required(permission_required('defensaCivil.add_PdfFrame')(views_landing.PdfFrameUpdateView.as_view())), name='pdf_update'),
+    path('eliminar/<int:pk>/', login_required(permission_required('defensaCivil.add_PdfFrame')(views_landing.PdfFrameDeleteView.as_view())), name='pdf_delete'),
     
     
 ]

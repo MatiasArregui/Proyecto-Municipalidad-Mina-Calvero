@@ -1,5 +1,5 @@
 from django import forms
-from .models import Persona, Elementos, Institucion, InstitucionCargoPersona, Catastrophe, Protocole, Refujio, PdfFrame
+from .models import Persona, Elementos, Institucion, InstitucionCargoPersona, Catastrophe, Protocole, Refujio, PdfFrame, CatPdf
 from django.forms import inlineformset_factory
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -162,15 +162,31 @@ class CatastropheForm(forms.ModelForm):
 class PdfFrameForm(forms.ModelForm):
     class Meta:
         model = PdfFrame
-        fields = ['name', 'url', 'pk_catastrofe']
+        fields = ['name', 'url']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre del PDF'}),
             'url': forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'URL del PDF'}),
-            'pk_catastrofe': forms.Select(attrs={'class': 'form-control'}),
         }
+        labels = {
+            'name':'Nombre',
+            'url':'Link del archivo',
+        }
+class CatPdfform(forms.ModelForm):
+        class Meta:
+            model = CatPdf
+            fields = ['id_cat']
+            widgets = {
+                'id_cat': forms.Select(attrs={'class': 'form-control select_insti'}),
+            }
+            labels = {
+                'id_cat':'Catastrofe relacionada',
+            }
+            
+    
         
 
 # Formset -> inlines 
+PdfCatFormset = inlineformset_factory(PdfFrame, CatPdf, form=CatPdfform, extra=5)
 ProtocoleFormset = inlineformset_factory(Catastrophe, Protocole, form=ProtocoleForm, extra=5)
 RefujioFormset = inlineformset_factory(Catastrophe, Refujio, form=RefujioForm, extra=5)
 

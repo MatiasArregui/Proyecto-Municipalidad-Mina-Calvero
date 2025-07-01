@@ -2,8 +2,8 @@
 from django.shortcuts import render, HttpResponseRedirect, redirect, get_object_or_404
 from django.urls import reverse_lazy
 # -- Models importations --
-from .models import Catastrophe, Protocole, Refujio, Institucion, PdfFrame
-from .forms import ProtocoleFormset, RefujioFormset, CatastropheForm, PdfFrameForm
+from .models import Catastrophe, Protocole, Refujio, Institucion, PdfFrame, CatPdf
+from .forms import ProtocoleFormset, RefujioFormset, CatastropheForm, PdfFrameForm, CatPdfform, PdfCatFormset
 
 # -- Views -- 
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
@@ -12,7 +12,8 @@ import os
 
 class PdfFrameDeleteView(DeleteView):
     model = PdfFrame
-    template_name = os.path.join("defensaCivil", "formularios", "pdf_eliminar.html")
+    context_object_name = "pdf"   
+    template_name = os.path.join("defensaCivil", "confirmacionBorrado", "pdf_eliminar.html")
     success_url = reverse_lazy('Lista-Desastre')
 
 class PdfFrameCreateView(CreateView):
@@ -21,12 +22,50 @@ class PdfFrameCreateView(CreateView):
     template_name = os.path.join("defensaCivil", "formularios", "pdf_create_update.html")
     success_url = reverse_lazy('Lista-Desastre')
 
+    def get(self, request, *args, **kwargs):
+        self.object = None
+        form = self.get_form()
+        cat_formset = PdfCatFormset()
+        return self.render_to_response(self.get_context_data(form=form, cat_formset=cat_formset))
+
+    def post(self, request, *args, **kwargs):
+        self.object = None
+        form = self.get_form()
+        cat_formset = PdfCatFormset(request.POST)
+
+        if form.is_valid() and cat_formset.is_valid():
+            self.object = form.save()
+            cat_formset.instance = self.object
+            cat_formset.save()
+            return redirect(self.success_url)
+
+        return self.render_to_response(self.get_context_data(form=form, cat_formset=cat_formset))
+
+
 class PdfFrameUpdateView(UpdateView):
     model = PdfFrame
     form_class = PdfFrameForm
-   
     template_name = os.path.join("defensaCivil", "formularios", "pdf_create_update.html")
     success_url = reverse_lazy('Lista-Desastre')
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        cat_formset = PdfCatFormset(instance=self.object)
+        return self.render_to_response(self.get_context_data(form=form, cat_formset=cat_formset))
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        cat_formset = PdfCatFormset(request.POST, instance=self.object)
+
+        if form.is_valid() and cat_formset.is_valid():
+            form.save()
+            cat_formset.save()
+            return redirect(self.success_url)
+
+        return self.render_to_response(self.get_context_data(form=form, cat_formset=cat_formset))
+
 # --- Catastrofes  ----
 
 def DetalleCatastrofe(request, pk):
@@ -147,38 +186,90 @@ def ActiveDisaster(request, pk):
         return render(request, template_name=os.path.join("defensaCivil", "formularios", "active.html"), context=None)
 
 # Landing page defaulte view
-def ActiveCatastropheListView(request):
+# def ActiveCatastropheListView(request):
     
-    template = os.path.join("landingPage", "index_public.html")
+#     template = os.path.join("landingPage", "index_public.html")
 
+#     all_disaster = Catastrophe.objects.filter(is_default=False)
+#     filters_is_active = Catastrophe.objects.filter(is_active=True)
+#     if not filters_is_active: 
+#         cat = Catastrophe.objects.get(is_default=True) 
+
+#         # Obtengo todas las pk de las instituciones en refugios
+#         all_cat = [x.institucion.pk for x in Refujio.objects.all() ]
+#         # Muestro en la pagina estandard solo aquellas areas pertenecientes a una catastrofe
+#         ref = [x for x in Institucion.objects.all() if x.pk in all_cat]
+        
+#     else:
+#         cat = Catastrophe.objects.get(is_active=True)
+#         ref = Refujio.objects.filter(catastrofe=cat)
+#         pdf_cat = [x.id_pdf.pk for x in CatPdf.objects.filter(id_cat=cat.pk)]
+#         frame = [{"url":x.url} for x in PdfFrame.objects.all() if x.pk in pdf_cat ]
+#         print(frame)
+        
+  
+#     pro = Protocole.objects.filter(catastrophe=cat)
+
+
+
+#     context = {"catastrofe": cat , "protocolo":pro, "refujio":ref, "all": all_disaster, "frame":frame}
+import re
+
+import re
+
+def ActiveCatastropheListView(request):
+    template = os.path.join("landingPage", "index_public.html")
     all_disaster = Catastrophe.objects.filter(is_default=False)
     filters_is_active = Catastrophe.objects.filter(is_active=True)
-    if not filters_is_active: 
-        cat = Catastrophe.objects.get(is_default=True) 
 
-        # Obtengo todas las pk de las instituciones en refugios
-        all_cat = [x.institucion.pk for x in Refujio.objects.all() ]
-    
-
-        # Muestro en la pagina estandard solo aquellas areas pertenecientes a una catastrofe
+    if not filters_is_active:
+        cat = Catastrophe.objects.get(is_default=True)
+        all_cat = [x.institucion.pk for x in Refujio.objects.all()]
         ref = [x for x in Institucion.objects.all() if x.pk in all_cat]
-        
+        pdf_frames = []
+        try: 
+            institucion = Institucion.objects.get(id=2)
+        except Exception as e:
+            institucion = Institucion.objects.get()
+        pro = Protocole.objects.filter(catastrophe=cat)
+        context = {
+        "catastrofe": cat,
+        "protocolo": pro,
+        "refujio": ref,
+        "all": all_disaster,
+        "pdf_frames": pdf_frames,
+        "institucion":institucion
+        }
     else:
         cat = Catastrophe.objects.get(is_active=True)
         ref = Refujio.objects.filter(catastrofe=cat)
-    
-    pro = Protocole.objects.filter(catastrophe=cat)
-  
+        pdf_relaciones = CatPdf.objects.filter(id_cat=cat.pk)
+
+        pdf_frames = []
+        for rel in pdf_relaciones:
+            url = rel.id_pdf.url
+            name = rel.id_pdf.name
+            match = re.search(r"/d/([^/]+)/", url)
+            if match:
+                file_id = match.group(1)
+                pdf_frames.append({
+                    "file_id": file_id,
+                    "name": name
+                })
+        pro = Protocole.objects.filter(catastrophe=cat)
+        context = {
+        "catastrofe": cat,
+        "protocolo": pro,
+        "refujio": ref,
+        "all": all_disaster,
+        "pdf_frames": pdf_frames
+        }
 
 
-    context = {"catastrofe": cat , "protocolo":pro, "refujio":ref, "all": all_disaster}
 
-    # -- as view
-    print("--------------------------------")
-    print("catastrofe",[cat.image_disaster])
-    print("protocole_formset: ",[pro])
-    print("refujio_formset: ",[ref])
-    print("--------------------------------")
 
-    return render(request, template_name=template, context=context)
+    return render(request, template, context)
+
+
+
 

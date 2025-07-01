@@ -25,8 +25,15 @@ class RefujioInline(admin.TabularInline):
 
 class CatastropheAdmin(admin.ModelAdmin):
     inlines = [ProtocoleInline, RefujioInline]
-    
-admin.site.register(PdfFrame)
+
+
+# ------- Pdf ----
+# class PdfInline(admin.TabularInline):
+#     model = Catastrophe
+# class catpdf(admin.ModelAdmin):
+#     inlines = [PdfInline]
+ 
+# admin.site.register(PdfFrame, catpdf)
 admin.site.register(Catastrophe, CatastropheAdmin)
 admin.site.register(Protocole)
 admin.site.register(Refujio)

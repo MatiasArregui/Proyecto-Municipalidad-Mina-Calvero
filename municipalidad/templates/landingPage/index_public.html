@@ -32,8 +32,8 @@
 
 <div class="position-relative overflow-hidden w-100" style="height: 300px;">
   <img src="{{ catastrofe.image_disaster }}" alt="" class="img-fluid w-100 h-100 object-fit-cover">
-  <h2 class="position-absolute top-50 start-50 translate-middle text-center text-white fw-light w-100 px-3" style="margin-top: 60px;">
-    {{ catastrofe.type_disaster }}
+  <h2 class="position-absolute top-50 start-50 translate-middle text-center fs-6 text-white fw-light w-100 px-3" style="margin-top: 60px; font-size:10px;">
+    {{ catastrofe.type_disaster | title}}
   </h2>
 </div>
 
@@ -63,28 +63,21 @@
 {% endif %}
 
 {% if catastrofe.is_default %}
-  <div class="container px-3 py-4" id="custom-cards">
-
-    <div class="d-flex flex-nowrap overflow-auto gap-3 pb-2">
-      {% for institucion in refujio %}
-        <div class="flex-shrink-0  rounded-4 shadow-sm p-4 text-light" style="min-width: 280px; max-width: 320px;  background: linear-gradient(343deg, rgb(191, 151, 255), rgb(32, 181, 250));">
-          <h5 class="fw-bold mb-3">{{ institucion.nombre | title }}</h5>
-          <ul class="list-unstyled d-flex flex-column gap-2">
-            <li class="d-flex align-items-start">
-              <small class="text-wrap w-100" style="max-height: 4.5rem; overflow-y: auto; display: block;">
-              {{ institucion.descripcion }}
-              </small>
-            </li>
+  <div class="container px-3 py-4 w-100" id="custom-cards">
+    <div class="d-flex justify-content-center flex-nowrap overflow-auto gap-3 pb-2 w-100">
+        <div class="flex-shrink-0  rounded-4 shadow-sm p-4 text-light" style=" width: 100%;background: linear-gradient(34deg, rgb(191, 151, 255), rgb(32, 181, 250));">
+          <h5 class="fw-bold mb-3 text-center">{{ institucion.nombre | title }}</h5>
+          <small class="text-wrap w-100 text-center" style="max-height: 4.5rem; overflow-y: auto; display: block;">
+            {{ institucion.descripcion }}
+            </small>
             {% if institucion.telefono %}
-              <li class="d-flex align-items-center">
-                <a href="tel:{{ institucion.telefono }}" class="btn btn-success btn-sm">
-                  <img src="{% static 'assets/phone.svg' %}" alt=""> {{ institucion.telefono }}
-                </a>
-              </li>
+                <div class="text-center mt-2">
+                  <a href="tel:{{ institucion.telefono }}" class="btn btn-success btn-sm">
+                    <img src="{% static 'assets/phone.svg' %}" alt=""> Llamar
+                  </a>
+                </div>
             {% endif %}
-          </ul>
         </div>
-      {% endfor %}
     </div>
   </div>
 {% endif %}
@@ -100,11 +93,10 @@
              style="min-width: 280px; max-width: 320px; background-image: url('{{ item.image_disaster | safe }}'); background-size: cover; background-position: center; background-repeat: no-repeat; ">
           
           <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1" style="background-color: transparent;">
-            <a href="/detalleCatastrofe/{{ item.id }}/" class="text-decoration-none"><h2 class="pt-3 mt-5 mb-4 display-6 lh-1 fw-bold text-white" >{{ item.type_disaster | title }}</h2></a>
+            <a href="/detalleCatastrofe/{{ item.id }}/" class="text-decoration-none"><h2 class="pt-3 mt-5 mb-4 display-7 lh-1 fw-bold text-white" >{{ item.type_disaster | title }}</h2></a>
             <ul class="d-flex list-unstyled mt-auto">
               <li class="me-auto" style="background: linear-gradient(343deg, rgb(191, 151, 255), rgb(32, 181, 250)); border-radius: 4rem;">
-                <img src="{% static 'assets/ex.svg' %}" alt="Logo" width="32" height="32"
-                     class="">
+                <img src="{% static 'assets/ex.svg' %}" alt="Logo" width="32" height="32" class="">
               </li>
             </ul>
           </div>
@@ -147,17 +139,10 @@
 <br>
 <br>
 <h2 class="title-list text-center">
-    <svg xmlns="http://www.w3.org/2000/svg" width="1rem" viewBox="0 0 16 16" fill="currentColor" class="size-4">
-    <path
-      d="M2.75 2a.75.75 0 0 0-.75.75v10.5a.75.75 0 0 0 1.5 0v-2.624l.33-.083A6.044 6.044 0 0 1 8 11c1.29.645 2.77.807 4.17.457l1.48-.37a.462.462 0 0 0 .35-.448V3.56a.438.438 0 0 0-.544-.425l-1.287.322C10.77 3.808 9.291 3.646 8 3a6.045 6.045 0 0 0-4.17-.457l-.34.085A.75.75 0 0 0 2.75 2Z" />
-  </svg>
-   Protocolo de Acciones en Caso de {{ catastrofe.type_disaster }} - Mina Clavero 
+  Protocolo de Acciones en Caso de {{ catastrofe.type_disaster }} - Mina Clavero 
 </h2>
-<br>
-<br>
 <div class="container px-4 py-5" id="featured-3">
     <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
-
       <div class="feature col">
         <div
           class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3 p-2 rounded">
@@ -167,7 +152,7 @@
               clip-rule="evenodd" />
           </svg>
         </div>
-        <h3 class="title text-">Alerta Termprana {{catastrofe.type_disaster}}</h3>
+        <h3 class="title">Alerta Termprana {{catastrofe.type_disaster}}</h3>
         <ul class="list-group list-group-flush">
 
           {% for item in protocolo %}
@@ -217,10 +202,42 @@
               {{ item.name }}<br>
             {% endif %}
           {% endfor %}
-          </p>
+        </p>
       </div>
     </div>
   </div>
+
+
+{% if pdf_frames %}
+  <div class="container py-4">
+    <h2 class="title-list text-center mb-4">Protocolos adjuntos</h2>
+    <div class="d-flex flex-wrap gap-4">
+      {% for pdf in pdf_frames %}
+        <div class="card shadow-sm" style="width: 600px;">
+          <iframe 
+            src="https://drive.google.com/file/d/{{ pdf.file_id }}/preview" 
+            width="100%" 
+            height="400" 
+            allow="autoplay"
+            style="border: none;">
+          </iframe>
+          <div class="card-body text-center">
+            <h5 class="card-title">Protocolos de {{ pdf.name | title }}</h5>
+            <a href="https://drive.google.com/file/d/{{ pdf.file_id }}/view" target="_blank" class="btn btn-outline-primary">
+              Ver en Google Drive
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
+
+
+
+
+  
+  
 {% endif %}
 
 
@@ -320,9 +337,9 @@
 </script>
 
 
-
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous">
   </script>
     </body>
 </html>
+

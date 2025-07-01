@@ -1,0 +1,15 @@
+{% extends "defensaCivil/base.html" %}
+{% load static %}
+{% block contenido %}
+<div class="container mt-5">
+    <div class="card shadow-sm p-4 mb-4 bg-white rounded">
+        <h3 class="display-4 mb-3 text-center">Borrar PDF Protocolo</h3>
+        <p class="text-center">¿Está seguro de borrar <b>{{ pdf.name | title}}</b>?</p>
+        <form method="post" class="text-center">
+            {% csrf_token %}
+            <button class="btn btn-danger mr-2" type="submit">Aceptar</button>
+            <a class="btn btn-secondary ml-2" href="{% url 'Lista-Desastre' %}">Cancelar</a>
+        </form>
+    </div>
+</div>
+{% endblock %}
