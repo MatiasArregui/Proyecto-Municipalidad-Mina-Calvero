@@ -1,5 +1,5 @@
 from django import forms
-from .models import Persona, Elementos, Institucion, InstitucionCargoPersona, Catastrophe, Protocole, Refujio
+from .models import Persona, Elementos, Institucion, InstitucionCargoPersona, Catastrophe, Protocole, Refujio, PdfFrame
 from django.forms import inlineformset_factory
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -159,6 +159,15 @@ class CatastropheForm(forms.ModelForm):
             "mapa_interactivo" : "Enlace o hipervínculo a mapa interactivo",
         }
 
+class PdfFrameForm(forms.ModelForm):
+    class Meta:
+        model = PdfFrame
+        fields = ['name', 'url', 'pk_catastrofe']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre del PDF'}),
+            'url': forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'URL del PDF'}),
+            'pk_catastrofe': forms.Select(attrs={'class': 'form-control'}),
+        }
         
 
 # Formset -> inlines 

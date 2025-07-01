@@ -51,6 +51,11 @@ urlpatterns = [
     path("crear/", login_required(permission_required('defensaCivil.add_catastrophe')(views_landing.CatastropheCreateView.as_view())), name="crear"),
     path("modificar/<int:pk>/", login_required(permission_required('defensaCivil.add_catastrophe')(views_landing.CatastropheUpdateView.as_view())), name="Modificar"),
     path("Eliminar/<int:pk>/", login_required(permission_required('defensaCivil.add_catastrophe')(views_landing.DeleteDisaster.as_view())), name="Eliminar"),
+
+    # Pdf frameMap
+    path('crear/', login_required(views_landing.PdfFrameCreateView.as_view()), name='pdf_create'),
+    path('editar/<int:pk>/', login_required(views_landing.PdfFrameUpdateView.as_view()), name='pdf_update'),
+    path('eliminar/<int:pk>/', login_required(views_landing.PdfFrameDeleteView.as_view()), name='pdf_delete'),
     
     
 ]

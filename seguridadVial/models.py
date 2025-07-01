@@ -141,6 +141,15 @@ class Protocole(models.Model):
     def __str__(self):
         return self.name
 
+
+class PdfFrame(models.Model):
+    name = models.CharField(max_length=255)
+    url = models.URLField()
+    pk_catastrofe = models.ForeignKey(Catastrophe, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Pdf de :{self.name}"
+        
 class Refujio(models.Model):
     institucion = models.ForeignKey(Institucion, on_delete=models.CASCADE)
     catastrofe = models.ForeignKey(Catastrophe, on_delete=models.CASCADE)

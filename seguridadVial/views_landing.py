@@ -1,13 +1,33 @@
 # -- Django resources --
 from django.shortcuts import render, HttpResponseRedirect, redirect, get_object_or_404
-
+from django.urls import reverse_lazy
 # -- Models importations --
-from .models import Catastrophe, Protocole, Refujio, Institucion
-from .forms import ProtocoleFormset, RefujioFormset, CatastropheForm
+from .models import Catastrophe, Protocole, Refujio, Institucion, PdfFrame
+from .forms import ProtocoleFormset, RefujioFormset, CatastropheForm, PdfFrameForm
 
 # -- Views -- 
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 import os
+
+
+class PdfFrameDeleteView(DeleteView):
+    model = PdfFrame
+    template_name = os.path.join("defensaCivil", "formularios", "pdf_eliminar.html")
+    success_url = reverse_lazy('Lista-Desastre')
+
+class PdfFrameCreateView(CreateView):
+    model = PdfFrame
+    form_class = PdfFrameForm
+    template_name = os.path.join("defensaCivil", "formularios", "pdf_create_update.html")
+    success_url = reverse_lazy('Lista-Desastre')
+
+class PdfFrameUpdateView(UpdateView):
+    model = PdfFrame
+    form_class = PdfFrameForm
+   
+    template_name = os.path.join("defensaCivil", "formularios", "pdf_create_update.html")
+    success_url = reverse_lazy('Lista-Desastre')
+# --- Catastrofes  ----
 
 def DetalleCatastrofe(request, pk):
     template = os.path.join("landingPage", "catastrofes.html")
@@ -110,7 +130,7 @@ def DashboardCatastrophe(request):
     active = True
     if Catastrophe.objects.filter(is_active=True):
         active = False
-    return render(request, template_name=os.path.join("defensaCivil", "listas", "dashboard.html"), context={"disaster":Catastrophe.objects.all(), "active":active})
+    return render(request, template_name=os.path.join("defensaCivil", "listas", "dashboard.html"), context={"disaster":Catastrophe.objects.all(), "active":active, "pdf":PdfFrame.objects.all()})
 
 # Confirm to activate disaster
 def ActiveDisaster(request, pk):

@@ -36,6 +36,7 @@
     {{ catastrofe.type_disaster }}
   </h2>
 </div>
+
 {% if catastrofe.is_active %}
 <div class="container py-4">
   <div class="d-flex flex-nowrap overflow-auto gap-3">
@@ -63,17 +64,6 @@
 
 {% if catastrofe.is_default %}
   <div class="container px-3 py-4" id="custom-cards">
-    <h2 class="w-100 mb-4 d-flex align-items-center justify-content-center">
-      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" class="me-2">
-        <path stroke-linecap="round" stroke-linejoin="round"
-          d="M6.429 9.75 2.25 12l4.179 2.25m0-4.5 
-             5.571 3 5.571-3m-11.142 0L2.25 7.5 
-             12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 
-             2.25m0 0 4.179 2.25L12 21.75 
-             2.25 16.5l4.179-2.25m11.142 0-5.571 3-5.571-3" />
-      </svg>
-      Áreas
-    </h2>
 
     <div class="d-flex flex-nowrap overflow-auto gap-3 pb-2">
       {% for institucion in refujio %}
@@ -94,6 +84,33 @@
             {% endif %}
           </ul>
         </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
+
+<!-- is Default -->
+{% if catastrofe.is_default %}
+  <div class="container" id="custom-cards">
+
+    <div class="d-flex flex-nowrap overflow-auto gap-3 pb-3">
+      {% for item in all %}
+      
+        <div class="flex-shrink-0 text-white rounded-5 " 
+             style="min-width: 280px; max-width: 320px; background-image: url('{{ item.image_disaster | safe }}'); background-size: cover; background-position: center; background-repeat: no-repeat; ">
+          
+          <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1" style="background-color: transparent;">
+            <a href="/detalleCatastrofe/{{ item.id }}/" class="text-decoration-none"><h2 class="pt-3 mt-5 mb-4 display-6 lh-1 fw-bold text-white" >{{ item.type_disaster | title }}</h2></a>
+            <ul class="d-flex list-unstyled mt-auto">
+              <li class="me-auto" style="background: linear-gradient(343deg, rgb(191, 151, 255), rgb(32, 181, 250)); border-radius: 4rem;">
+                <img src="{% static 'assets/ex.svg' %}" alt="Logo" width="32" height="32"
+                     class="">
+              </li>
+            </ul>
+          </div>
+          
+        </div>
+        
       {% endfor %}
     </div>
   </div>
@@ -124,44 +141,6 @@
   {% endif %}
 </div>
 
-
-<!-- is Default -->
-{% if catastrofe.is_default %}
-  <div class="container px-2 py-3" id="custom-cards">
-    <h2 class="text-center title-main w-100 mb-4">
-      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" class="me-2">
-        <path stroke-linecap="round" stroke-linejoin="round"
-          d="M6.429 9.75 2.25 12l4.179 2.25m0-4.5 
-             5.571 3 5.571-3m-11.142 0L2.25 7.5 
-             12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 
-             2.25m0 0 4.179 2.25L12 21.75 
-             2.25 16.5l4.179-2.25m11.142 0-5.571 3-5.571-3" />
-      </svg>
-      Catástrofes
-    </h2>
-
-    <div class="d-flex flex-nowrap overflow-auto gap-3 pb-3">
-      {% for item in all %}
-      
-        <div class="flex-shrink-0 text-white rounded-5 " 
-             style="min-width: 280px; max-width: 320px; background-image: url('{{ item.image_disaster | safe }}'); background-size: cover; background-position: center; background-repeat: no-repeat; ">
-          
-          <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1" style="background-color: transparent;">
-            <a href="/detalleCatastrofe/{{ item.id }}/" class="text-decoration-none"><h2 class="pt-3 mt-5 mb-4 display-6 lh-1 fw-bold text-white" >{{ item.type_disaster | title }}</h2></a>
-            <ul class="d-flex list-unstyled mt-auto">
-              <li class="me-auto" style="background: linear-gradient(343deg, rgb(191, 151, 255), rgb(32, 181, 250)); border-radius: 4rem;">
-                <img src="{% static 'assets/ex.svg' %}" alt="Logo" width="32" height="32"
-                     class="">
-              </li>
-            </ul>
-          </div>
-          
-        </div>
-        
-      {% endfor %}
-    </div>
-  </div>
-{% endif %}
 
 <!--------------------  Protocols ------------------>
 {% if catastrofe.is_active %}
@@ -232,15 +211,13 @@
           </svg>
         </div>
         <h3 class=" title">Post Emergencia {{catastrofe.type_disaster}}</h3>
-        <ul class="list-group list-group-flush">
-
+        <p>
           {% for item in protocolo %}
             {% if item.campo_seleccion == 'Despues' %}
-              <li class="list-group-item">{{ item.name }}</li>
+              {{ item.name }}<br>
             {% endif %}
           {% endfor %}
-
-        </ul>
+          </p>
       </div>
     </div>
   </div>

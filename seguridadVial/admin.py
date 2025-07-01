@@ -1,5 +1,6 @@
+
 from django.contrib import admin
-from .models import Elementos, Institucion, InstitucionCargoPersona, Persona, Catastrophe, Protocole, Refujio
+from .models import Elementos, Institucion, InstitucionCargoPersona, Persona, Catastrophe, Protocole, Refujio, PdfFrame
 admin.site.register(Institucion)
 admin.site.register(Elementos)
 
@@ -24,7 +25,8 @@ class RefujioInline(admin.TabularInline):
 
 class CatastropheAdmin(admin.ModelAdmin):
     inlines = [ProtocoleInline, RefujioInline]
-
+    
+admin.site.register(PdfFrame)
 admin.site.register(Catastrophe, CatastropheAdmin)
 admin.site.register(Protocole)
 admin.site.register(Refujio)
