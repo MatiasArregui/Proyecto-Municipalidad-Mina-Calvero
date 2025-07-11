@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-8)o#4v4e)f-6m@38&!$i!jyc9m&j_*tx8iijpz4m@ssz@jv2o8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 # ALLOWED_HOSTS = [ 'minaclevero.pythonanywhere.com']/mnt/d/data/usuarios/alumno
-ALLOWED_HOSTS = ['minaclevero.pythonanywhere.com']
+ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
