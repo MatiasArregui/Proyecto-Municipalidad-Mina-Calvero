@@ -147,20 +147,34 @@ class Refujio(models.Model):
         return f"Refugio de {self.institucion.telefono} en caso de {self.catastrofe}"
 
 # -------- Nuevas Tablas --------
+
+
 class SubCatastrofe(models.Model):
     titulo = models.CharField(max_length=255, default=None)
-    id_catastrofe = models.ForeignKey(Catastrophe, on_delete=models.CASCADE)     
+    id_catastrofe = models.ForeignKey(Catastrophe, on_delete=models.CASCADE)
 
-class subprotocolos(models.Model):
-    id_subcat = models.ForeignKey(SubCatastrofe, on_delete=models.CASCADE)
-    id_protoc = models.ForeignKey(Protocole, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.titulo
 
-class prevencion(models.Model):
+class Prevencion(models.Model):
+    subcatastrofe = models.ForeignKey(SubCatastrofe, on_delete=models.CASCADE, related_name='prevenciones')
     titulo = models.CharField(max_length=255, default=None)
     descripcion = models.TextField(default=None)
-    
-class subcat_prev(models.Model):
-    id_subcat = models.ForeignKey(SubCatastrofe, on_delete=models.CASCADE)
-    id_preven = models.ForeignKey(prevencion, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.titulo
+
+class Protocolo(models.Model):
+    CHOICE = [
+        ('Antes', 'Antes'),
+        ('Durante', 'Durante'),
+        ('Despues', 'Despues')
+    ]
+
+    subcatastrofe = models.ForeignKey(SubCatastrofe, on_delete=models.CASCADE, related_name='protocolos')
+    tipo = models.CharField(max_length=50, choices=CHOICE, default=None, null=True, blank=True)
+    descripcion = models.CharField(max_length=255, default=None, null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.tipo}: {self.descripcion}"
 # -------- 

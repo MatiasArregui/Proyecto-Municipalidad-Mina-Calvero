@@ -1,5 +1,5 @@
 from django import forms
-from .models import Persona, Elementos, Institucion, InstitucionCargoPersona, Catastrophe, Protocole, Refujio, PdfFrame, CatPdf, SubCatastrofe, subprotocolos, prevencion, subcat_prev
+from .models import Persona, Elementos, Institucion, InstitucionCargoPersona, Catastrophe, Protocole, Refujio, PdfFrame, CatPdf, SubCatastrofe, Protocolo, Prevencion
 from django.forms import inlineformset_factory
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -187,21 +187,43 @@ class SubCatastrofeForm(forms.ModelForm):
     class Meta:
         model = SubCatastrofe
         fields = ['titulo', 'id_catastrofe']
+        widgets = {
+            'titulo': forms.TextInput(attrs={'class': 'form-control'}),
+            'id_catastrofe': forms.Select(attrs={'class': 'form-control select_insti'}),
+        }
+        labels = {
+            'titulo':'Sub Catastrofe',
+            'id_catastrofe':'Catastrofe relacionada',
+        }
 
-class SubprotocolosForm(forms.ModelForm):
+class ProtocolosForm(forms.ModelForm):
     class Meta:
-        model = subprotocolos
-        fields = ['id_subcat', 'id_protoc']
+        model = Protocolo
+        fields = ['subcatastrofe', 'tipo', 'descripcion']
+        widgets = {
+            'tipo': forms.Select(attrs={"class": "form-control"}),
+            'descripcion': forms.TextInput(attrs={'class':'form-control'}),
+        }
+        labels = {
+            'subcatastrofe':'Sub-Catastrofe de perteneciente',
+            'tipo': 'Tipo',
+            'descripcion': 'Descripción',
+        }
 
 class PrevencionForm(forms.ModelForm):
     class Meta:
-        model = prevencion
+        model = Prevencion
         fields = ['titulo', 'descripcion']
+        widgets = {
+            'titulo': forms.TextInput(attrs={'class': 'form-control'}),
+            'descripcion': forms.Textarea(attrs={"class": "form-control"}),
+        }
+        labels = {
+            'titulo':'Titulo Prevención',
+            'descripcion':'Descripción',
+        }
 
-class SubcatPrevForm(forms.ModelForm):
-    class Meta:
-        model = subcat_prev
-        fields = ['id_subcat', 'id_preven']
+
 # --- end
     
         
@@ -210,5 +232,18 @@ class SubcatPrevForm(forms.ModelForm):
 PdfCatFormset = inlineformset_factory(PdfFrame, CatPdf, form=CatPdfform, extra=5)
 ProtocoleFormset = inlineformset_factory(Catastrophe, Protocole, form=ProtocoleForm, extra=5)
 RefujioFormset = inlineformset_factory(Catastrophe, Refujio, form=RefujioForm, extra=5)
+
+
+PrevencionFormSet = inlineformset_factory(
+    SubCatastrofe, Prevencion,
+    form=PrevencionForm,
+    extra=6, can_delete=True
+)
+
+ProtocoloFormSet = inlineformset_factory(
+    SubCatastrofe, Protocolo,
+    form=ProtocolosForm,
+    extra=6, can_delete=True
+)
 
 

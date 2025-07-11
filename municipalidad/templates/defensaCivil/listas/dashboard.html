@@ -124,6 +124,49 @@
         </tbody>
       </table>
 
+
+    <h1 class="mb-4 mt-5 text-success">Lista de  sub Catástrofes</h1>
+    <a class="btn btn-success mb-1" href="{% url 'subcar_crear' %}">Nuevo</a>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped table-hover" id="table">
+        <thead class="table-light">
+          <tr>
+            <th>Titulo</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+         {% for s in subcat %}
+          <tr>
+            <td>{{ s.titulo }}</td>
+            <td>
+             <a class="btn btn-sm btn-secondary" href="{% url 'subcat_update' s.id %}">
+                <img src="{% static 'assets/edit.svg' %}" style="width: 20px;">Editar
+             </a>
+            </td>
+            <td>
+              <a class="btn btn-sm btn-danger" href="{% url 'subcat_delete' s.id %}">
+                <img src="{% static 'assets/eliminar.svg' %}" style="width: 20px;">Eliminar
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+      
+        </tbody>
+      </table>
+
+
+
+
+
+
+
+
+
+
+
+
       <h1 class="mb-4 mt-5 text-primary">Listas de PDF</h1>
       <a class="btn btn-success mb-1" href="{% url 'pdf_create' %}">Nuevo</a>
     <div class="table-responsive">

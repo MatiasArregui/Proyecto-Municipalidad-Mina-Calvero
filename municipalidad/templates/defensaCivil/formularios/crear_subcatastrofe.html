@@ -1,0 +1,70 @@
+{% extends "defensaCivil/base.html" %}
+{% load static %}
+
+{% block contenido %}
+<div class="container">
+  <div class="cont mb-1" onclick="window.location.href='{% url 'Lista-Desastre' %}'">
+    <h2 class="display-4 titulo-volver">
+      {% if form.instance.pk %}
+        Editar
+      {% else %}
+        Crear
+      {% endif %}
+      Subcatástrofe
+    </h2>
+  </div>
+
+  <form method="post" class="border p-4 bg-white shadow rounded" novalidate>
+    {% csrf_token %}
+
+    <ul class="nav nav-tabs mb-4" id="formTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="datos-tab" data-bs-toggle="tab" data-bs-target="#datos" type="button" role="tab">Datos Principales</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="prevenciones-tab" data-bs-toggle="tab" data-bs-target="#prevenciones" type="button" role="tab">Prevenciones</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="protocolos-tab" data-bs-toggle="tab" data-bs-target="#protocolos" type="button" role="tab">Protocolos</button>
+      </li>
+    </ul>
+
+    <div class="tab-content" id="formTabsContent">
+      <div class="tab-pane fade show active" id="datos" role="tabpanel">
+        {{ form.as_p }}
+      </div>
+
+      <div class="tab-pane fade" id="prevenciones" role="tabpanel">
+        {{ PrevencionFormSet.management_form }}
+        {% for form in PrevencionFormSet %}
+          <div class="mb-3 border p-3 rounded">
+            {{ form.as_p }}
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="tab-pane fade" id="protocolos" role="tabpanel">
+        {{ ProtocoloFormSet.management_form }}
+        {% for form in ProtocoloFormSet %}
+          <div class="mb-3 border p-3 rounded">
+            {{ form.as_p }}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="text-end mt-4">
+      <button type="submit" class="btn btn-success w-100">Guardar Subcatástrofe</button>
+    </div>
+  </form>
+
+  <a href="{% url 'Lista-Desastre' %}" class="customButton mt-3 d-inline-block">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708z"/>
+    </svg>
+  </a>
+</div>
+
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+{% endblock %}

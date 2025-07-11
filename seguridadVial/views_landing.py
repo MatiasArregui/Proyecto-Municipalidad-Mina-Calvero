@@ -3,9 +3,9 @@ from django.shortcuts import render, HttpResponseRedirect, redirect, get_object_
 from django.urls import reverse_lazy
 
 # -- Models importations --
-from .models import Catastrophe, Protocole, Refujio, Institucion, PdfFrame, CatPdf, SubCatastrofe, subprotocolos, prevencion, subcat_prev
+from .models import Catastrophe, Protocole, Refujio, Institucion, PdfFrame, CatPdf, SubCatastrofe, Protocolo, Prevencion
 
-from .forms import ProtocoleFormset, RefujioFormset, CatastropheForm, PdfFrameForm, CatPdfform, PdfCatFormset, SubCatastrofeForm, SubprotocolosForm, PrevencionForm, SubcatPrevForm
+from .forms import ProtocoleFormset, RefujioFormset, CatastropheForm, PdfFrameForm, CatPdfform, PdfCatFormset, SubCatastrofeForm, ProtocolosForm, PrevencionForm
 
 # -- Views -- 
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
@@ -171,7 +171,7 @@ def DashboardCatastrophe(request):
     active = True
     if Catastrophe.objects.filter(is_active=True):
         active = False
-    return render(request, template_name=os.path.join("defensaCivil", "listas", "dashboard.html"), context={"disaster":Catastrophe.objects.all(), "active":active, "pdf":PdfFrame.objects.all()})
+    return render(request, template_name=os.path.join("defensaCivil", "listas", "dashboard.html"), context={"disaster":Catastrophe.objects.all(), "active":active, "pdf":PdfFrame.objects.all(), "subcat": SubCatastrofe.objects.all()})
 
 # Confirm to activate disaster
 def ActiveDisaster(request, pk):
@@ -271,45 +271,111 @@ def ActiveCatastropheListView(request):
 
     return render(request, template, context)
 # SubCatastrofe CRUD
-class SubCatastrofeListView(ListView):
-    model = SubCatastrofe
-    template_name = 'subcatastrofe_list.html'
+# class SubCatastrofeListView(ListView):
+#     model = SubCatastrofe
+#     template_name = 'subcatastrofe_list.html'
+
+# class SubCatastrofeCreateView(CreateView):
+#     model = SubCatastrofe
+#     form_class = SubCatastrofeForm
+#     template_name = 'subcatastrofe_form.html'
+#     success_url = reverse_lazy('subcatastrofe_list')
+
+# class SubCatastrofeUpdateView(UpdateView):
+#     model = SubCatastrofe
+#     form_class = SubCatastrofeForm
+#     template_name = 'subcatastrofe_form.html'
+#     success_url = reverse_lazy('subcatastrofe_list')
+
+# class SubCatastrofeDeleteView(DeleteView):
+#     model = SubCatastrofe
+#     template_name = 'subcatastrofe_confirm_delete.html'
+#     success_url = reverse_lazy('subcatastrofe_list')
+
+# Repite el patrón para los otros modelos:
+# class SubprotocolosCreateView(CreateView):
+#     model = Protocolo
+#     form_class = ProtocolosForm
+#     template_name = 'subprotocolos_form.html'
+#     success_url = reverse_lazy('subprotocolos_list')
+
+# class PrevencionCreateView(CreateView):
+#     model = prevencion
+#     form_class = PrevencionForm
+#     template_name = 'prevencion_form.html'
+#     success_url = reverse_lazy('prevencion_list')
+
+# class SubcatPrevCreateView(CreateView):
+#     model = subcat_prev
+#     form_class = SubcatPrevForm
+#     template_name = 'subcatprev_form.html'
+#     success_url = reverse_lazy('subcatprev_list')
+
+
+
+from .models import SubCatastrofe
+from .forms import SubCatastrofeForm, PrevencionFormSet, ProtocoloFormSet
 
 class SubCatastrofeCreateView(CreateView):
     model = SubCatastrofe
     form_class = SubCatastrofeForm
-    template_name = 'subcatastrofe_form.html'
-    success_url = reverse_lazy('subcatastrofe_list')
+    template_name =  os.path.join("defensaCivil", "formularios", 'crear_subcatastrofe.html') # Asegurate de tener este template
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.POST:
+            context['PrevencionFormSet'] = PrevencionFormSet(self.request.POST)
+            context['ProtocoloFormSet'] = ProtocoloFormSet(self.request.POST)
+        else:
+            context['PrevencionFormSet'] = PrevencionFormSet()
+            context['ProtocoloFormSet'] = ProtocoloFormSet()
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        prev_formset = context['PrevencionFormSet']
+        prot_formset = context['ProtocoloFormSet']
+        if prev_formset.is_valid() and prot_formset.is_valid():
+            self.object = form.save()
+            prev_formset.instance = self.object
+            prot_formset.instance = self.object
+            prev_formset.save()
+            prot_formset.save()
+            return redirect("Lista-Desastre")  # Ajusta según tu URL
+        else:
+            return self.form_invalid(form)
+
 
 class SubCatastrofeUpdateView(UpdateView):
     model = SubCatastrofe
     form_class = SubCatastrofeForm
-    template_name = 'subcatastrofe_form.html'
-    success_url = reverse_lazy('subcatastrofe_list')
+    template_name = os.path.join("defensaCivil", "formularios", "crear_subcatastrofe.html")  # Usás el mismo template
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.POST:
+            context["PrevencionFormSet"] = PrevencionFormSet(self.request.POST, instance=self.object)
+            context["ProtocoloFormSet"] = ProtocoloFormSet(self.request.POST, instance=self.object)
+        else:
+            context["PrevencionFormSet"] = PrevencionFormSet(instance=self.object)
+            context["ProtocoloFormSet"] = ProtocoloFormSet(instance=self.object)
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        prev_formset = context["PrevencionFormSet"]
+        prot_formset = context["ProtocoloFormSet"]
+        if prev_formset.is_valid() and prot_formset.is_valid():
+            self.object = form.save()
+            prev_formset.instance = self.object
+            prot_formset.instance = self.object
+            prev_formset.save()
+            prot_formset.save()
+            return redirect("Lista-Desastre")  # Cambiá esto según tu URL
+        else:
+            return self.form_invalid(form)
+        
 class SubCatastrofeDeleteView(DeleteView):
     model = SubCatastrofe
-    template_name = 'subcatastrofe_confirm_delete.html'
-    success_url = reverse_lazy('subcatastrofe_list')
-
-# Repite el patrón para los otros modelos:
-class SubprotocolosCreateView(CreateView):
-    model = subprotocolos
-    form_class = SubprotocolosForm
-    template_name = 'subprotocolos_form.html'
-    success_url = reverse_lazy('subprotocolos_list')
-
-class PrevencionCreateView(CreateView):
-    model = prevencion
-    form_class = PrevencionForm
-    template_name = 'prevencion_form.html'
-    success_url = reverse_lazy('prevencion_list')
-
-class SubcatPrevCreateView(CreateView):
-    model = subcat_prev
-    form_class = SubcatPrevForm
-    template_name = 'subcatprev_form.html'
-    success_url = reverse_lazy('subcatprev_list')
-
-
-
+    template_name = os.path.join("defensaCivil", "formularios", "delete.html") 
+    success_url = reverse_lazy("Lista-Desastre")
