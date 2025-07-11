@@ -107,6 +107,7 @@ class Catastrophe(models.Model):
 
 
 
+
     def __str__(self):
         return self.type_disaster
 

@@ -50,6 +50,7 @@ urlpatterns = [
     path('eliminar/<int:pk>/', login_required(permission_required('defensaCivil.add_PdfFrame')(views_landing.PdfFrameDeleteView.as_view())), name='pdf_delete'),
 
     # SubForm
+    path('subcatastrofe/<int:pk>/', login_required(views_landing.SubCatastrofe_vista), name='detalle_subcatastrofe'),
     path('crear-subcatastrofe/', login_required(views_landing.SubCatastrofeCreateView.as_view()), name='subcar_crear'),
     path('editar-subcatastrofe/<int:pk>/', login_required(views_landing.SubCatastrofeUpdateView.as_view()), name='subcat_update'),
     path('delete-subcatastrofe/<int:pk>/', login_required(views_landing.SubCatastrofeDeleteView.as_view()), name='subcat_delete'),

@@ -274,46 +274,6 @@ def ActiveCatastropheListView(request):
 
 
     return render(request, template, context)
-# SubCatastrofe CRUD
-# class SubCatastrofeListView(ListView):
-#     model = SubCatastrofe
-#     template_name = 'subcatastrofe_list.html'
-
-# class SubCatastrofeCreateView(CreateView):
-#     model = SubCatastrofe
-#     form_class = SubCatastrofeForm
-#     template_name = 'subcatastrofe_form.html'
-#     success_url = reverse_lazy('subcatastrofe_list')
-
-# class SubCatastrofeUpdateView(UpdateView):
-#     model = SubCatastrofe
-#     form_class = SubCatastrofeForm
-#     template_name = 'subcatastrofe_form.html'
-#     success_url = reverse_lazy('subcatastrofe_list')
-
-# class SubCatastrofeDeleteView(DeleteView):
-#     model = SubCatastrofe
-#     template_name = 'subcatastrofe_confirm_delete.html'
-#     success_url = reverse_lazy('subcatastrofe_list')
-
-# Repite el patrón para los otros modelos:
-# class SubprotocolosCreateView(CreateView):
-#     model = Protocolo
-#     form_class = ProtocolosForm
-#     template_name = 'subprotocolos_form.html'
-#     success_url = reverse_lazy('subprotocolos_list')
-
-# class PrevencionCreateView(CreateView):
-#     model = prevencion
-#     form_class = PrevencionForm
-#     template_name = 'prevencion_form.html'
-#     success_url = reverse_lazy('prevencion_list')
-
-# class SubcatPrevCreateView(CreateView):
-#     model = subcat_prev
-#     form_class = SubcatPrevForm
-#     template_name = 'subcatprev_form.html'
-#     success_url = reverse_lazy('subcatprev_list')
 
 
 
@@ -384,7 +344,22 @@ class SubCatastrofeDeleteView(DeleteView):
     template_name = os.path.join("defensaCivil", "formularios", "delete.html") 
     success_url = reverse_lazy("Lista-Desastre")
     
-    
+def SubCatastrofe_vista(request, pk):
+    subcatastrofe = get_object_or_404(SubCatastrofe, id=pk)
+
+    # Accedemos a prevenciones y protocolos usando related_name
+    prevenciones = subcatastrofe.prevenciones.all()
+    protocolos = subcatastrofe.protocolos.all()
+
+    contexto = {
+        'subcatastrofe': subcatastrofe,
+        'prevenciones': prevenciones,
+        'protocolos': protocolos
+    }
+    print(prevenciones, protocolos)
+
+
+    return render(request, os.path.join("landingPage", "subcatastrofe.html"), contexto)
 # Vistas de integrantes dc ------------------------------------------------------------------------------>
 
     #Crear integrantes

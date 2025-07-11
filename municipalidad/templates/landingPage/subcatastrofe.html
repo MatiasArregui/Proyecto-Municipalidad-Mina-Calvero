@@ -1,0 +1,82 @@
+
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="{% static 'styles/index.css' %}">
+        <title>Defensa Civil</title>
+         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+          {% load bootstrap5 %}
+          {% bootstrap_css %}
+          {% bootstrap_javascript %}
+    </head>
+<style>
+
+/* boton nuevo */
+.customButton{
+    display: flex;
+    position: fixed;
+    width: 55px;
+    height: 55px;
+    bottom: 60px;
+    right: 30px;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 30px;
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color:rgb(118, 60, 212);
+    color:beige;
+    text-decoration: none;
+    transition: 0.3s; 
+}
+
+.customButton:hover{
+    color: white;
+    background-color:rgb(110, 12, 202);
+    transform: scale(1.05); 
+    opacity: 0.9; 
+    cursor: pointer;
+}
+</style>
+
+<body>
+  <nav class="navbar navbar-expand-lg fixed-top" style=" backdrop-filter: blur(1rem); background-color: rgba(0, 0, 0, 0.249);">
+  <div class="container-fluid d-flex justify-content-between align-items-center">
+    <a class="navbar-brand" href="#">
+      <img src="{% static 'assets/logo.png' %}" alt="" style="width: 5rem;">
+      <img src="{% static 'assets/logo defensa civil.png' %}" style="width: 1.2rem;"></a>
+  
+        <a class="nav-link text-white fw-light d-sm-block d-none" id="te-vamos" href="#" style="font-size: .8rem;">Prevención, unidad y acción: juntos protegemos Mina Clavero.</a>
+        <a class="nav-link text-white fw-light" href="#"style="font-size: .8rem;"> Defensa Civil</a>
+  </div>
+</nav>
+<div class="position-relative overflow-hidden w-100" style="height: 300px;">
+  <img src="{{ subcatastrofe.id_catastrofe.image_disaster | safe}}" alt="" class="img-fluid w-100 h-100 object-fit-cover">
+
+  <div class="position-absolute top-50 start-50 translate-middle text-center w-100 px-3" style="margin-top: 20px;">
+    <h2 class="text-white fw-light mb-2">
+      {{ subcatastrofe.titulo | safe }}
+    </h2>
+    <p class="text-white fw-light">
+     {{ subcatastrofe.id_catastrofe.type_disaster | safe}}
+      
+    </p>
+  </div>
+</div>
+
+  <button onclick="history.back()" class="customButton">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708z"/>
+    </svg>
+  </button>
+   
+</body>
+</html>
