@@ -1,9 +1,11 @@
 # -- Django resources --
 from django.shortcuts import render, HttpResponseRedirect, redirect, get_object_or_404
 from django.urls import reverse_lazy
+
 # -- Models importations --
-from .models import Catastrophe, Protocole, Refujio, Institucion, PdfFrame, CatPdf
-from .forms import ProtocoleFormset, RefujioFormset, CatastropheForm, PdfFrameForm, CatPdfform, PdfCatFormset
+from .models import Catastrophe, Protocole, Refujio, Institucion, PdfFrame, CatPdf, SubCatastrofe, subprotocolos, prevencion, subcat_prev
+
+from .forms import ProtocoleFormset, RefujioFormset, CatastropheForm, PdfFrameForm, CatPdfform, PdfCatFormset, SubCatastrofeForm, SubprotocolosForm, PrevencionForm, SubcatPrevForm
 
 # -- Views -- 
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
@@ -215,7 +217,6 @@ def ActiveDisaster(request, pk):
 #     context = {"catastrofe": cat , "protocolo":pro, "refujio":ref, "all": all_disaster, "frame":frame}
 import re
 
-import re
 
 def ActiveCatastropheListView(request):
     template = os.path.join("landingPage", "index_public.html")
@@ -269,7 +270,46 @@ def ActiveCatastropheListView(request):
 
 
     return render(request, template, context)
+# SubCatastrofe CRUD
+class SubCatastrofeListView(ListView):
+    model = SubCatastrofe
+    template_name = 'subcatastrofe_list.html'
 
+class SubCatastrofeCreateView(CreateView):
+    model = SubCatastrofe
+    form_class = SubCatastrofeForm
+    template_name = 'subcatastrofe_form.html'
+    success_url = reverse_lazy('subcatastrofe_list')
+
+class SubCatastrofeUpdateView(UpdateView):
+    model = SubCatastrofe
+    form_class = SubCatastrofeForm
+    template_name = 'subcatastrofe_form.html'
+    success_url = reverse_lazy('subcatastrofe_list')
+
+class SubCatastrofeDeleteView(DeleteView):
+    model = SubCatastrofe
+    template_name = 'subcatastrofe_confirm_delete.html'
+    success_url = reverse_lazy('subcatastrofe_list')
+
+# Repite el patrón para los otros modelos:
+class SubprotocolosCreateView(CreateView):
+    model = subprotocolos
+    form_class = SubprotocolosForm
+    template_name = 'subprotocolos_form.html'
+    success_url = reverse_lazy('subprotocolos_list')
+
+class PrevencionCreateView(CreateView):
+    model = prevencion
+    form_class = PrevencionForm
+    template_name = 'prevencion_form.html'
+    success_url = reverse_lazy('prevencion_list')
+
+class SubcatPrevCreateView(CreateView):
+    model = subcat_prev
+    form_class = SubcatPrevForm
+    template_name = 'subcatprev_form.html'
+    success_url = reverse_lazy('subcatprev_list')
 
 
 

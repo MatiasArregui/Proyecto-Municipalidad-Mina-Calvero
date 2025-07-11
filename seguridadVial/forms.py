@@ -1,5 +1,5 @@
 from django import forms
-from .models import Persona, Elementos, Institucion, InstitucionCargoPersona, Catastrophe, Protocole, Refujio, PdfFrame, CatPdf
+from .models import Persona, Elementos, Institucion, InstitucionCargoPersona, Catastrophe, Protocole, Refujio, PdfFrame, CatPdf, SubCatastrofe, subprotocolos, prevencion, subcat_prev
 from django.forms import inlineformset_factory
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -181,7 +181,28 @@ class CatPdfform(forms.ModelForm):
             labels = {
                 'id_cat':'Catastrofe relacionada',
             }
-            
+
+# --- jorge pedido(new)
+class SubCatastrofeForm(forms.ModelForm):
+    class Meta:
+        model = SubCatastrofe
+        fields = ['titulo', 'id_catastrofe']
+
+class SubprotocolosForm(forms.ModelForm):
+    class Meta:
+        model = subprotocolos
+        fields = ['id_subcat', 'id_protoc']
+
+class PrevencionForm(forms.ModelForm):
+    class Meta:
+        model = prevencion
+        fields = ['titulo', 'descripcion']
+
+class SubcatPrevForm(forms.ModelForm):
+    class Meta:
+        model = subcat_prev
+        fields = ['id_subcat', 'id_preven']
+# --- end
     
         
 
