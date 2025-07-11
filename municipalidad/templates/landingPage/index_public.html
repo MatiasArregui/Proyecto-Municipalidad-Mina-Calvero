@@ -6,12 +6,23 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="{% static 'styles/index.css' %}">
-        <title>Desastres Mina Clavero</title>
+        <title>Defensa Civil</title>
          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
           {% load bootstrap5 %}
           {% bootstrap_css %}
           {% bootstrap_javascript %}
+          <style>
+            .card-hover {
+              transition: transform 0.4s ease;
+              transform-style: preserve-3d;
+            }
+
+            .card-hover:hover {
+              transform: scale(1.03) rotateY(6deg);
+            }
+
+          </style>
     </head>
     <body>
       
@@ -29,12 +40,18 @@
   </div>
 </nav>
 
-
+{% comment %} Titulo de header donde el primero es para pc y el segundo para dispositivos moviles {% endcomment %}
 <div class="position-relative overflow-hidden w-100" style="height: 300px;">
-  <img src="{{ catastrofe.image_disaster }}" alt="" class="img-fluid w-100 h-100 object-fit-cover">
-  <h2 class="position-absolute top-50 start-50 translate-middle text-center fs-6 text-white fw-light w-100 px-3" style="margin-top: 60px; font-size:10px;">
-    {{ catastrofe.type_disaster | title}}
-  </h2>
+  <img src="{{ catastrofe.image_disaster }}" alt="" class="img-fluid w-100 h-100 object-fit-cover" style="opacity: 0.7;">
+<h2 class="position-absolute top-50 start-50 translate-middle text-center text-white fw-light w-100 px-3 d-none d-lg-block"
+    style="margin-top: 60px; font-size:60px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);">
+  {{ catastrofe.type_disaster | title }}
+</h2>
+<h2 class="position-absolute top-50 start-50 translate-middle text-center text-white fw-light w-100 px-3 d-lg-none"
+    style="margin-top: 60px; font-size:40px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);">
+  {{ catastrofe.type_disaster | title }}
+</h2>
+
 </div>
 
 {% if catastrofe.is_active %}
@@ -66,43 +83,64 @@
   <div class="container px-3 py-4 w-100" id="custom-cards">
     <div class="d-flex justify-content-center flex-nowrap overflow-auto gap-3 pb-2 w-100">
         <div class="flex-shrink-0  rounded-4 shadow-sm p-4 text-light" style=" width: 100%;background: linear-gradient(34deg, rgb(191, 151, 255), rgb(32, 181, 250));">
-          <h5 class="fw-bold mb-3 text-center">{{ institucion.nombre | title }}</h5>
-          <small class="text-wrap w-100 text-center" style="max-height: 4.5rem; overflow-y: auto; display: block;">
-            {{ institucion.descripcion }}
-            </small>
-            {% if institucion.telefono %}
-                <div class="text-center mt-2">
-                  <a href="tel:{{ institucion.telefono }}" class="btn btn-success btn-sm">
-                    <img src="{% static 'assets/phone.svg' %}" alt=""> Llamar
-                  </a>
-                </div>
-            {% endif %}
+          <h3 class="fw-bold mb-3 text-center">{{ catastrofe.type_disaster | title }}</h3>
+          <small class="text-wrap w-100 text-center" style="display: block;">
+            {{ catastrofe.descripcion | safe }}
+          </small>
         </div>
     </div>
   </div>
 {% endif %}
-
-<!-- is Default -->
+{% comment %} En este apartado estas las personas que conducen la institucion o la conforman {% endcomment %}
 {% if catastrofe.is_default %}
-  <div class="container" id="custom-cards">
+    
+  <div class="container mt-3 px-3 py-4 w-100">
+    <h3 class="fw-bold mb-4 text-center">¿Quiénes conducen la Junta de Defensa Civil?</h3>
+    <div class="row g-4 justify-content-center">
+      {% for i in instituciones %}
+      <div class="col-md-6 col-lg-4">
+        <div class="card card-hover text-light rounded-4 h-100 border border-white shadow-lg" style="background: linear-gradient(135deg, #6a5acd, #4682b4, #87ceeb);">
+          <div class="card-body text-center">
+            <h4 class="fw-bold mb-2">{{ i.titulo | title }}</h4>
+            <p class="mb-1">{{ i.persona | title }}</p>
+            <small>{{ i.cargo | title }}</small>
+          </div>
+        </div>
 
-    <div class="d-flex flex-nowrap overflow-auto gap-3 pb-3">
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
+
+
+<!-- is Default en este apartado aparecen las catastrofes que son partes de las creadas en el programa de any-->
+{% if catastrofe.is_default %}
+<style>
+  .card-zoom {
+    transition: transform 0.3s ease-in-out;
+    transform-origin: center bottom;
+  }
+
+  .card-zoom:hover {
+    transform: scale(1.05) rotateX(7deg);
+  }
+</style>
+
+  <div class="container mt-5" id="custom-cards">
+    <h3 class="fw-bold mb-4 text-center">¿Cuales son las posibles catastrofes?</h3>
+    <div class="d-flex flex-nowrap overflow-auto gap-3 p-3">
       {% for item in all %}
-      
-        <div class="flex-shrink-0 text-white rounded-5 " 
-             style="min-width: 280px; max-width: 320px; background-image: url('{{ item.image_disaster | safe }}'); background-size: cover; background-position: center; background-repeat: no-repeat; ">
-          
+        <div class="flex-shrink-0 text-white rounded-5 card-zoom" style="min-width: 280px; max-width: 320px; background-image: url('{{ item.image_disaster | safe }}'); background-size: cover; background-position: center; background-repeat: no-repeat; ">
           <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1" style="background-color: transparent;">
-            <a href="/detalleCatastrofe/{{ item.id }}/" class="text-decoration-none"><h2 class="pt-3 mt-5 mb-4 display-7 lh-1 fw-bold text-white" >{{ item.type_disaster | title }}</h2></a>
+            <a href="/detalleCatastrofe/{{ item.id }}/" class="text-decoration-none"><h3 class="pt-3 mt-5 mb-4 display-7 lh-1 fw-bold text-white" >{{ item.type_disaster | title }}</h3></a>
             <ul class="d-flex list-unstyled mt-auto">
               <li class="me-auto" style="background: linear-gradient(343deg, rgb(191, 151, 255), rgb(32, 181, 250)); border-radius: 4rem;">
                 <img src="{% static 'assets/ex.svg' %}" alt="Logo" width="32" height="32" class="">
               </li>
             </ul>
           </div>
-          
         </div>
-        
       {% endfor %}
     </div>
   </div>
@@ -111,16 +149,20 @@
 
 
 
+
+
+
+
+
+
+
+
 {% if catastrofe.is_active %}
-  <h4 class=" px-3 py-2 rounded-top text-center">
-    Ubicaciones Refugios: Mina Clavero, Córdoba
-  </h4>
+<h3 class="mt-5 fw-bold mb-4 text-center">Ubicaciones de los Refugios: Mina Clavero, Córdoba</h3>
 {% endif %}
 
 {% if catastrofe.is_default %}
-  <h4 class="px-3 py-2 rounded-top text-center">
-    Ubicaciones Áreas: Mina Clavero, Córdoba
-  </h4>
+<h3 class="mt-5 fw-bold mb-4 text-center">Ubicaciones de las Instituciones: Mina Clavero, Córdoba</h3>
 {% endif %}
 
 <div class="container my-4">
@@ -337,7 +379,8 @@
 </script>
 
 
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous">
   </script>
     </body>

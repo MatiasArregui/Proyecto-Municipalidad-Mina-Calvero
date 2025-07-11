@@ -178,3 +178,13 @@ class Protocolo(models.Model):
     def __str__(self):
         return f"{self.tipo}: {self.descripcion}"
 # -------- 
+
+# Tabla para manejar quienes integran la defensa civil
+
+class IntegrantesDC(models.Model):
+    titulo = models.CharField(max_length=255)
+    persona = models.CharField(max_length=255)
+    cargo = models.CharField(max_length=255)
+    
+    def __str__(self):
+        return self.titulo

@@ -51,9 +51,7 @@ urlpatterns = [
 
     # SubForm
     path('crear-subcatastrofe/', login_required(views_landing.SubCatastrofeCreateView.as_view()), name='subcar_crear'),
-
     path('editar-subcatastrofe/<int:pk>/', login_required(views_landing.SubCatastrofeUpdateView.as_view()), name='subcat_update'),
-    
     path('delete-subcatastrofe/<int:pk>/', login_required(views_landing.SubCatastrofeDeleteView.as_view()), name='subcat_delete'),
 
 
@@ -65,6 +63,8 @@ urlpatterns = [
     
     
     # new features
-    
+    path('crear-integrante/', login_required(views_landing.IntegranteNuevo.as_view()), name='integrante_crear'),
+    path('editar-integrante/<int:pk>/', login_required(views_landing.IntegranteModificar.as_view()), name='integrante_update'),
+    path('delete-integrante/<int:pk>/', login_required(views_landing.IntegranteBorrar.as_view()), name='integrante_delete'),
     
 ]

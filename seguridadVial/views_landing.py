@@ -3,7 +3,7 @@ from django.shortcuts import render, HttpResponseRedirect, redirect, get_object_
 from django.urls import reverse_lazy
 
 # -- Models importations --
-from .models import Catastrophe, Protocole, Refujio, Institucion, PdfFrame, CatPdf, SubCatastrofe, Protocolo, Prevencion
+from .models import Catastrophe, Protocole, Refujio, Institucion, PdfFrame, CatPdf, SubCatastrofe, Protocolo, Prevencion, IntegrantesDC
 
 from .forms import ProtocoleFormset, RefujioFormset, CatastropheForm, PdfFrameForm, CatPdfform, PdfCatFormset, SubCatastrofeForm, ProtocolosForm, PrevencionForm
 
@@ -171,7 +171,8 @@ def DashboardCatastrophe(request):
     active = True
     if Catastrophe.objects.filter(is_active=True):
         active = False
-    return render(request, template_name=os.path.join("defensaCivil", "listas", "dashboard.html"), context={"disaster":Catastrophe.objects.all(), "active":active, "pdf":PdfFrame.objects.all(), "subcat": SubCatastrofe.objects.all()})
+    return render(request, template_name=os.path.join("defensaCivil", "listas", "dashboard.html"), 
+                  context={"disaster":Catastrophe.objects.all(), "active":active, "pdf":PdfFrame.objects.all(), "subcat": SubCatastrofe.objects.all(), "integrantes":IntegrantesDC.objects.all()})
 
 # Confirm to activate disaster
 def ActiveDisaster(request, pk):
@@ -225,9 +226,11 @@ def ActiveCatastropheListView(request):
 
     if not filters_is_active:
         cat = Catastrophe.objects.get(is_default=True)
+        institucionesDC = IntegrantesDC.objects.all()
         all_cat = [x.institucion.pk for x in Refujio.objects.all()]
         ref = [x for x in Institucion.objects.all() if x.pk in all_cat]
         pdf_frames = []
+        print(cat.descripcion)
         try: 
             institucion = Institucion.objects.get(id=2)
         except Exception as e:
@@ -239,7 +242,8 @@ def ActiveCatastropheListView(request):
         "refujio": ref,
         "all": all_disaster,
         "pdf_frames": pdf_frames,
-        "institucion":institucion
+        "institucion":institucion,
+        "instituciones":institucionesDC
         }
     else:
         cat = Catastrophe.objects.get(is_active=True)
@@ -314,7 +318,7 @@ def ActiveCatastropheListView(request):
 
 
 from .models import SubCatastrofe
-from .forms import SubCatastrofeForm, PrevencionFormSet, ProtocoloFormSet
+from .forms import SubCatastrofeForm, PrevencionFormSet, ProtocoloFormSet, IntegrantesDCForm
 
 class SubCatastrofeCreateView(CreateView):
     model = SubCatastrofe
@@ -379,3 +383,27 @@ class SubCatastrofeDeleteView(DeleteView):
     model = SubCatastrofe
     template_name = os.path.join("defensaCivil", "formularios", "delete.html") 
     success_url = reverse_lazy("Lista-Desastre")
+    
+    
+# Vistas de integrantes dc ------------------------------------------------------------------------------>
+
+    #Crear integrantes
+class IntegranteNuevo(CreateView):
+    model = IntegrantesDC
+    form_class = IntegrantesDCForm
+    context_object_name = "integrante"  
+    template_name = os.path.join("defensaCivil", "formularios", "integrantesdc.html")
+    success_url = reverse_lazy('Lista-Desastre')
+    #Modificar integrante
+class IntegranteModificar(UpdateView):
+    model = IntegrantesDC
+    form_class = IntegrantesDCForm
+    context_object_name = "integrante"  
+    template_name = os.path.join("defensaCivil", "formularios", "integrantesdc.html")
+    success_url = reverse_lazy('Lista-Desastre')
+    #Borrar integrante
+class IntegranteBorrar(DeleteView):
+    model = IntegrantesDC
+    context_object_name = "integrante"  
+    template_name = os.path.join("defensaCivil", "confirmacionBorrado", "integrantedcBorrar.html")
+    success_url = reverse_lazy('Lista-Desastre')

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Persona, Elementos, Institucion, InstitucionCargoPersona, Catastrophe, Protocole, Refujio, PdfFrame, CatPdf, SubCatastrofe, Protocolo, Prevencion
+from .models import Persona, Elementos, Institucion, InstitucionCargoPersona, IntegrantesDC ,Catastrophe, Protocole, Refujio, PdfFrame, CatPdf, SubCatastrofe, Protocolo, Prevencion
 from django.forms import inlineformset_factory
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -246,4 +246,17 @@ ProtocoloFormSet = inlineformset_factory(
     extra=6, can_delete=True
 )
 
-
+class IntegrantesDCForm(forms.ModelForm):
+    class Meta:
+        model = IntegrantesDC
+        fields = ['titulo', 'persona', "cargo"]
+        widgets = {
+            'titulo': forms.TextInput(attrs={'class': 'form-control'}),
+            'persona': forms.TextInput(attrs={'class': 'form-control'}),
+            'cargo': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+        labels = {
+            'titulo': "Titulo",
+            'persona': "Nombre Persona",
+            'cargo': "Crago de la Persona",
+        }
