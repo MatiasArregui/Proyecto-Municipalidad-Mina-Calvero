@@ -1,5 +1,3 @@
-
-
 {% load static %}
 <!DOCTYPE html>
 <html>
@@ -8,7 +6,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="{% static 'styles/index.css' %}">
-        <title>Defensa Civil</title>
+        <title>Subcatastrofe</title>
          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
           {% load bootstrap5 %}
@@ -18,33 +16,87 @@
 <style>
 
 /* boton nuevo */
-.customButton{
-    display: flex;
-    position: fixed;
-    width: 55px;
-    height: 55px;
-    bottom: 60px;
-    right: 30px;
-    border-radius: 50px;
-    text-align: center;
-    font-size: 30px;
-    z-index: 100;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    background-color:rgb(118, 60, 212);
-    color:beige;
-    text-decoration: none;
-    transition: 0.3s; 
+.fusionButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 60px;
+  right: 30px;
+  width: 150px;
+  height: 50px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background: transparent;
+  overflow: hidden;
+  z-index: 100;
+  transition: all 0.5s ease-in-out;
 }
 
-.customButton:hover{
-    color: white;
-    background-color:rgb(110, 12, 202);
-    transform: scale(1.05); 
-    opacity: 0.9; 
-    cursor: pointer;
+.fusionButton:hover {
+  box-shadow: 0px 0px 30px rgba(37, 37, 37, 0.8);
 }
+
+/* Texto frontal (Hover Me) */
+.type1::before {
+  content: "← Atrás";
+  height: 50px;
+  width: 150px;
+  background-color: #fff;
+  color: #763cd4;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(0px) scale(1.2);
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease-in-out;
+}
+
+/* Texto trasero (Thanks) */
+.type1::after {
+	content: "← Atrás";
+  height: 50px;
+  width: 150px;
+  background-color: #763cd4;
+  color: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(50px);
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease-in-out;
+}
+
+/* Hover transitions */
+.type1:hover::after {
+  transform: translateY(0) scale(1.2);
+}
+
+.type1:hover::before {
+  transform: translateY(-50px) scale(0) rotate(120deg);
+}
+
+/* Icono SVG styling */
+.fusionButton svg {
+  position: absolute;
+  z-index: 10;
+  opacity: 0.5;
+  transition: 0.3s ease;
+}
+
+.fusionButton:hover svg {
+  opacity: 0;
+}
+
 </style>
 
 <body>
@@ -71,12 +123,95 @@
     </p>
   </div>
 </div>
+<button onclick="history.back()" class="fusionButton type1">
+</button>
 
-  <button onclick="history.back()" class="customButton">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
-      <path fill-rule="evenodd" d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708z"/>
-    </svg>
-  </button>
-   
+   <div class="container py-4">
+    <!-- Título de la SubCatastrofe -->
+    <h2 class="mb-4 text-primary text-center">{{ subcatastrofe.titulo }}</h2>
+
+    <!-- Prevenciones -->
+    <div class="mb-5">
+      <h4 class="text-success">Prevenciones</h4>
+      {% for prevencion in prevenciones %}
+        <div class="card mb-3 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">{{ prevencion.titulo }}</h5>
+            <p class="card-text">{{ prevencion.descripcion }}</p>
+          </div>
+        </div>
+      {% empty %}
+        <p class="text-muted">No hay prevenciones registradas.</p>
+      {% endfor %}
+    </div>
+
+    <!-- Protocolos agrupados por tipo -->
+    <div class="container px-4 py-5" id="protocolos-por-tipo">
+  <h2 class="pb-2 border-bottom">Protocolos por Tipo</h2>
+  <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+    
+    <!-- Antes -->
+    <div class="col d-flex align-items-start">
+      <div class="icon-square text-success bg-light d-inline-flex align-items-center justify-content-center fs-3 flex-shrink-0 me-3">
+        <svg class="bi" width="1em" height="1em" aria-hidden="true">
+          <use xlink:href="#clock-fill"></use>
+        </svg>
+      </div>
+      <div>
+        <h3 class="fs-4 text-success">Antes</h3>
+        {% for protocolo in protocolos %}
+          {% if protocolo.tipo == "Antes" %}
+            <p>{{ protocolo.descripcion }}</p>
+          {% endif %}
+        {% empty %}
+          <p class="text-muted">No hay protocolos registrados.</p>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Durante -->
+    <div class="col d-flex align-items-start">
+      <div class="icon-square text-danger bg-light d-inline-flex align-items-center justify-content-center fs-3 flex-shrink-0 me-3">
+        <svg class="bi" width="1em" height="1em" aria-hidden="true">
+          <use xlink:href="#lightning-fill"></use>
+        </svg>
+      </div>
+      <div>
+        <h3 class="fs-4 text-danger">Durante</h3>
+        {% for protocolo in protocolos %}
+          {% if protocolo.tipo == "Durante" %}
+            <p>{{ protocolo.descripcion }}</p>
+          {% endif %}
+        {% empty %}
+          <p class="text-muted">No hay protocolos registrados.</p>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Después -->
+    <div class="col d-flex align-items-start">
+      <div class="icon-square text-info bg-light d-inline-flex align-items-center justify-content-center fs-3 flex-shrink-0 me-3">
+        <svg class="bi" width="1em" height="1em" aria-hidden="true">
+          <use xlink:href="#calendar-check-fill"></use>
+        </svg>
+      </div>
+      <div>
+        <h3 class="fs-4 text-info">Después</h3>
+        {% for protocolo in protocolos %}
+          {% if protocolo.tipo == "Despues" %}
+            <p>{{ protocolo.descripcion }}</p>
+          {% endif %}
+        {% empty %}
+          <p class="text-muted">No hay protocolos registrados.</p>
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+  </div>
+
 </body>
 </html>
