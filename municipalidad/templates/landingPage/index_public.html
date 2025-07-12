@@ -54,30 +54,87 @@
 
 </div>
 
+
 {% if catastrofe.is_active %}
-<div class="container py-4">
-  <div class="d-flex flex-nowrap overflow-auto gap-3">
-    {% for institucion in refujio %}
-      <div class="flex-shrink-0 rounded-4 shadow-sm p-4 text-light" style="min-width: 280px; max-width: 320px;  background: linear-gradient(343deg, rgb(191, 151, 255), rgb(32, 181, 250));">
-        <h5 class="fw-bold mb-3">{{ institucion.institucion.nombre | title }}</h5>
-        <ul class="list-unstyled d-flex flex-column gap-2">
-          <li class="d-flex align-items-start">
-            <small class="text-wrap w-100" style="max-height: 4.5rem; overflow-y: auto; display: block;">
-              {{ institucion.institucion.descripcion }}
-            </small>
-          </li>
-          {% if institucion.institucion.telefono %}
-            <li class="d-flex align-items-center">
-              <small><a href="tel:{{ institucion.institucion.telefono }}" class="btn btn-success btn-sm">
-              <img src="{% static 'assets/phone.svg' %}" alt=""> {{ institucion.institucion.telefono }}</a></small>
-            </li>
-          {% endif %}
-        </ul>
+<div class="container px-3 py-4" id="custom-cards">
+  <h2 class="w-100 mb-4 d-flex align-items-center justify-content-center">
+    Instituciones Involucradas
+  </h2>
+  <br>
+  <div class="d-flex flex-nowrap overflow-auto gap-3 pb-2">
+      {% for i in refujio %}
+      <div class="flex-shrink-0 rounded-4 shadow-sm text-light d-flex flex-column" 
+           style="min-width: 280px; max-width: 320px; background: linear-gradient(343deg, rgb(191, 151, 255), rgb(32, 181, 250));">
+
+        <!-- Contenido superior -->
+        <div class="p-4 pb-2">
+          <h5 class="fw-bold mb-3">{{ i.institucion.nombre | title }}</h5>
+          <small class="text-wrap w-100 d-block">
+            {{ i.institucion.descripcion | capfirst}}
+          </small>
+        </div>
+
+        <!-- Botón al fondo -->
+        {% if i.institucion.telefono %}
+          <div class="mt-auto p-4 pt-0">
+            <a href="tel:{{ i.institucion.telefono }}" class="btn btn-success btn-sm w-100">
+              <img src="{% static 'assets/phone.svg' %}" alt=""> {{ i.institucion.telefono }}
+            </a>
+          </div>
+        {% endif %}
+
       </div>
     {% endfor %}
   </div>
 </div>
 {% endif %}
+
+
+
+
+
+
+
+{% if catastrofe.is_active %}
+{% if sub_cat %}
+<style>
+  .card-zoom {
+    transition: transform 0.3s ease-in-out;
+    transform-origin: center bottom;
+  }
+
+  .card-zoom:hover {
+    transform: scale(1.05) rotateX(7deg);
+  }
+</style>
+  <div class="container mt-5" id="custom-cards">
+    <h3 class="fw-bold mb-4 text-center">¿Cuales son las posibles sub catastrofes relacionadas?</h3>
+    <div class="d-flex flex-nowrap overflow-auto gap-3 p-3">
+      {% for s in sub_cat %}
+        <div class="flex-shrink-0 text-white rounded-5 card-zoom" style="min-width: 280px; max-width: 320px; background-image: url('{{ catastrofe.image_disaster | safe }}'); background-size: cover; background-position: center; background-repeat: no-repeat; ">
+          <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1" style="background-color: transparent;">
+            <a href="{% url 'detalle_subcatastrofe' s.id %}" class="text-decoration-none"><h3 class="pt-3 mt-5 mb-4 display-7 lh-1 fw-bold text-white" >{{ s.titulo | title }}</h3></a>
+            <ul class="d-flex list-unstyled mt-auto">
+              <li class="me-auto" style="background: linear-gradient(343deg, rgb(191, 151, 255), rgb(32, 181, 250)); border-radius: 4rem;">
+                <img src="{% static 'assets/ex.svg' %}" alt="Logo" width="32" height="32" class="">
+              </li>
+            </ul>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
+{% endif %}
+
+
+
+
+
+
+
+
+
 
 {% if catastrofe.is_default %}
   <div class="container px-3 py-4 w-100" id="custom-cards">
@@ -93,11 +150,25 @@
 {% endif %}
 {% comment %} En este apartado estas las personas que conducen la institucion o la conforman {% endcomment %}
 {% if catastrofe.is_default %}
+<style>
+  .card-zoom1 {
+    transition: transform 0.3s ease-in-out;
+    transform-origin: center bottom;
+    cursor: pointer;
+    will-change: transform;
+  }
+
+  .card-zoom1:hover {
+    transform: scale(1.05) rotateX(6deg);
+    z-index: 2;
+  }
+</style>
+
   <div class="container mt-3 px-3 py-4 w-100">
     <h3 class="fw-bold mb-4 text-center">¿Quiénes conducen la Junta de Defensa Civil?</h3>
-    <div class="d-flex flex-nowrap overflow-auto gap-3 pb-2 justify-content-start">
+    <div class="d-flex flex-nowrap overflow-auto gap-3 p-3 justify-content-start">
       {% for i in instituciones %}
-      <div class="flex-shrink-0 rounded-4 shadow-sm text-light d-flex flex-column" 
+      <div class="flex-shrink-0 rounded-4 shadow-sm text-light d-flex flex-column card-zoom1" 
            style="min-width: 280px; max-width: 320px; background: linear-gradient(135deg, #6a5acd, #4682b4, #87ceeb);">
 
         <!-- Contenido de la tarjeta -->
@@ -187,71 +258,83 @@
 <h2 class="title-list text-center">
   Protocolo de Acciones en Caso de {{ catastrofe.type_disaster }} - Mina Clavero 
 </h2>
-<div class="container px-4 py-5" id="featured-3">
-    <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
-      <div class="feature col">
-        <div
-          class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3 p-2 rounded">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-4" width="1em">
+<br>
+{% comment %}  ---------------------- SECCION DE PROTOCOLOS ---------------------------  {% endcomment %}
+  <div class="container ">
+    <div class="row gy-5">
+      <!-- PRE EMERGENCIA -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="bg-white border rounded-4 shadow-sm p-4 h-100">
+          <h3 class="fw-semibold text-primary d-flex align-items-center justify-content-center mb-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-4" width="2em">
             <path fill-rule="evenodd"
               d="M15 8A7 7 0 1 1 1 8a7 7 0 0 1 14 0ZM9 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM6.75 8a.75.75 0 0 0 0 1.5h.75v1.75a.75.75 0 0 0 1.5 0v-2.5A.75.75 0 0 0 8.25 8h-1.5Z"
               clip-rule="evenodd" />
           </svg>
+           Pre Emergencia
+          </h3>
+          <p class="text-secondary text-center mb-3">{{ catastrofe.type_disaster | title }}</p>
+          <p class="text-muted small text-center mb-3">Medidas preventivas y preparación</p>
+          <ul class="list-group list-group-flush">
+            {% for item in protocolo %}
+              {% if item.campo_seleccion == 'Antes' %}
+                <li class="list-group-item text-dark">{{ item.name | capfirst }}</li>
+              {% endif %}
+            {% endfor %}
+          </ul>
         </div>
-        <h3 class="title">Alerta Termprana {{catastrofe.type_disaster}}</h3>
-        <ul class="list-group list-group-flush">
-
-          {% for item in protocolo %}
-            {% if item.campo_seleccion == 'Antes' %}
-              <li class="list-group-item">{{ item.name }}</li>
-            {% endif %}
-          {% endfor %}
-
-        </ul>
       </div>
 
-      <div class="feature col">
-        <div
-          class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-danger fs-2 mb-3 rounded p-2">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-4" width="1em">
+      <!-- DURANTE EMERGENCIA -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="bg-white border rounded-4 shadow-sm p-4 h-100">
+          <h3 class="fw-semibold text-danger d-flex align-items-center justify-content-center mb-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-4" width="2em">
             <path fill-rule="evenodd"
               d="M6.701 2.25c.577-1 2.02-1 2.598 0l5.196 9a1.5 1.5 0 0 1-1.299 2.25H2.804a1.5 1.5 0 0 1-1.3-2.25l5.197-9ZM8 4a.75.75 0 0 1 .75.75v3a.75.75 0 1 1-1.5 0v-3A.75.75 0 0 1 8 4Zm0 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
               clip-rule="evenodd" />
           </svg>
+            Durante Emergencia
+          </h3>
+          <p class="text-secondary text-center mb-3">{{ catastrofe.type_disaster | title }}</p>
+          <p class="text-muted small text-center mb-3">Acciones inmediatas y resguardo</p>
+          <ul class="list-group list-group-flush">
+            {% for item in protocolo %}
+              {% if item.campo_seleccion == 'Durante' %}
+                <li class="list-group-item text-dark">{{ item.name | capfirst }}</li>
+              {% endif %}
+            {% endfor %}
+          </ul>
         </div>
-        <h3 class=" title">Emergencia {{catastrofe.type_disaster}}</h3>
-        <ul class="list-group list-group-flush">
-
-          {% for item in protocolo %}
-            {% if item.campo_seleccion == 'Durante' %}
-              <li class="list-group-item">{{ item.name }}</li>
-            {% endif %}
-          {% endfor %}
-
-        </ul>
       </div>
 
-      <div class="feature col">
-        <div
-          class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-success p-2 rounded bg-gradient fs-2 mb-3">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="white" class="size-4" width="1em"
-            aria-hidden="true">
-            <path fill-rule="evenodd"
-              d="M7.5 1.709a.75.75 0 0 1 1 0 8.963 8.963 0 0 0 4.84 2.217.75.75 0 0 1 .654.72 10.499 10.499 0 0 1-5.647 9.672.75.75 0 0 1-.694-.001 10.499 10.499 0 0 1-5.647-9.672.75.75 0 0 1 .654-.719A8.963 8.963 0 0 0 7.5 1.71ZM8 5a.75.75 0 0 1 .75.75v2a.75.75 0 0 1-1.5 0v-2A.75.75 0 0 1 8 5Zm0 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
-              clip-rule="evenodd" />
-          </svg>
+      <!-- POST EMERGENCIA -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="bg-white border rounded-4 shadow-sm p-4 h-100">
+          <h3 class="fw-semibold text-success d-flex align-items-center justify-content-center mb-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"  class="size-4" width="2em"
+              aria-hidden="true">
+              <path fill-rule="evenodd"
+                d="M7.5 1.709a.75.75 0 0 1 1 0 8.963 8.963 0 0 0 4.84 2.217.75.75 0 0 1 .654.72 10.499 10.499 0 0 1-5.647 9.672.75.75 0 0 1-.694-.001 10.499 10.499 0 0 1-5.647-9.672.75.75 0 0 1 .654-.719A8.963 8.963 0 0 0 7.5 1.71ZM8 5a.75.75 0 0 1 .75.75v2a.75.75 0 0 1-1.5 0v-2A.75.75 0 0 1 8 5Zm0 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
+                clip-rule="evenodd" />
+            </svg>
+            Post Emergencia
+          </h3>
+          <p class="text-secondary text-center mb-3">{{ catastrofe.type_disaster | title }}</p>
+          <p class="text-muted small text-center mb-3">Acciones de recuperación y evaluación</p>
+          <ul class="list-group list-group-flush">
+            {% for item in protocolo %}
+              {% if item.campo_seleccion == 'Despues' %}
+                <li class="list-group-item text-dark">{{ item.name | capfirst }}</li>
+              {% endif %}
+            {% endfor %}
+          </ul>
         </div>
-        <h3 class=" title">Post Emergencia {{catastrofe.type_disaster}}</h3>
-        <p>
-          {% for item in protocolo %}
-            {% if item.campo_seleccion == 'Despues' %}
-              {{ item.name }}<br>
-            {% endif %}
-          {% endfor %}
-        </p>
       </div>
+
     </div>
   </div>
+
 
 
 {% if pdf_frames %}
@@ -279,11 +362,6 @@
   </div>
 {% endif %}
 
-
-
-
-  
-  
 {% endif %}
 
 
@@ -301,12 +379,11 @@
       <!-- Contactos -->
       <div class="col-12 col-md-8">
         <h5 class="fw-light mb-4">Contactos</h5>
-        
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
           {% if catastrofe.is_active %}
             {% for item in refujio %}
-              {% if item.telefono %}
+              {% if item.institucion.telefono %}
                 <div class="col overflow-hidden">
                   <h6 class="fw-semibold">{{ item.institucion.nombre }}</h6>
                   <ul class="list-unstyled">

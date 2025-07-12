@@ -262,6 +262,9 @@ def ActiveCatastropheListView(request):
     else:
         cat = Catastrophe.objects.get(is_active=True)
         ref = Refujio.objects.filter(catastrofe=cat)
+        print(cat.pk)
+        sub_cat = SubCatastrofe.objects.filter(id_catastrofe = cat.pk)
+        print(sub_cat)
         pdf_relaciones = CatPdf.objects.filter(id_cat=cat.pk)
 
         pdf_frames = []
@@ -281,7 +284,8 @@ def ActiveCatastropheListView(request):
         "protocolo": pro,
         "refujio": ref,
         "all": all_disaster,
-        "pdf_frames": pdf_frames
+        "pdf_frames": pdf_frames,
+        "sub_cat":sub_cat
         }
 
 

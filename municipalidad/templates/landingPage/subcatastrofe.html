@@ -84,6 +84,51 @@
 .type1:hover::before {
   transform: translateY(-50px) scale(0) rotate(120deg);
 }
+/* Texto frontal (Hover Me) */
+.type2::before {
+  content: "←";
+  height: 50px;
+  width: 150px;
+  background-color: #fff;
+  color: #763cd4;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(0px) scale(1.2);
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease-in-out;
+}
+/* Texto trasero (Thanks) */
+.type2::after {
+	content: "←";
+  height: 50px;
+  width: 150px;
+  background-color: #763cd4;
+  color: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(50px);
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease-in-out;
+}
+
+/* Hover transitions */
+.type2:hover::after {
+  transform: translateY(0) scale(1.2);
+}
+
+.type2:hover::before {
+  transform: translateY(-50px) scale(0) rotate(120deg);
+}
 
 /* Icono SVG styling */
 .fusionButton svg {
@@ -96,7 +141,6 @@
 .fusionButton:hover svg {
   opacity: 0;
 }
-
 </style>
 
 <body>
@@ -123,7 +167,13 @@
     </p>
   </div>
 </div>
-<button onclick="history.back()" class="fusionButton type1">
+
+
+
+<button onclick="history.back()" class="fusionButton type1 d-none d-md-block">
+</button>
+
+<button onclick="history.back()" class="fusionButton type2 d-md-none">
 </button>
 
    <div class="container py-4">

@@ -61,33 +61,3 @@
     color: #ab1322;
     text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.877); 
 }
-
-
-/* boton nuevo */
-.customButton{
-    display: flex;
-    position: fixed;
-    width: 55px;
-    height: 55px;
-    bottom: 60px;
-    right: 30px;
-    border-radius: 50px;
-    text-align: center;
-    font-size: 30px;
-    z-index: 100;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    background-color: #C1121F;
-    color:beige;
-    text-decoration: none;
-    transition: 0.3s; 
-}
-
-.customButton:hover{
-    color: white;
-    background-color: #9b0b15;
-    transform: scale(1.05); 
-    opacity: 0.9; 
-    cursor: pointer;
-}

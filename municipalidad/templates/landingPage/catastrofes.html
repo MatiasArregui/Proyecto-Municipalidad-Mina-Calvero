@@ -15,34 +15,83 @@
     </head>
 <style>
 
-/* boton nuevo */
-.customButton{
-    display: flex;
-    position: fixed;
-    width: 55px;
-    height: 55px;
-    bottom: 60px;
-    right: 30px;
-    border-radius: 50px;
-    text-align: center;
-    font-size: 30px;
-    z-index: 100;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    background-color:rgb(118, 60, 212);
-    color:beige;
-    text-decoration: none;
-    transition: 0.3s; 
+.customButton {
+  position: fixed;
+  bottom: 60px;
+  right: 30px;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  border: none;
+  background-color: transparent;
+  overflow: hidden;
+  z-index: 100;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s ease;
 }
 
-.customButton:hover{
-    color: white;
-    background-color:rgb(110, 12, 202);
-    transform: scale(1.05); 
-    opacity: 0.9; 
-    cursor: pointer;
+/* SVG visible inicialmente */
+.customButton svg {
+  position: relative;
+  z-index: 2;
+  width: 20px;
+  height: 20px;
+  fill: beige;
+  transition: opacity 0.3s ease;
 }
+
+/* Ocultar SVG en hover */
+.customButton:hover svg {
+  opacity: 0.6;
+}
+
+/* Frente (rojo original) */
+.customButton::before {
+  content: "";
+  position: absolute;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background-color: #5512c1ff;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Fondo (hover oscuro original) */
+.customButton::after {
+  content: "";
+  position: absolute;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background-color: #8447e6ff;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  transform: translateY(55px);
+  transition: transform 0.7s ease-in-out;
+}
+
+/* Animación en hover */
+.customButton:hover::before {
+  transform: translateY(-55px) scale(0);
+}
+
+.customButton:hover::after {
+  transform: translateY(0) scale(1.05);
+}
+.customButton:hover {
+  border: 2px solid #e2d3ff; /* lavanda claro */
+  box-shadow: 0 0 10px #e2d3ff, 0 0 20px #8447e6ff;
+}
+
+
+
 </style>
 
 <body>
