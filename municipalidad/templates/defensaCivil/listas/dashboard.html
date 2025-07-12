@@ -79,7 +79,7 @@
         </thead>
         <tbody>
           {% for disaster in disaster %}
-          {% if not disaster.is_default %}
+
           <tr>
             <td>{{ disaster.type_disaster }}</td>
             
@@ -91,8 +91,9 @@
             </a>
               {% endif %}
             </td>
-
+            
             <td>
+              {% if not disaster.is_default %}
               {% if not disaster.is_active and active %}
               <a href="{% url 'Activar' disaster.id %}" class="btn btn-sm btn-success">
                 <img src="{% static 'assets/active.svg' %}" style="width: 20px;">
@@ -102,10 +103,11 @@
                 <img src="{% static 'assets/deactivate.svg' %}" style="width: 20px;">
               Desactivar</a>
               {% endif %}
+              {% endif %}
             </td>
-
+            
             <td>
-
+              {% if not disaster.is_default %}
               {% if not disaster.is_active   and active %}
               <a href="{% url 'Eliminar' disaster.id %}" class="btn btn-sm btn-danger">
                 <img src="{% static 'assets/eliminar.svg' %}" style="width: 20px;">Eliminar
@@ -115,11 +117,11 @@
                 <img src="{% static 'assets/eliminar.svg' %}" style="width: 20px;">Eliminar
               </a>
               {% endif %}
+              {% endif %}
             </td>
 
 
           </tr>
-          {% endif %}
           {% endfor %}
         </tbody>
       </table>

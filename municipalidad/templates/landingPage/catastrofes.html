@@ -58,19 +58,19 @@
         <a class="nav-link text-white fw-light" href="#"style="font-size: .8rem;"> Defensa Civil</a>
   </div>
 </nav>
-<div class="position-relative overflow-hidden w-100" style="height: 300px;">
+<div class="position-relative overflow-hidden w-100" style="height: 400px;">
   <img src="{{ catastrofe.image_disaster }}" alt="" class="img-fluid w-100 h-100 object-fit-cover">
 
   <div class="position-absolute top-50 start-50 translate-middle text-center w-100 px-3" style="margin-top: 20px;">
-    <h2 class="text-white fw-light mb-2">
+    <h2 class="text-white fw-semibold mb-2" style="font-size: 2.5rem;">
       {{ catastrofe.type_disaster | title }}
     </h2>
-    <p class="text-white fw-light">
-      {{ catastrofe.descripcion | title }}
-      
+    <p class="text-white fw-light d-none d-sm-block" style="font-size: 1.125rem; line-height: 1.7;">
+      {{ catastrofe.descripcion | capfirst}}
     </p>
   </div>
 </div>
+
 
   <button onclick="history.back()" class="customButton">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
@@ -92,7 +92,7 @@
         <div class="p-4 pb-2">
           <h5 class="fw-bold mb-3">{{ item.nombre | title }}</h5>
           <small class="text-wrap w-100 d-block">
-            {{ item.descripcion }}
+            {{ item.descripcion | capfirst}}
           </small>
         </div>
 
@@ -109,11 +109,40 @@
     {% endfor %}
   </div>
 </div>
+{% if sub_cat %}
+<style>
+  .card-zoom {
+    transition: transform 0.3s ease-in-out;
+    transform-origin: center bottom;
+  }
 
+  .card-zoom:hover {
+    transform: scale(1.05) rotateX(7deg);
+  }
+</style>
+  <div class="container mt-5" id="custom-cards">
+    <h3 class="fw-bold mb-4 text-center">¿Cuales son las posibles sub catastrofes relacionadas?</h3>
+    <div class="d-flex flex-nowrap overflow-auto gap-3 p-3">
+      {% for s in sub_cat %}
+        <div class="flex-shrink-0 text-white rounded-5 card-zoom" style="min-width: 280px; max-width: 320px; background-image: url('{{ catastrofe.image_disaster | safe }}'); background-size: cover; background-position: center; background-repeat: no-repeat; ">
+          <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1" style="background-color: transparent;">
+            <a href="{% url 'detalle_subcatastrofe' s.id %}" class="text-decoration-none"><h3 class="pt-3 mt-5 mb-4 display-7 lh-1 fw-bold text-white" >{{ s.titulo | title }}</h3></a>
+            <ul class="d-flex list-unstyled mt-auto">
+              <li class="me-auto" style="background: linear-gradient(343deg, rgb(191, 151, 255), rgb(32, 181, 250)); border-radius: 4rem;">
+                <img src="{% static 'assets/ex.svg' %}" alt="Logo" width="32" height="32" class="">
+              </li>
+            </ul>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+{% endif %}
 <br>
 <br>
 <h2 class="title-list text-center">
-  Protocolos Acción en Caso de {{ catastrofe.type_disaster }} - Mina Clavero 
+  Protocolos Acción en Caso de {{ catastrofe.type_disaster | title}} - Mina Clavero 
 </h2>
 <br>
 <br>
@@ -136,7 +165,7 @@
           <ul class="list-group list-group-flush">
             {% for item in protocolo %}
               {% if item.campo_seleccion == 'Antes' %}
-                <li class="list-group-item text-dark">{{ item.name | title }}</li>
+                <li class="list-group-item text-dark">{{ item.name | capfirst }}</li>
               {% endif %}
             {% endfor %}
           </ul>
@@ -159,7 +188,7 @@
           <ul class="list-group list-group-flush">
             {% for item in protocolo %}
               {% if item.campo_seleccion == 'Durante' %}
-                <li class="list-group-item text-dark">{{ item.name | title }}</li>
+                <li class="list-group-item text-dark">{{ item.name | capfirst }}</li>
               {% endif %}
             {% endfor %}
           </ul>
@@ -183,7 +212,7 @@
           <ul class="list-group list-group-flush">
             {% for item in protocolo %}
               {% if item.campo_seleccion == 'Despues' %}
-                <li class="list-group-item text-dark">{{ item.name | title }}</li>
+                <li class="list-group-item text-dark">{{ item.name | capfirst }}</li>
               {% endif %}
             {% endfor %}
           </ul>
@@ -210,6 +239,33 @@
   {% endif %}
 </div>
 
+
+{% if pdf_frames %}
+  <div class="container py-4">
+    <h2 class="title-list text-center mb-4">Protocolos Adjuntos</h2>
+    <div class="row gy-4 justify-content-center">
+      {% for pdf in pdf_frames %}
+        <div class="col-12 col-md-8 col-lg-6">
+          <div class="card shadow-sm h-100">
+            <iframe 
+              src="https://drive.google.com/file/d/{{ pdf.file_id }}/preview" 
+              width="100%" 
+              height="400" 
+              allow="autoplay"
+              style="border: none;">
+            </iframe>
+            <div class="card-body text-center">
+              <h5 class="card-title">Protocolos de {{ pdf.name | title }}</h5>
+              <a href="https://drive.google.com/file/d/{{ pdf.file_id }}/view" target="_blank" class="btn btn-outline-primary">
+                Ver en Google Drive
+              </a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
 
 
 

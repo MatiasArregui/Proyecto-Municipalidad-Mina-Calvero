@@ -62,7 +62,6 @@ urlpatterns = [
 
 
     
-    
     # new features
     path('crear-integrante/', login_required(views_landing.IntegranteNuevo.as_view()), name='integrante_crear'),
     path('editar-integrante/<int:pk>/', login_required(views_landing.IntegranteModificar.as_view()), name='integrante_update'),

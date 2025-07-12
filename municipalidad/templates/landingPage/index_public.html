@@ -93,18 +93,23 @@
 {% endif %}
 {% comment %} En este apartado estas las personas que conducen la institucion o la conforman {% endcomment %}
 {% if catastrofe.is_default %}
-    
   <div class="container mt-3 px-3 py-4 w-100">
     <h3 class="fw-bold mb-4 text-center">¿Quiénes conducen la Junta de Defensa Civil?</h3>
-    <div class="row g-4 justify-content-center">
+    <div class="d-flex flex-nowrap overflow-auto gap-3 pb-2 justify-content-start">
       {% for i in instituciones %}
-      <div class="col-md-6 col-lg-4">
-        <div class="card card-hover text-light rounded-4 h-100 border border-white shadow-lg" style="background: linear-gradient(135deg, #6a5acd, #4682b4, #87ceeb);">
-          <div class="card-body text-center">
-            <h4 class="fw-bold mb-2">{{ i.titulo | title }}</h4>
-            <p class="mb-1">{{ i.persona | title }}</p>
-            <small>{{ i.cargo | title }}</small>
-          </div>
+      <div class="flex-shrink-0 rounded-4 shadow-sm text-light d-flex flex-column" 
+           style="min-width: 280px; max-width: 320px; background: linear-gradient(135deg, #6a5acd, #4682b4, #87ceeb);">
+
+        <!-- Contenido de la tarjeta -->
+        <div class="p-4 pb-2 text-center">
+          <h4 class="fw-bold mb-2">{{ i.titulo | title }}</h4>
+          <p class="mb-1">{{ i.persona | title }}</p>
+          <small>{{ i.cargo | title }}</small>
+        </div>
+
+        <!-- Espaciador inferior si querés agregar botón luego -->
+        <div class="mt-auto p-3 pt-0 text-center">
+          <!-- Podrías agregar contacto u otra acción acá si hiciera falta -->
         </div>
 
       </div>
@@ -112,7 +117,6 @@
     </div>
   </div>
 {% endif %}
-
 
 <!-- is Default en este apartado aparecen las catastrofes que son partes de las creadas en el programa de any-->
 {% if catastrofe.is_default %}
@@ -301,41 +305,36 @@
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
           {% if catastrofe.is_active %}
-          {% for item in refujio %}
-          <div class="col overflow-hidden">
-            <h6 class="fw-semibold">{{ item.institucion.nombre }}</h6>
-            <ul class="list-unstyled">
-              
-              <li>
-                <a href="tel:{{ item.institucion.telefono | safe}}" class="text-black text-decoration-none small d-block">
-                  📞 {{ item.institucion.telefono}}
-                </a>
-              </li>
-              
-              
-              
-              
-            </ul>
-          </div>
-          {% endfor %}
+            {% for item in refujio %}
+              {% if item.telefono %}
+                <div class="col overflow-hidden">
+                  <h6 class="fw-semibold">{{ item.institucion.nombre }}</h6>
+                  <ul class="list-unstyled">
+                    <li>
+                      <a href="tel:{{ item.institucion.telefono | safe}}" class="text-black text-decoration-none small d-block">
+                        📞 {{ item.institucion.telefono}}
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              {% endif %}
+            {% endfor %}
           {% endif %}
           {% if catastrofe.is_default %}
-          {% for item in refujio %}
-          <div class="col overflow-hidden">
-            <h6 class="fw-semibold">{{ item.nombre }}</h6>
-            <ul class="list-unstyled">
-              
-              <li>
-                <a href="tel:{{ item.telefono | safe}}" class="text-black text-decoration-none small d-block">
-                  📞 {{ item.telefono}}
-                </a>
-              </li>
-              
-             
-              
-            </ul>
-          </div>
-          {% endfor %}
+            {% for item in refujio %}
+              {% if item.telefono %}
+                <div class="col overflow-hidden">
+                  <h6 class="fw-semibold">{{ item.nombre }}</h6>
+                  <ul class="list-unstyled">
+                    <li>
+                      <a href="tel:{{ item.telefono | safe}}" class="text-black text-decoration-none small d-block">
+                        📞 {{ item.telefono}}
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              {% endif %}
+            {% endfor %}
           {% endif %}
         </div>
       </div>

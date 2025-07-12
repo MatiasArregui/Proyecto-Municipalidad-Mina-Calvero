@@ -74,11 +74,25 @@ def DetalleCatastrofe(request, pk):
     template = os.path.join("landingPage", "catastrofes.html")
 
     cat = Catastrophe.objects.get(pk=pk)
+    sub_cat = SubCatastrofe.objects.filter(id_catastrofe=pk)
     all_inst = [x.institucion.pk for x in Refujio.objects.filter(catastrofe=cat)]
     ref = [x for x in Institucion.objects.all() if x.pk in all_inst]
     pro = Protocole.objects.filter(catastrophe=cat)
     print(ref)
-    context = {"catastrofe": cat , "protocolo":pro, "area":ref}
+    pdf_relaciones = CatPdf.objects.filter(id_cat=pk)
+    print(pdf_relaciones)
+    pdf_frames = []
+    for rel in pdf_relaciones:
+        url = rel.id_pdf.url
+        name = rel.id_pdf.name
+        match = re.search(r"/d/([^/]+)/", url)
+        if match:
+            file_id = match.group(1)
+            pdf_frames.append({
+                "file_id": file_id,
+                "name": name
+            })
+    context = {"catastrofe": cat , "protocolo":pro, "area":ref, "pdf_frames":pdf_frames, "sub_cat":sub_cat}
     
     return render(request, template_name=template, context=context)
 
