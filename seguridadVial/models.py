@@ -149,7 +149,6 @@ class Refujio(models.Model):
 
 # -------- Nuevas Tablas --------
 
-
 class SubCatastrofe(models.Model):
     titulo = models.CharField(max_length=255, default=None)
     id_catastrofe = models.ForeignKey(Catastrophe, on_delete=models.CASCADE)

@@ -368,13 +368,18 @@ def SubCatastrofe_vista(request, pk):
     # Accedemos a prevenciones y protocolos usando related_name
     prevenciones = subcatastrofe.prevenciones.all()
     protocolos = subcatastrofe.protocolos.all()
+    id_cat = SubCatastrofe.objects.get(id=pk)
+    cat = Catastrophe.objects.get(pk=id_cat.id_catastrofe.pk)
+    all_inst = [x.institucion.pk for x in Refujio.objects.filter(catastrofe=cat)]
+    ref = [x for x in Institucion.objects.all() if x.pk in all_inst]
 
     contexto = {
         'subcatastrofe': subcatastrofe,
         'prevenciones': prevenciones,
-        'protocolos': protocolos
+        'protocolos': protocolos,
+        "area":ref
     }
-    print(prevenciones, protocolos)
+
 
 
     return render(request, os.path.join("landingPage", "subcatastrofe.html"), contexto)
