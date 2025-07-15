@@ -90,7 +90,10 @@
   box-shadow: 0 0 10px #e2d3ff, 0 0 20px #8447e6ff;
 }
 
-
+.tituloo {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6); /* sombra discreta, difusa */
+  color: white;
+}
 
 </style>
 
@@ -111,10 +114,10 @@
   <img src="{{ catastrofe.image_disaster }}" alt="" class="img-fluid w-100 h-100 object-fit-cover">
 
   <div class="position-absolute top-50 start-50 translate-middle text-center w-100 px-3" style="margin-top: 20px;">
-    <h2 class="text-white fw-semibold mb-2" style="font-size: 2.5rem;">
+    <h2 class="tituloo mb-2" style="font-size: 2.5rem;">
       {{ catastrofe.type_disaster | title }}
     </h2>
-    <p class="text-white fw-light d-none d-sm-block" style="font-size: 1.125rem; line-height: 1.7;">
+    <p class="tituloo d-none d-sm-block" style="font-size: 1.125rem; line-height: 1.7;">
       {{ catastrofe.descripcion | capfirst}}
     </p>
   </div>
@@ -375,10 +378,10 @@
         </a>
       </small>
       <div class="d-flex gap-3">
-        <a href="#" title="Instagram">
+        <a href="https://www.instagram.com/muniminaclavero/" title="Instagram" target="_blank">
           <img src="{% static 'assets/instagram.svg' %}" alt="Instagram" width="24" height="24">
         </a>
-        <a href="#" title="YouTube">
+        <a href="https://www.youtube.com/@minaclaverooficial" title="YouTube" target="_blank">
           <img src="{% static 'assets/youtube.svg' %}" alt="YouTube" width="24" height="24">
         </a>
       </div>

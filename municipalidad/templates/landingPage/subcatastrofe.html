@@ -9,23 +9,10 @@
     integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
   <title>Defensa Civil</title>
 <style>
-/* Contenedor del icono + título */
-.feature-icon {
-  font-size: 1.5rem;     /* Tamaño del texto del título */
-  color: white;          /* Color blanco aplicado a texto e ícono */
-  display: inline-flex;  /* Alineación horizontal de ícono + texto */
-  align-items: center;   /* Centrado vertical */
-  gap: 0.5rem;           /* Espacio entre ícono y texto */
+h1, h4 {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6); /* sombra discreta, difusa */
+  color: white;
 }
-
-/* Icono SVG */
-.feature-icon svg {
-  width: 36px;
-  height: 36px;
-  stroke: currentColor;  /* Hereda el blanco del contenedor */
-  flex-shrink: 0;        /* Evita que se encoja en pantallas más chicas */
-}
-
 
 </style>
 </head>
@@ -47,13 +34,13 @@
   <!-- Imagen de fondo  -->
   <div class="position-relative overflow-hidden w-100 elemento-con-fondo" style="height: 300px;">
     <div class="position-absolute top-50 start-50 translate-middle text-center w-100 px-3" style="margin-top: 20px;">
-      <h2 class="text-white fw-light mb-2">
+      <h1 class=" mb-2">
         {{ subcatastrofe.titulo | safe | title }}
-      </h2>
-      <p class="text-white fw-light">
+      </h1>
+      <h4 class="">
         {{ subcatastrofe.id_catastrofe.type_disaster | safe | title}}
 
-      </p>
+      </h4>
     </div>
   </div>
 
@@ -64,26 +51,143 @@
     </svg>
   </button>
 
-  <div class="container mt-5" id="custom-cards">
-    <h3 class="fw-light mb-4 text-center">Prevenciones</h3>
-    <div class="b-example-divider"></div>
 
-    <div class="d-flex flex-nowrap overflow-hidden gap-3 p-3">
-      {% for item in prevenciones %}
-      <div style=" max-width: 320px;">
-        <div class="flex-shrink-0 text-white  overflow-hidden custom-img"
-          style="background-image: url('{{ subcatastrofe.id_catastrofe.image_disaster | safe }}'); animation: fondoVerticalOscilante 8s ease-in-out infinite;">
-          <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1"
-            style="background-color: transparent; border-radius: 9px;">
-            <h3 class="mb-4 display-7 lh-1 fw-bold text-white fs-4">{{ item.titulo | title}}</h3>
-            <p class="mb-4 display-7 lh-1 fw-light text-white fs-6">{{ item.descripcion | safe | capfirst}}</p>
-          </div>
 
+<style>
+/* 🔷 Tarjeta con imagen institucional */
+.custom-img {
+  position: relative;
+  height: 280px;
+  border-radius: 12px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease;
+  animation: fondoVerticalOscilante 8s ease-in-out infinite;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+/* 🔷 Superposición para legibilidad */
+.custom-img::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.75));
+  z-index: 1;
+}
+
+/* 🔷 Contenido textual sobre la tarjeta */
+.custom-img .d-flex {
+  position: relative;
+  z-index: 2;
+}
+
+/* 🔷 Título institucional */
+.custom-img h3 {
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+/* 🔷 Botón discreto y refinado */
+.custom-img button {
+  z-index: 2;
+  font-size: 0.875rem;
+}
+
+/* 🔷 Hover sobrio */
+.custom-img:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+}
+
+/* 🔷 Modal refinado y centrado */
+.modal-dialog {
+  margin: auto;
+}
+
+.modal-content {
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+.modal-header {
+  background-color: #212529;
+  color: #ffffff;
+  border-bottom: 1px solid #444;
+}
+
+.modal-body {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
+  padding: 1.25rem;
+}
+
+/* 🔷 Responsive */
+@media (max-width: 768px) {
+  #custom-cards .d-flex.flex-wrap > div {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
+
+/* 🔷 Animación del fondo */
+@keyframes fondoVerticalOscilante {
+  0% { background-position-y: 0%; }
+  50% { background-position-y: 100%; }
+  100% { background-position-y: 0%; }
+}
+
+
+</style> 
+<div class="container mt-5" id="custom-cards">
+  <h3 class="fw-light mb-4 text-center">Prevenciones</h3>
+  <div class="b-example-divider"></div>
+
+  <div class="d-flex flex-wrap justify-content-center gap-3 p-3">
+    {% for item in prevenciones %}
+    <div style="max-width: 320px; flex: 1 1 300px;">
+      <div class="custom-img text-white"
+        style="background-image: url('{{ subcatastrofe.id_catastrofe.image_disaster | safe }}');">
+        <div class="d-flex flex-column justify-content-between h-100 p-4">
+          <!-- Título arriba -->
+          <h3 class="fw-bold fs-5 mb-3">{{ item.titulo | title }}</h3>
+
+          <!-- Botón abajo -->
+          <button type="button" class="btn btn-outline-light btn-sm mt-auto"
+            data-bs-toggle="modal" data-bs-target="#modal-{{ forloop.counter }}">
+            Ver más
+          </button>
         </div>
       </div>
-      {% endfor %}
     </div>
+
+    <!-- Ventana modal -->
+    <div class="modal fade" id="modal-{{ forloop.counter }}" tabindex="-1"
+      aria-labelledby="modalLabel-{{ forloop.counter }}" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-dark text-white">
+            <h5 class="modal-title" id="modalLabel-{{ forloop.counter }}">{{ item.titulo | title }}</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <p>{{ item.descripcion | safe | capfirst }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
   </div>
+</div>
+
+
+
+
 
   <br>
   <br>
@@ -195,15 +299,13 @@
     </div>
   </div>
 
-
-
-  <footer class="text-white-50 py-5 mt-5">
+<footer class="text-black py-5 mt-5">
   <div class="container">
     <!-- Sección superior: Logo y contactos -->
     <div class="row gy-4 align-items-start">
       <!-- Logo -->
       <div class="col-12 col-md-4 text-center text-md-start">
-        <img src="{% static 'imagenes/mina.png' %}" alt="Logo Mina Clavero" class="img-fluid mb-3 bg-white" style="max-width: 160px;">
+        <img src="{% static 'imagenes/mina.png' %}" alt="Logo Mina Clavero" class="img-fluid mb-3" style="max-width: 160px;">
         <p class="small">Gobierno local de Mina Clavero, Córdoba</p>
       </div>
 
@@ -211,20 +313,20 @@
       <div class="col-12 col-md-8">
         <h5 class="fw-light mb-4">Contactos</h5>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-          {% for item in area %}
-            {% if item.telefono %}
-            <div class="col-6 overflow-hidden">
-              <h6 class="fw-semibold">{{ item.nombre }}</h6>
-              <ul class="list-unstyled">
-                <li>
-                  <a href="tel:{{ item.telefono | safe}}" class="text-white-50 text-decoration-none small d-block">
-                    📞 {{ item.telefono}}
-                  </a>
-                </li>
-              </ul>
-            </div>
-            {% endif %}
-          {% endfor %}
+            {% for item in area %}
+              {% if item.telefono %}
+                <div class="col overflow-hidden">
+                  <h6 class="fw-semibold">{{ item.nombre }}</h6>
+                  <ul class="list-unstyled">
+                    <li>
+                      <a href="tel:{{ item.telefono | safe}}" class="text-black text-decoration-none small d-block">
+                        📞 {{ item.telefono}}
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              {% endif %}
+            {% endfor %}
         </div>
       </div>
     </div>
@@ -250,15 +352,11 @@
         </a>
       </small>
       <div class="d-flex gap-3">
-        <a href="#" title="Instagram">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
-            <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
-          </svg>
+        <a href="https://www.instagram.com/muniminaclavero/" title="Instagram" target="_blank">
+          <img src="{% static 'assets/instagram.svg' %}" alt="Instagram" width="24" height="24">
         </a>
-        <a href="#" title="YouTube">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-youtube" viewBox="0 0 16 16">
-            <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z"/>
-          </svg>
+        <a href="https://www.youtube.com/@minaclaverooficial" title="YouTube" target="_blank">
+          <img src="{% static 'assets/youtube.svg' %}" alt="YouTube" width="24" height="24">
         </a>
       </div>
     </div>
@@ -422,15 +520,13 @@
     color: rgb(48, 214, 117);
 
   }
+footer{
+    color: black;
+    background-color: rgb(236, 236, 236);
+    box-shadow: 0px 0px 20px 1px rgb(155, 155, 155);
+}
 
-  footer {
 
-    background-image: url('{{ subcatastrofe.id_catastrofe.image_disaster | safe }}');
-    background-size: cover;
-    background-repeat: no-repeat;
-    animation: fondoVerticalOscilante 8s ease-in-out infinite;
-
-  }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous">
