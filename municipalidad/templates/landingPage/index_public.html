@@ -35,8 +35,8 @@
     <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button> -->
-        <a class="nav-link text-white fw-light d-sm-block d-none" id="te-vamos" href="#" style="font-size: .8rem;">Prevención, unidad y acción: juntos protegemos Mina Clavero.</a>
-        <a class="nav-link text-white fw-light" href="#"style="font-size: .8rem;"> Defensa Civil</a>
+        <a class="nav-link text-white fw-light d-sm-block d-none" id="te-vamos" href="#" style="font-size: .8rem;">Secretaría de Seguridad y Convivencia Ciudadana</a>
+        <a class="nav-link text-white fw-light" href="#"style="font-size: .8rem;">Defensa Civil</a>
   </div>
 </nav>
 
@@ -44,11 +44,11 @@
 <div class="position-relative overflow-hidden w-100" style="height: 300px;">
   <img src="{{ catastrofe.image_disaster }}" alt="" class="img-fluid w-100 h-100 object-fit-cover" style="opacity: 0.7;">
 <h2 class="position-absolute top-50 start-50 translate-middle text-center text-white fw-light w-100 px-3 d-none d-lg-block"
-    style="margin-top: 60px; font-size:60px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);">
+    style="margin-top: 60px; font-size:120px;font-family: Arial, sans-serif; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);">
   {{ catastrofe.type_disaster | title }}
 </h2>
 <h2 class="position-absolute top-50 start-50 translate-middle text-center text-white fw-light w-100 px-3 d-lg-none"
-    style="margin-top: 60px; font-size:40px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);">
+    style="margin-top: 60px; font-size:60px;font-family: Arial, sans-serif; font-size:60px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);">
   {{ catastrofe.type_disaster | title }}
 </h2>
 
@@ -135,19 +135,64 @@
 
 
 
-
+{% comment %} Esta es la parte de abajo del header que habla acerca de la defensa civil y demas {% endcomment %}
 {% if catastrofe.is_default %}
   <div class="container px-3 py-4 w-100" id="custom-cards">
     <div class="d-flex justify-content-center flex-nowrap overflow-auto gap-3 pb-2 w-100">
-        <div class="flex-shrink-0  rounded-4 shadow-sm p-4 text-light" style=" width: 100%;background: linear-gradient(34deg, rgb(191, 151, 255), rgb(32, 181, 250));">
-          <h3 class="fw-bold mb-3 text-center">{{ catastrofe.type_disaster | title }}</h3>
-          <small class="text-wrap w-100 text-center" style="display: block;">
-            {{ catastrofe.descripcion | safe }}
-          </small>
-        </div>
+      <div class="flex-shrink-0 rounded-3 shadow-sm p-4 text-light" 
+           style="width: 100%; background: linear-gradient(135deg, #0a1f44, #1e3c72, #2a5298); border-left: 6px solid #719cdeff;">
+        <small class="text-wrap w-100 text-center" 
+               style="display: block; color: #f8f9fa; font-size: 1rem; font-weight: 500; letter-spacing: 0.5px;">
+          {{ catastrofe.descripcion | safe }}
+        </small>
+      </div>
     </div>
   </div>
 {% endif %}
+
+
+
+{% comment %} En este apartado estan las instituciones que conforman la Junta de Defensa Civil {% endcomment %}
+{% if catastrofe.is_default %}
+<style>
+  .card-zoom1 {
+    transition: transform 0.3s ease-in-out;
+    transform-origin: center bottom;
+    cursor: pointer;
+    will-change: transform;
+  }
+
+  .card-zoom1:hover {
+    transform: scale(1.05) rotateX(6deg);
+    z-index: 2;
+  }
+</style>
+
+  <div class="container mt-3 px-3 py-4 w-100">
+    <h3 class="fw-bold mb-4 text-center">Instituciones que conforman la Junta de Defensa Civil</h3>
+    <div class="d-flex flex-nowrap overflow-auto gap-3 p-3 justify-content-start">
+      {% for institucion in refujio %}
+      <div class="flex-shrink-0 rounded-4 shadow-sm text-light d-flex flex-column card-zoom1" 
+        style="min-width: 280px; max-width: 320px; background: linear-gradient(135deg, #1c1f26, #2e3b4e, #a3b1c6);">
+
+        <!-- Contenido de la tarjeta -->
+        <div class="p-4 pb-2 text-center">
+          <h4 class="fw-bold mb-2">{{ institucion.nombre | title }}</h4>
+          <p class="mb-1">{{ institucion.descripcion | title }}</p>
+          <small>{{ institucion.direccion | title }}</small>
+        </div>
+
+        <!-- Espaciador inferior si querés agregar botón luego -->
+        <div class="mt-auto p-3 pt-0 text-center">
+          <!-- Podrías agregar contacto u otra acción acá si hiciera falta -->
+        </div>
+
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
+
 {% comment %} En este apartado estas las personas que conducen la institucion o la conforman {% endcomment %}
 {% if catastrofe.is_default %}
 <style>
@@ -165,7 +210,7 @@
 </style>
 
   <div class="container mt-3 px-3 py-4 w-100">
-    <h3 class="fw-bold mb-4 text-center">¿Quiénes conducen la Junta de Defensa Civil?</h3>
+    <h3 class="fw-bold mb-4 text-center">Integrantes de la Junta de Defensa Civil</h3>
     <div class="d-flex flex-nowrap overflow-auto gap-3 p-3 justify-content-start">
       {% for i in instituciones %}
       <div class="flex-shrink-0 rounded-4 shadow-sm text-light d-flex flex-column card-zoom1" 
