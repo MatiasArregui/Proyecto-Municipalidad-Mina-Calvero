@@ -14,7 +14,6 @@
           {% bootstrap_javascript %}
     </head>
 <style>
-
 .customButton {
   position: fixed;
   bottom: 60px;
@@ -91,34 +90,194 @@
 }
 
 .tituloo {
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6); /* sombra discreta, difusa */
   color: white;
 }
+  @keyframes fondoVerticalOscilante {
+    0% {
+      background-position: top;
+    }
+
+    50% {
+      background-position: bottom;
+    }
+
+    100% {
+      background-position: top;
+    }
+  }
+
+  @keyframes rotar {
+    0% {
+      transform: rotate(0);
+    }
+
+    50% {
+      transform: rotate(-10deg);
+
+    }
+
+    100% {
+      transform: rotate(0);
+
+    }
+  }
+
+  .elemento-con-fondo {
+    background-image: url("{{ subcatastrofe.id_catastrofe.image_disaster | safe }}");
+    background-repeat: no-repeat;
+    background-size: cover;
+    animation: fondoVerticalOscilante 8s ease-in-out infinite;
+  }
+
+  .fusionButton {
+
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 60px;
+    right: 30px;
+
+
+    border: none;
+    border-radius: 50rem;
+    padding: 1rem;
+    cursor: pointer;
+    background: transparent;
+    overflow: hidden;
+    z-index: 100;
+    background-color: rgb(90, 35, 92);
+    color: rgb(235, 196, 236);
+    transition: all .5s;
+
+  }
+
+  .fusionButton svg {
+    width: 20px;
+  }
+
+  .fusionButton:hover {
+    background-color: rgb(147, 65, 150);
+    color: rgb(27, 14, 27);
+    transform: scale(1.2);
+  }
+
+  .fusionButton:active {
+    background-color: rgb(48, 15, 49);
+    color: rgb(184, 130, 185);
+    transform: scale(0.90);
+  }
+
+  .custom-img {
+    min-width: 100%;
+    max-width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 20px;
+    transition: all .5s;
+  }
+
+  .custom-img:hover {
+    animation: rotar 2s ease-in-out;
+  }
+
+  /* protocolos */
+  .cu-card {
+    background-color: rgb(190, 190, 190);
+    color: aliceblue;
+  }
+
+  .card-ti {
+    font-size: medium;
+    font-weight: 700;
+    height: 90px;
+  }
+
+  .icon {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .icon svg {
+    width: 1.5rem;
+  }
+
+  .icon1 {
+    animation: fondoVerticalOscilante 8s ease-in-out infinite;
+
+    background-image: url("https://www.shutterstock.com/image-vector/blue-bullhorn-yellow-bolts-announcement-600nw-2430713935.jpg");
+    background-color: rgb(230, 67, 67);
+    color: rgb(78, 18, 18);
+  }
+
+  .icon1 svg {
+
+    color: rgb(83, 23, 23);
+  }
+
+
+  /*  */
+  .icon2 {
+    animation: fondoVerticalOscilante 8s ease-in-out infinite;
+
+    background-image: url("https://media.c5n.com/p/5c72d8ed81465544b676fdd021f8891c/adjuntos/326/imagenes/000/255/0000255129/790x0/smart/alerta-roja-temporal-tormentas.jpg");
+    color: rgb(255, 142, 142);
+  }
+
+  .icon2 svg {
+    color: rgb(255, 142, 142);
+  }
+
+  .icon3 {
+    animation: fondoVerticalOscilante 8s ease-in-out infinite;
+
+    background-image: url("https://elperuano.pe/fotografia/thumbnail/2019/07/05/000061555M.jpg");
+    color: rgb(48, 214, 117);
+    /* background-size: cover;
+    background-repeat: no-repeat */
+  }
+
+  .icon3 svg {
+    color: rgb(48, 214, 117);
+
+  }
+footer{
+    color: black;
+    background-color: rgb(236, 236, 236);
+    box-shadow: 0px 0px 20px 1px rgb(155, 155, 155);
+}
+
+
+
 
 </style>
 
 <body>
-  <nav class="navbar navbar-expand-lg fixed-top" style=" backdrop-filter: blur(1rem); background-color: rgba(0, 0, 0, 0.249);">
+<nav class="navbar navbar-expand-lg fixed-top" style=" backdrop-filter: blur(1rem); background-color: rgba(0, 0, 0, 0.249);">
   <div class="container-fluid d-flex justify-content-between align-items-center">
     <a class="navbar-brand" href="#">
-      <img src="{% static 'assets/logo.png' %}" alt="" style="width: 5rem;">
-      <img src="{% static 'assets/logo defensa civil.png' %}" style="width: 1.2rem;"></a>
-    <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button> -->
-        <a class="nav-link text-white fw-light d-sm-block d-none" id="te-vamos" href="#" style="font-size: .8rem;">Prevención, unidad y acción: juntos protegemos Mina Clavero.</a>
-        <a class="nav-link text-white fw-light" href="#"style="font-size: .8rem;"> Defensa Civil</a>
+    <img src="{% static 'assets/logo.png' %}" alt="" style="width: 5rem;">
+    <img src="{% static 'assets/logo defensa civil.png' %}" style="width: 1.2rem;"></a>
+    <a class="nav-link text-white fw-light d-sm-block d-none" id="te-vamos" href="#" style="font-size: .8rem;">Prevención, unidad y acción: juntos protegemos Mina Clavero.</a>
+    <a class="nav-link text-white fw-light" href="#"style="font-size: .8rem;"> Defensa Civil</a>
   </div>
 </nav>
 <div class="position-relative overflow-hidden w-100" style="height: 400px;">
   <img src="{{ catastrofe.image_disaster }}" alt="" class="img-fluid w-100 h-100 object-fit-cover">
 
   <div class="position-absolute top-50 start-50 translate-middle text-center w-100 px-3" style="margin-top: 20px;">
-    <h2 class="tituloo mb-2" style="font-size: 2.5rem;">
+    <h2 class="tituloo mb-2" style="font-size: 5.5rem;">
       {{ catastrofe.type_disaster | title }}
     </h2>
-    <p class="tituloo d-none d-sm-block" style="font-size: 1.125rem; line-height: 1.7;">
-      {{ catastrofe.descripcion | capfirst}}
+
+  </div>
+</div>
+<div class="container mt-4">
+  <div class="bg-light border-start border-4 border-primary rounded-3 shadow-sm p-4">
+    <p class="mb-0 text-secondary" style="font-size: 1.125rem; line-height: 1.8; font-weight: 500; letter-spacing: 0.3px;">
+      {{ catastrofe.descripcion | capfirst }}
     </p>
   </div>
 </div>
@@ -161,7 +320,234 @@
     {% endfor %}
   </div>
 </div>
-{% if sub_cat %}
+
+<br>
+<br>
+{% comment %}  ---------------------- SECCION DE PROTOCOLOS ---------------------------  {% endcomment %}
+<div class="container py-5" id="featured-3">
+  <h2 class="text-center">
+  Protocolos Acción en Caso de {{ catastrofe.type_disaster | title}} - Mina Clavero 
+</h2>
+    <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+      <!-- ANTES -->
+      <div class="feature col">
+        <div class="feature-icon d-inline-flex align-items-center gap-2 p-2 rounded icon icon1" style="color: white;">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="36" height="36" viewBox="0 0 24 24" stroke-width="1.5" style="color: white;">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+          </svg>
+          <h3 class="title card-ti mb-0 fs-4">Prevención</h3>
+        </div>
+      
+        <div class="accordion" id="accordionAntes">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingAntes">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseAntes" aria-expanded="false" aria-controls="collapseAntes">
+                Ver
+              </button>
+            </h2>
+            <div id="collapseAntes" class="accordion-collapse collapse" aria-labelledby="headingAntes"
+              data-bs-parent="#accordionAntes">
+              <div class="accordion-body">
+                <ul class="list-group list-group-flush">
+                  {% for item in protocolo %}
+                  {% if item.campo_seleccion == 'Antes' %}
+                  <li class="list-group-item">{{ item.name }}</li>
+                  {% endif %}
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DURANTE -->
+      <div class="feature col">
+        <div class="feature-icon d-inline-flex align-items-center gap-2 p-2 rounded icon icon2" style="color: white;">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="36" height="36" viewBox="0 0 24 24" stroke-width="1.5" style="color: white;">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M12 9v3.75m0-10.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.75h-.152c-3.196 0-6.1-1.25-8.25-3.286Zm0 13.036h.008v.008H12v-.008Z" />
+          </svg>
+          <h3 class="title card-ti mb-0 fs-4">Durante Emergencia</h3>
+        </div>
+      
+        <div class="accordion" id="accordionDurante">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingDurante">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseDurante" aria-expanded="false" aria-controls="collapseDurante">
+                Ver
+              </button>
+            </h2>
+            <div id="collapseDurante" class="accordion-collapse collapse" aria-labelledby="headingDurante"
+              data-bs-parent="#accordionDurante">
+              <div class="accordion-body">
+                <ul class="list-group list-group-flush">
+                  {% for item in protocolo %}
+                  {% if item.campo_seleccion == 'Durante' %}
+                  <li class="list-group-item">{{ item.name }}</li>
+                  {% endif %}
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DESPUÉS -->
+      <div class="feature col">
+        <div class="feature-icon d-inline-flex align-items-center gap-2 p-2 rounded icon icon3" style="color: white;">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="36" height="36" viewBox="0 0 24 24" stroke-width="1.5" style="color: white;">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+          </svg>
+          <h3 class="title card-ti mb-0 fs-4">Post Emergencia</h3>
+        </div>
+      
+        <div class="accordion" id="accordionDespues">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingDespues">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseDespues" aria-expanded="false" aria-controls="collapseDespues">
+                Ver
+              </button>
+            </h2>
+            <div id="collapseDespues" class="accordion-collapse collapse" aria-labelledby="headingDespues"
+              data-bs-parent="#accordionDespues">
+              <div class="accordion-body">
+                <ul class="list-group list-group-flush">
+                {% for item in protocolo %}
+                {% if item.campo_seleccion == 'Despues' %}
+                <li class="list-group-item">{{ item.name }}</li>
+                {% endif %}
+                {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% comment %} Refugios MAPAS ------------------------------------------------------------------> {% endcomment %}
+<h4 class="mt-5 px-3 py-2 rounded-top text-center">
+  Ubicaciones Refugios: Mina Clavero, Córdoba
+</h4>
+<div class="container my-4">
+  {% if catastrofe.mapa_interactivo %}
+    <div class="ratio ratio-16x9">
+      {{ catastrofe.mapa_interactivo | safe }}
+    </div>
+  {% else %}
+    <p class="text-center text-muted">No hay mapa interactivo disponible.</p>
+  {% endif %}
+</div>
+
+
+{% if pdf_frames %}
+  <div class="container py-4">
+    <h2 class="title-list text-center mb-4">Protocolos Adjuntos</h2>
+    <div class="row gy-4 justify-content-center">
+      {% for pdf in pdf_frames %}
+        <div class="col-12 col-md-8 col-lg-6">
+          <div class="card shadow-sm h-100">
+            <iframe 
+              src="https://drive.google.com/file/d/{{ pdf.file_id }}/preview" 
+              width="100%" 
+              height="400" 
+              allow="autoplay"
+              style="border: none;">
+            </iframe>
+            <div class="card-body text-center">
+              <h5 class="card-title">Protocolos de {{ pdf.name | title }}</h5>
+              <a href="https://drive.google.com/file/d/{{ pdf.file_id }}/view" target="_blank" class="btn btn-outline-primary">
+                Ver en Google Drive
+              </a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
+
+
+<footer class="text-black py-5 mt-5">
+  <div class="container">
+    <!-- Sección superior: Logo y contactos -->
+    <div class="row gy-4 align-items-start">
+      <!-- Logo -->
+      <div class="col-12 col-md-4 text-center text-md-start">
+        <img src="{% static 'imagenes/mina.png' %}" alt="Logo Mina Clavero" class="img-fluid mb-3" style="max-width: 160px;">
+        <p class="small">Gobierno local de Mina Clavero, Córdoba</p>
+      </div>
+
+      <!-- Contactos -->
+      <div class="col-12 col-md-8">
+        <h5 class="fw-light mb-4">Contactos</h5>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          {% for item in area %}
+            {% if item.telefono %}
+            <div class="col-6 overflow-hidden">
+              <h6 class="fw-semibold">{{ item.nombre }}</h6>
+              <ul class="list-unstyled">
+                <li>
+                  <a href="tel:{{ item.telefono | safe}}" class="text-black text-decoration-none small d-block">
+                    📞 {{ item.telefono}}
+                  </a>
+                </li>
+              </ul>
+            </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Separador -->
+    <hr class="border-secondary my-4">
+
+    <!-- Sección inferior: redes y derechos -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center text-center text-md-start gap-3">
+      <small class="d-block">&copy; Mina Clavero <span id="year"></span>. Todos los derechos reservados.</small>
+      <small class="d-block">Arregui Matias
+        <a href="https://www.linkedin.com/in/matiasnicolasarregui/" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">
+            <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/>
+          </svg>
+        </a>
+      </small>
+      <small class="d-block">Cuello Santiago
+        <a href="https://www.linkedin.com/in/santy-cuello-69b147371" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">
+            <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/>
+          </svg>
+        </a>
+      </small>
+      <div class="d-flex gap-3">
+        <a href="https://www.instagram.com/muniminaclavero/" title="Instagram" target="_blank">
+          <img src="{% static 'assets/instagram.svg' %}" alt="Instagram" width="24" height="24">
+        </a>
+        <a href="https://www.youtube.com/@minaclaverooficial" title="YouTube" target="_blank">
+          <img src="{% static 'assets/youtube.svg' %}" alt="YouTube" width="24" height="24">
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% comment %} Estos son los estilos de los cuales obtienes las imagenes para los protocolos {% endcomment %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+<!-- Asegúrate de incluir Bootstrap JS en tu HTML -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
+
+{% comment %} {% if sub_cat %}
 <style>
   .card-zoom {
     transition: transform 0.3s ease-in-out;
@@ -190,16 +576,8 @@
     </div>
   </div>
 
-{% endif %}
-<br>
-<br>
-<h2 class="title-list text-center">
-  Protocolos Acción en Caso de {{ catastrofe.type_disaster | title}} - Mina Clavero 
-</h2>
-<br>
-<br>
-{% comment %}  ---------------------- SECCION DE PROTOCOLOS ---------------------------  {% endcomment %}
-  <div class="container ">
+{% endif %} {% endcomment %}
+  {% comment %} <div class="container ">
     <div class="row gy-5">
       <!-- PRE EMERGENCIA -->
       <div class="col-12 col-md-6 col-lg-4">
@@ -272,140 +650,4 @@
       </div>
 
     </div>
-  </div>
-
-
-    
-
-
-  <h4 class="mt-5 px-3 py-2 rounded-top text-center">
-    Ubicaciones Refugios: Mina Clavero, Córdoba
-  </h4>
-<div class="container my-4">
-  {% if catastrofe.mapa_interactivo %}
-    <div class="ratio ratio-16x9">
-      {{ catastrofe.mapa_interactivo | safe }}
-    </div>
-  {% else %}
-    <p class="text-center text-muted">No hay mapa interactivo disponible.</p>
-  {% endif %}
-</div>
-
-
-{% if pdf_frames %}
-  <div class="container py-4">
-    <h2 class="title-list text-center mb-4">Protocolos Adjuntos</h2>
-    <div class="row gy-4 justify-content-center">
-      {% for pdf in pdf_frames %}
-        <div class="col-12 col-md-8 col-lg-6">
-          <div class="card shadow-sm h-100">
-            <iframe 
-              src="https://drive.google.com/file/d/{{ pdf.file_id }}/preview" 
-              width="100%" 
-              height="400" 
-              allow="autoplay"
-              style="border: none;">
-            </iframe>
-            <div class="card-body text-center">
-              <h5 class="card-title">Protocolos de {{ pdf.name | title }}</h5>
-              <a href="https://drive.google.com/file/d/{{ pdf.file_id }}/view" target="_blank" class="btn btn-outline-primary">
-                Ver en Google Drive
-              </a>
-            </div>
-          </div>
-        </div>
-      {% endfor %}
-    </div>
-  </div>
-{% endif %}
-
-
-
-
-
-
-
-<footer class="text-black py-5 mt-5">
-  <div class="container">
-    <!-- Sección superior: Logo y contactos -->
-    <div class="row gy-4 align-items-start">
-      <!-- Logo -->
-      <div class="col-12 col-md-4 text-center text-md-start">
-        <img src="{% static 'imagenes/mina.png' %}" alt="Logo Mina Clavero" class="img-fluid mb-3" style="max-width: 160px;">
-        <p class="small">Gobierno local de Mina Clavero, Córdoba</p>
-      </div>
-
-      <!-- Contactos -->
-      <div class="col-12 col-md-8">
-        <h5 class="fw-light mb-4">Contactos</h5>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-          {% for item in area %}
-            {% if item.telefono %}
-            <div class="col-6 overflow-hidden">
-              <h6 class="fw-semibold">{{ item.nombre }}</h6>
-              <ul class="list-unstyled">
-                <li>
-                  <a href="tel:{{ item.telefono | safe}}" class="text-black text-decoration-none small d-block">
-                    📞 {{ item.telefono}}
-                  </a>
-                </li>
-              </ul>
-            </div>
-            {% endif %}
-          {% endfor %}
-        </div>
-      </div>
-    </div>
-
-    <!-- Separador -->
-    <hr class="border-secondary my-4">
-
-    <!-- Sección inferior: redes y derechos -->
-    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center text-center text-md-start gap-3">
-      <small class="d-block">&copy; Mina Clavero <span id="year"></span>. Todos los derechos reservados.</small>
-      <small class="d-block">Arregui Matias
-        <a href="https://www.linkedin.com/in/matiasnicolasarregui/" target="_blank">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">
-            <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/>
-          </svg>
-        </a>
-      </small>
-      <small class="d-block">Cuello Santiago
-        <a href="https://www.linkedin.com/in/santy-cuello-69b147371" target="_blank">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">
-            <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/>
-          </svg>
-        </a>
-      </small>
-      <div class="d-flex gap-3">
-        <a href="https://www.instagram.com/muniminaclavero/" title="Instagram" target="_blank">
-          <img src="{% static 'assets/instagram.svg' %}" alt="Instagram" width="24" height="24">
-        </a>
-        <a href="https://www.youtube.com/@minaclaverooficial" title="YouTube" target="_blank">
-          <img src="{% static 'assets/youtube.svg' %}" alt="YouTube" width="24" height="24">
-        </a>
-      </div>
-    </div>
-  </div>
-</footer>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
-
-</body>
-
-</html>
+  </div> {% endcomment %}
