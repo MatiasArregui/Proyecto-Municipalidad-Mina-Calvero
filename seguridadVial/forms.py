@@ -257,6 +257,6 @@ class IntegrantesDCForm(forms.ModelForm):
         }
         labels = {
             'titulo': "Titulo",
-            'persona': "Nombre Persona",
-            'cargo': "Crago de la Persona",
+            'persona': "Cargo de la persona",
+            'cargo': "Nombre de la persona",
         }
