@@ -241,14 +241,12 @@ def ActiveCatastropheListView(request):
     if not filters_is_active:
         cat = Catastrophe.objects.get(is_default=True)
         institucionesDC = IntegrantesDC.objects.all()
-        all_cat = [x.institucion.pk for x in Refujio.objects.all()]
+        all_cat = [x.institucion.pk for x in Refujio.objects.filter(catastrofe=cat.pk)]
+        print()
         ref = [x for x in Institucion.objects.all() if x.pk in all_cat]
         pdf_frames = []
         print(cat.descripcion)
-        try: 
-            institucion = Institucion.objects.get(id=2)
-        except Exception as e:
-            institucion = Institucion.objects.get()
+
         pro = Protocole.objects.filter(catastrophe=cat)
         context = {
         "catastrofe": cat,
@@ -256,7 +254,6 @@ def ActiveCatastropheListView(request):
         "refujio": ref,
         "all": all_disaster,
         "pdf_frames": pdf_frames,
-        "institucion":institucion,
         "instituciones":institucionesDC
         }
     else:

@@ -27,16 +27,25 @@
     <body>
       
 
-<nav class="navbar navbar-expand-lg fixed-top" style=" backdrop-filter: blur(1rem); background-color: rgba(0, 0, 0, 0.249);">
+<nav class="navbar fixed-top" style="backdrop-filter: blur(1rem); background-color: rgba(0, 0, 0, 0.25);">
   <div class="container-fluid d-flex justify-content-between align-items-center">
+
+    <!-- Logo principal -->
     <a class="navbar-brand" href="#">
-      <img src="{% static 'assets/logo.png' %}" alt="" style="width: 5rem;">
-      <img src="{% static 'assets/logo defensa civil.png' %}" style="width: 1.2rem;"></a>
-    <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button> -->
-        <a class="nav-link text-white fw-light d-sm-block d-none" id="te-vamos" href="#" style="font-size: .8rem;">Secretaría de Seguridad y Convivencia Ciudadana</a>
-        <a class="nav-link text-white fw-light" href="#"style="font-size: .8rem;">Defensa Civil</a>
+      <img src="{% static 'assets/logo.png' %}" alt="Logo Municipalidad" style="width: 5rem;">
+    </a>
+
+    <!-- Texto institucional (visible solo en pantallas medianas en adelante) -->
+    <span class="text-white fw-light d-none d-sm-block" style="font-size: 0.85rem;">
+      Secretaría de Seguridad y Convivencia Ciudadana
+    </span>
+
+    <!-- Logo Defensa Civil + texto -->
+    <div class="d-flex align-items-center gap-2">
+      <img src="{% static 'assets/logo defensa civil.png' %}" alt="Logo Defensa Civil" style="height: 1.5rem;">
+      <span class="text-white fw-light" style="font-size: 0.85rem;">Defensa Civil</span>
+    </div>
+
   </div>
 </nav>
 
@@ -136,7 +145,7 @@
 
 
 {% comment %} Esta es la parte de abajo del header que habla acerca de la defensa civil y demas {% endcomment %}
-{% if catastrofe.is_default %}
+{% comment %} {% if catastrofe.is_default %}
   <div class="container px-3 py-4 w-100" id="custom-cards">
     <div class="d-flex justify-content-center flex-nowrap overflow-auto gap-3 pb-2 w-100">
       <div class="flex-shrink-0 rounded-3 shadow-sm p-4 text-light" 
@@ -148,11 +157,107 @@
       </div>
     </div>
   </div>
-{% endif %}
+{% endif %} {% endcomment %}
+<style>
+.banner-trigger {
+  width: 100%;
+  max-width: 720px;
+  min-height: 90px;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  border-radius: 45px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1rem 2rem;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: pulse 2s infinite;
+}
+
+.banner-trigger:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 25px rgba(0, 123, 255, 0.6);
+}
+
+.titulo-banner {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  line-height: 1.4;
+}
+
+.leer-mas {
+  font-size: 1rem;
+  color: #f0f0f0;
+  font-weight: 400;
+  opacity: 0.8;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+/* Responsivo */
+@media (max-width: 576px) {
+  .banner-trigger {
+    max-width: 100%;
+    min-height: 80px;
+    border-radius: 30px;
+    padding: 1rem;
+  }
+
+  .titulo-banner {
+    font-size: 1.2rem;
+  }
+
+  .leer-mas {
+    font-size: 0.9rem;
+  }
+}
+
+</style>
+<!-- CINTA INSTITUCIONAL INTERACTIVA -->
+<div class="d-flex justify-content-center my-5">
+  <div class="banner-trigger text-center" data-bs-toggle="modal" data-bs-target="#modalDefensaCivil">
+    <div>
+      <span class="titulo-banner">Sobre la Defensa Civil</span><br>
+      <small class="leer-mas">Leer más</small>
+    </div>
+  </div>
+</div>
+
+
+<!-- MODAL CON DESCRIPCIÓN -->
+<div class="modal fade" id="modalDefensaCivil" tabindex="-1" aria-labelledby="modalDefensaCivilLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="modalDefensaCivilLabel">¿Qué es la Defensa Civil?</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <div class="px-2 py-1">
+          <div class="bg-light rounded-3 p-3 shadow-sm">
+            <div class="text-dark" style="font-size: 1.1rem; line-height: 1.8;">
+              {{ catastrofe.descripcion | safe }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
-{% comment %} En este apartado estan las instituciones que conforman la Junta de Defensa Civil {% endcomment %}
+
+
+{% comment %} En este apartado están las instituciones que conforman la Junta de Defensa Civil {% endcomment %}
 {% if catastrofe.is_default %}
 <style>
   .card-zoom1 {
@@ -168,30 +273,40 @@
   }
 </style>
 
-  <div class="container mt-3 px-3 py-4 w-100">
-    <h3 class="fw-bold mb-4 text-center">Instituciones que conforman la Junta de Defensa Civil</h3>
-    <div class="d-flex flex-nowrap overflow-auto gap-3 p-3 justify-content-start">
-      {% for institucion in refujio %}
-      <div class="flex-shrink-0 rounded-4 shadow-sm text-light d-flex flex-column card-zoom1" 
-        style="min-width: 280px; max-width: 320px; background: linear-gradient(135deg, #1c1f26, #2e3b4e, #a3b1c6);">
+<div class="container mt-3 px-3 py-4 w-100">
+  <h3 class="fw-bold mb-4 text-center">Instituciones que Conforman la Junta de Defensa Civil</h3>
+  <div class="d-flex flex-nowrap overflow-auto gap-3 p-3 justify-content-start">
+    {% for institucion in refujio %}
+    <div class="flex-shrink-0 rounded-4 shadow-sm text-light d-flex flex-column card-zoom1"
+         style="min-width: 280px; max-width: 320px; background: linear-gradient(135deg, #1c1f26, #2e3b4e, #a3b1c6);">
 
-        <!-- Contenido de la tarjeta -->
-        <div class="p-4 pb-2 text-center">
-          <h4 class="fw-bold mb-2">{{ institucion.nombre | title }}</h4>
-          <p class="mb-1">{{ institucion.descripcion | title }}</p>
-          <small>{{ institucion.direccion | title }}</small>
-        </div>
+      <!-- Contenido principal -->
+      <div class="p-4 pb-2 text-center">
+        <h4 class="fw-bold mb-2">{{ institucion.nombre | title }}</h4>
+        <p class="mb-2 text-white-50" style="font-size: 0.95rem;">{{ institucion.descripcion | capfirst }}</p>
 
-        <!-- Espaciador inferior si querés agregar botón luego -->
-        <div class="mt-auto p-3 pt-0 text-center">
-          <!-- Podrías agregar contacto u otra acción acá si hiciera falta -->
-        </div>
-
+        {% if institucion.direccion %}
+        <p class="mb-1 text-white-50" style="font-size: 0.85rem;">
+          <strong>Dirección:</strong> {{ institucion.direccion | title }}
+        </p>
+        {% endif %}
       </div>
-      {% endfor %}
+
+      <!-- Teléfono -->
+      {% if institucion.telefono %}
+      <div class="mt-auto px-4 pb-4">
+        <a href="tel:{{ institucion.telefono }}" class="btn btn-outline-light btn-sm w-100 d-flex align-items-center justify-content-center gap-2">
+          <img src="{% static 'assets/phone.svg' %}" alt="" style="width: 16px;"> {{ institucion.telefono }}
+        </a>
+      </div>
+      {% endif %}
+
     </div>
+    {% endfor %}
   </div>
+</div>
 {% endif %}
+
 
 {% comment %} En este apartado estas las personas que conducen la institucion o la conforman {% endcomment %}
 {% if catastrofe.is_default %}
@@ -248,7 +363,7 @@
 </style>
 
   <div class="container mt-5" id="custom-cards">
-    <h3 class="fw-bold mb-4 text-center">¿Cuales son las posibles catastrofes?</h3>
+    <h3 class="fw-bold mb-4 text-center">¿Cuales son las Posibles Catástrofes?</h3>
     <div class="d-flex flex-nowrap overflow-auto gap-3 p-3">
       {% for item in all %}
         <div class="flex-shrink-0 text-white rounded-5 card-zoom" style="min-width: 280px; max-width: 320px; background-image: url('{{ item.image_disaster | safe }}'); background-size: cover; background-position: center; background-repeat: no-repeat; ">
