@@ -27,6 +27,7 @@ class Institucion(models.Model):
     direccion = models.CharField(max_length=120, default="", null=True, blank=True)
     email = models.CharField(max_length=120, default="", null=True, blank=True)
     telefono = models.CharField(max_length=30, default="",null=True, blank=True)
+    orden = models.IntegerField(default=0, null=True, blank=True)
 
     def __str__(self):
         return self.nombre

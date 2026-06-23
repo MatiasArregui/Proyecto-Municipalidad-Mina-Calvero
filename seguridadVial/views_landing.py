@@ -243,7 +243,10 @@ def ActiveCatastropheListView(request):
         institucionesDC = IntegrantesDC.objects.all()
         all_cat = [x.institucion.pk for x in Refujio.objects.filter(catastrofe=cat.pk)]
         print()
-        ref = [x for x in Institucion.objects.all() if x.pk in all_cat]
+        # ref = [x for x in Institucion.objects.all() if x.pk in all_cat]
+        ref = Institucion.objects.filter(pk__in=all_cat).order_by("orden")
+
+        print(ref)
         pdf_frames = []
         print(cat.descripcion)
 
